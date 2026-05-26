@@ -1,44 +1,29 @@
-export const dynamic = 'force-dynamic'
-
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
+import { OPPORTUNITIES } from '@/data/opportunities'
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard'
 import { StatsBar } from '@/components/layout/StatsBar'
 import { SCALogo } from '@/components/ui/SCALogo'
 import { TickerBanner } from '@/components/home/TickerBanner'
 import { HeroContent } from '@/components/home/HeroContent'
 
-async function getHomeData() {
-  const [featured, totalCount, openCount, companiesCount, deadlineCount] = await Promise.all([
-    (async () => {
-      const types = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK'] as const
-      const perType = await Promise.all(
-        types.map(t =>
-          prisma.opportunity.findMany({
-            where: { featured: true, status: { not: 'CLOSED' }, type: t },
-            take: 2,
-            include: { company: true, tags: { include: { tag: true } } },
-            orderBy: { createdAt: 'asc' },
-          })
-        )
-      )
-      // interleave: first of each type, then second of each, capped at 6
-      const first = perType.map(arr => arr[0]).filter(Boolean)
-      const second = perType.map(arr => arr[1]).filter(Boolean)
-      return [...first, ...second].slice(0, 6)
-    })(),
-    prisma.opportunity.count(),
-    prisma.opportunity.count({ where: { status: { in: ['OPEN', 'CLOSING_SOON'] } } }),
-    prisma.company.count(),
-    prisma.opportunity.count({
-      where: {
-        deadline: {
-          gte: new Date(),
-          lte: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        },
-      },
-    }),
-  ])
+function getHomeData() {
+  const types = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK'] as const
+  const perType = types.map(t =>
+    OPPORTUNITIES.filter(o => o.featured && o.status !== 'CLOSED' && o.type === t).slice(0, 2)
+  )
+  const first = perType.map(arr => arr[0]).filter(Boolean)
+  const second = perType.map(arr => arr[1]).filter(Boolean)
+  const featured = [...first, ...second].slice(0, 6)
+
+  const totalCount = OPPORTUNITIES.length
+  const openCount = OPPORTUNITIES.filter(o => o.status !== 'CLOSED').length
+  const companiesCount = new Set(OPPORTUNITIES.map(o => o.company.id)).size
+  const now = Date.now()
+  const week = 7 * 24 * 60 * 60 * 1000
+  const deadlineCount = OPPORTUNITIES.filter(o =>
+    o.deadline && +o.deadline >= now && +o.deadline <= now + week
+  ).length
+
   return { featured, stats: { totalCount, openCount, companiesCount, deadlineCount } }
 }
 
@@ -65,8 +50,8 @@ const whyItems = [
   },
 ]
 
-export default async function HomePage() {
-  const { featured, stats } = await getHomeData()
+export default function HomePage() {
+  const { featured, stats } = getHomeData()
 
   return (
     <div className="min-h-screen">

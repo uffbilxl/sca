@@ -1,36 +1,26 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
-import { formatDeadline, deadlineStatus, opportunityTypeLabel, workModeLabel, formatSalary, formatTimeAgo } from '@/lib/utils'
+import { OPPORTUNITIES } from '@/data/opportunities'
+import { formatDeadline, deadlineStatus, opportunityTypeLabel, workModeLabel, formatSalary } from '@/lib/utils'
 import { CommentsSection } from '@/components/comments/CommentsSection'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface Props { params: { slug: string } }
 
-async function getOpportunity(slug: string) {
-  const opp = await prisma.opportunity.findUnique({
-    where: { slug },
-    include: {
-      company: true,
-      tags: { include: { tag: true } },
-      comments: { where: { approved: true }, orderBy: [{ pinned: 'desc' }, { createdAt: 'desc' }] },
-    },
-  })
+export function generateStaticParams() {
+  return OPPORTUNITIES.map(o => ({ slug: o.slug }))
+}
+
+export default function OpportunityDetailPage({ params }: Props) {
+  const opp = OPPORTUNITIES.find(o => o.slug === params.slug)
   if (!opp) notFound()
-  return opp
-}
 
-async function getRelated(slug: string, type: string, companyId: string) {
-  return prisma.opportunity.findMany({
-    where: { slug: { not: slug }, OR: [{ type: type as any }, { companyId }], status: { not: 'CLOSED' } },
-    take: 3,
-    include: { company: true },
-  })
-}
+  const related = OPPORTUNITIES.filter(o =>
+    o.slug !== params.slug &&
+    (o.type === opp.type || o.company.id === opp.company.id) &&
+    o.status !== 'CLOSED'
+  ).slice(0, 3)
 
-export default async function OpportunityDetailPage({ params }: Props) {
-  const opp = await getOpportunity(params.slug)
-  const related = await getRelated(params.slug, opp.type, opp.companyId)
   const ds = deadlineStatus(opp.deadline)
 
   return (
@@ -99,7 +89,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <h3 className="section-title mb-3">What you&apos;ll do</h3>
               <ul className="flex flex-col gap-1.5">
                 {opp.responsibilities.split('\n').filter(Boolean).map((line, i) => (
-                  <li key={i} className="text-[12px] text-[var(--t3)] pl-3.5 relative leading-relaxed before:content-['–'] before:absolute before:left-0 before:text-[var(--t4)]">
+                  <li key={i} className="text-[12px] text-[var(--t3)] pl-3.5 relative leading-relaxed before:content-['-'] before:absolute before:left-0 before:text-[var(--t4)]">
                     {line}
                   </li>
                 ))}
@@ -112,7 +102,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <h3 className="section-title mb-3">What they&apos;re looking for</h3>
               <ul className="flex flex-col gap-1.5">
                 {opp.requirements.split('\n').filter(Boolean).map((line, i) => (
-                  <li key={i} className="text-[12px] text-[var(--t3)] pl-3.5 relative leading-relaxed before:content-['–'] before:absolute before:left-0 before:text-[var(--t4)]">
+                  <li key={i} className="text-[12px] text-[var(--t3)] pl-3.5 relative leading-relaxed before:content-['-'] before:absolute before:left-0 before:text-[var(--t4)]">
                     {line}
                   </li>
                 ))}
@@ -131,7 +121,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
             </div>
           )}
 
-          <CommentsSection opportunityId={opp.id} initialComments={opp.comments as any} />
+          <CommentsSection opportunityId={opp.id} initialComments={[]} />
         </div>
 
         {/* Sidebar */}
@@ -177,7 +167,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <div className="flex flex-col gap-2">
                 {related.map(r => (
                   <Link key={r.id} href={`/opportunities/${r.slug}`} className="p-2 rounded-md bg-[var(--bg3)] hover:bg-[var(--bg4)] transition-colors">
-                    <div className="text-[12px] font-medium text-[var(--t1)]">{r.company.name} · {r.title.split('—')[0].trim()}</div>
+                    <div className="text-[12px] font-medium text-[var(--t1)]">{r.company.name} · {r.title}</div>
                     <div className="text-[10px] text-[var(--t4)] mt-0.5">{r.location}</div>
                   </Link>
                 ))}
