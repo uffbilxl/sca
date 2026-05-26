@@ -329,8 +329,7 @@ export default function CommitteePage() {
                 <p className="text-[10px] text-[var(--t4)]">{div.members.length - 1} member{div.members.length - 1 !== 1 ? 's' : ''}</p>
 
                 {isActive && (
-                  <motion.div
-                    layoutId="active-indicator"
+                  <div
                     className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
                     style={{ background: div.color }}
                   />
