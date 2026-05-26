@@ -24,14 +24,14 @@ export default function OpportunityDetailPage({ params }: Props) {
   const ds = deadlineStatus(opp.deadline)
 
   return (
-    <div className="max-w-[900px] mx-auto px-8 py-7">
+    <div className="max-w-[900px] mx-auto px-4 sm:px-8 py-5 sm:py-7">
       {/* Back */}
-      <Link href="/opportunities" className="inline-flex items-center gap-1.5 text-[12px] text-[var(--t3)] hover:text-[var(--t1)] transition-colors mb-7">
+      <Link href="/opportunities" className="inline-flex items-center gap-1.5 text-[12px] text-[var(--t3)] hover:text-[var(--t1)] transition-colors mb-6 sm:mb-7">
         ← Back to opportunities
       </Link>
 
       {/* Hero */}
-      <div className="flex items-start justify-between gap-5 pb-7 border-b border-[var(--b1)] mb-7">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 pb-7 border-b border-[var(--b1)] mb-7">
         <div className="flex gap-4 items-start">
           <CompanyLogo name={opp.company.name} logoUrl={opp.company.logo} size={56} />
           <div>
@@ -48,7 +48,7 @@ export default function OpportunityDetailPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 items-end flex-shrink-0">
+        <div className="flex flex-row sm:flex-col gap-2 sm:items-end flex-shrink-0">
           {opp.applyUrl ? (
             <a
               href={opp.applyUrl}
@@ -76,7 +76,7 @@ export default function OpportunityDetailPage({ params }: Props) {
       </div>
 
       {/* Body */}
-      <div className="grid grid-cols-[1fr_260px] gap-7">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-7">
         {/* Main */}
         <div>
           <div className="mb-6">

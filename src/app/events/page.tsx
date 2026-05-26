@@ -16,7 +16,7 @@ export default async function EventsPage() {
   const events = await getEvents()
 
   return (
-    <div className="max-w-[860px] mx-auto px-8 py-7">
+    <div className="max-w-[860px] mx-auto px-4 sm:px-8 py-5 sm:py-7">
       <div className="mb-7">
         <h1 className="text-[20px] font-black tracking-[-0.4px] text-[var(--t1)]">Events</h1>
         <p className="text-[12px] text-[var(--t4)] mt-1">Workshops, talks, networking and career events for BCU computing students.</p>

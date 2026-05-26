@@ -43,7 +43,7 @@ const DIVISIONS: Division[] = [
     name: 'Software Engineering',
     color: '#22c55e',
     members: [
-      { name: 'Yasamin Zaid', role: 'VP Software Engineering', linkedin: '' },
+      { name: 'Yasamin Zaid', role: 'VP Software Engineering', linkedin: 'https://www.linkedin.com/in/yasaminzaid/' },
       { name: 'Asim Raza', role: 'Software Engineering Project Supervisor', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
       { name: 'Hamzah Abdur Rahman', role: 'Software Engineering Project Supervisor', linkedin: 'https://www.linkedin.com/in/hamzah-abdur-rahman-5553ab2b8/' },
     ],
@@ -205,7 +205,7 @@ export default function CommitteePage() {
   }
 
   return (
-    <div className="max-w-[1000px] mx-auto px-8 py-10">
+    <div className="max-w-[1000px] mx-auto px-4 sm:px-8 py-7 sm:py-10">
 
       {/* Header */}
       <div className="mb-10">

@@ -13,7 +13,7 @@ const fadeUp = {
 
 export function HeroContent() {
   return (
-    <section className="relative px-10 pt-24 pb-20 text-center border-b border-[var(--b1)] overflow-hidden">
+    <section className="relative px-5 sm:px-10 pt-16 pb-14 sm:pt-24 sm:pb-20 text-center border-b border-[var(--b1)] overflow-hidden">
       {/* Radial glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -32,7 +32,8 @@ export function HeroContent() {
         className="inline-flex items-center gap-2 px-3.5 py-1.5 border border-[var(--b2)] rounded-full text-[10px] text-[var(--t3)] tracking-[0.12em] uppercase mb-7"
       >
         <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0 animate-pulse" />
-        Birmingham City University · Student Computing Association
+        <span className="hidden sm:inline">Birmingham City University · Student Computing Association</span>
+        <span className="sm:hidden">BCU · Student Computing Association</span>
       </motion.div>
 
       {/* Headline */}
@@ -41,7 +42,7 @@ export function HeroContent() {
         variants={fadeUp}
         initial="hidden"
         animate="show"
-        className="text-[52px] font-black tracking-[-2px] leading-[1.05] text-[var(--t1)] mb-4"
+        className="text-[38px] sm:text-[52px] font-black tracking-[-2px] leading-[1.05] text-[var(--t1)] mb-4"
       >
         Find Your Next
         <br />
@@ -56,7 +57,7 @@ export function HeroContent() {
         variants={fadeUp}
         initial="hidden"
         animate="show"
-        className="text-[15px] text-[var(--t2)] font-normal max-w-[420px] mx-auto mb-10 leading-[1.7]"
+        className="text-[14px] sm:text-[15px] text-[var(--t2)] font-normal max-w-[420px] mx-auto mb-10 leading-[1.7]"
       >
         Internships, placements, grad roles, spring weeks and events,{' '}
         <span className="text-[var(--t1)] font-medium">curated for BCU computing students.</span>
@@ -71,7 +72,7 @@ export function HeroContent() {
       >
         <Link
           href="/opportunities"
-          className="inline-flex items-center gap-3 px-10 py-4 bg-accent text-white text-[15px] font-semibold rounded-2xl hover:bg-[var(--acc2)] transition-all duration-200 shadow-[0_0_40px_rgba(91,141,245,0.3)] hover:shadow-[0_0_60px_rgba(91,141,245,0.45)] hover:scale-[1.03]"
+          className="inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 bg-accent text-white text-[14px] sm:text-[15px] font-semibold rounded-2xl hover:bg-[var(--acc2)] transition-all duration-200 shadow-[0_0_40px_rgba(91,141,245,0.3)] hover:shadow-[0_0_60px_rgba(91,141,245,0.45)] hover:scale-[1.03]"
         >
           Explore Opportunities
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

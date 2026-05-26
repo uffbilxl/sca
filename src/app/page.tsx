@@ -67,7 +67,7 @@ export default function HomePage() {
       />
 
       {/* Featured */}
-      <section className="px-10 py-14 border-b border-[var(--b1)]">
+      <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
         <div className="flex items-baseline justify-between mb-8">
           <div>
             <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-1">Handpicked</p>
@@ -78,7 +78,7 @@ export default function HomePage() {
           </Link>
         </div>
         {featured.length > 0 ? (
-          <div className="grid grid-cols-3 gap-px bg-[var(--b1)] border border-[var(--b1)] rounded-xl overflow-hidden">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--b1)] border border-[var(--b1)] rounded-xl overflow-hidden">
             {featured.map(opp => (
               <OpportunityCard key={opp.id} opportunity={opp as any} showFeaturedBadge />
             ))}
@@ -92,12 +92,12 @@ export default function HomePage() {
       </section>
 
       {/* Browse by type */}
-      <section className="px-10 py-14 border-b border-[var(--b1)]">
+      <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
         <div className="mb-8">
           <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-1">Explore</p>
           <h2 className="text-[16px] font-semibold text-[var(--t1)]">Browse by type</h2>
         </div>
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {categories.map(cat => (
             <Link
               key={cat.label}
@@ -112,14 +112,14 @@ export default function HomePage() {
       </section>
 
       {/* Why */}
-      <section className="px-10 py-14 border-b border-[var(--b1)]">
+      <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
         <div className="mb-8">
           <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-1">About</p>
           <h2 className="text-[16px] font-semibold text-[var(--t1)]">Why use SCA Tracker?</h2>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {whyItems.map((v, i) => (
-            <div key={v.title} className="bg-[var(--bg2)] border border-[var(--b1)] border-l-accent border-l-2 rounded-xl p-7">
+            <div key={v.title} className="bg-[var(--bg2)] border border-[var(--b1)] border-l-accent border-l-2 rounded-xl p-6 sm:p-7">
               <div className="text-[10px] text-[var(--t4)] uppercase tracking-[0.14em] mb-3">0{i + 1}</div>
               <div className="text-[14px] font-semibold text-[var(--t1)] mb-3 leading-snug">{v.title}</div>
               <div className="text-[12px] text-[var(--t4)] leading-relaxed">{v.text}</div>
@@ -129,7 +129,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="px-10 py-20 text-center border-b border-[var(--b1)] relative overflow-hidden">
+      <section className="px-5 sm:px-10 py-14 sm:py-20 text-center border-b border-[var(--b1)] relative overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -153,7 +153,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-10 py-5 bg-[var(--bg2)] flex items-center justify-between border-t border-[var(--b1)]">
+      <footer className="px-5 sm:px-10 py-4 sm:py-5 bg-[var(--bg2)] flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-[var(--b1)]">
         <div className="flex items-center gap-2">
           <SCALogo size={18} />
           <span className="text-[11px] text-[var(--t4)]">Student Computing Association · Birmingham City University</span>

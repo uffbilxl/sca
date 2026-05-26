@@ -17,6 +17,13 @@ const fadeUp = {
   }),
 }
 
+const borderClass = (i: number) => {
+  if (i === 0) return 'border-r border-b sm:border-b-0 border-[var(--b1)]'
+  if (i === 1) return 'border-b sm:border-b-0 sm:border-r border-[var(--b1)]'
+  if (i === 2) return 'border-r border-[var(--b1)]'
+  return ''
+}
+
 export function StatsBar({ total, open, companies, deadlines }: StatsBarProps) {
   const stats = [
     { n: total, l: 'Opportunities' },
@@ -26,7 +33,7 @@ export function StatsBar({ total, open, companies, deadlines }: StatsBarProps) {
   ]
 
   return (
-    <div className="grid grid-cols-4 border-b border-[var(--b1)]">
+    <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-[var(--b1)]">
       {stats.map((s, i) => (
         <motion.div
           key={i}
@@ -34,9 +41,9 @@ export function StatsBar({ total, open, companies, deadlines }: StatsBarProps) {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className={`py-8 text-center ${i < 3 ? 'border-r border-[var(--b1)]' : ''}`}
+          className={`py-6 sm:py-8 text-center ${borderClass(i)}`}
         >
-          <div className="text-[30px] font-black text-[var(--t1)] tracking-tight tabular-nums">
+          <div className="text-[26px] sm:text-[30px] font-black text-[var(--t1)] tracking-tight tabular-nums">
             {s.n.toLocaleString()}
           </div>
           <div className="text-[10px] text-[var(--t4)] uppercase tracking-[0.12em] mt-1.5">{s.l}</div>
