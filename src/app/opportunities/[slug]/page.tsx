@@ -63,10 +63,7 @@ export default function OpportunityDetailPage({ params }: Props) {
               Application closed
             </button>
           )}
-          <button className="px-3 py-1.5 bg-transparent border border-[var(--b2)] rounded-md text-[11px] text-[var(--t3)] hover:text-[var(--t2)] whitespace-nowrap">
-            ◎ Save
-          </button>
-          <div className="flex gap-1.5">
+<div className="flex gap-1.5">
             <span className={opportunityTypeBadgeClass(opp.type)}>{opportunityTypeLabel(opp.type)}</span>
             {ds === 'open' && <span className="badge-green">Open</span>}
             {ds === 'closing' && <span className="badge-amber">Closing soon</span>}
