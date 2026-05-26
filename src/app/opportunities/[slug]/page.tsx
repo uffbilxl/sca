@@ -140,7 +140,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
           <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
             <div className="section-title mb-3">Overview</div>
             <div className="flex flex-col">
-              {[
+              {(([
                 ['Type', opportunityTypeLabel(opp.type)],
                 opp.duration ? ['Duration', opp.duration] : null,
                 opp.startDate ? ['Start', opp.startDate] : null,
@@ -148,12 +148,12 @@ export default async function OpportunityDetailPage({ params }: Props) {
                 (opp.salary || opp.salaryMin) ? ['Salary', formatSalary(opp.salaryMin, opp.salaryMax, opp.salary)] : null,
                 opp.deadline ? ['Deadline', formatDeadline(opp.deadline)] : null,
                 ['Visa', opp.sponsored ? 'Sponsored ✓' : 'Not sponsored'],
-              ].filter(Boolean).map(([k, v], i, arr) => (
+              ] as ([string, string] | null)[]).filter((x): x is [string, string] => x !== null).map(([k, v], i, arr) => (
                 <div key={k as string} className={`flex justify-between items-center py-2 ${i < arr.length - 1 ? 'border-b border-[var(--b1)]' : ''}`}>
                   <span className="text-[11px] text-[var(--t4)]">{k}</span>
                   <span className={`text-[11px] font-medium ${k === 'Salary' ? 'text-accent' : k === 'Deadline' && ds === 'closing' ? 'text-amber-400' : 'text-[var(--t1)]'}`}>{v}</span>
                 </div>
-              ))}
+              )))}
             </div>
           </div>
 
