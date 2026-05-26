@@ -36,7 +36,7 @@ export function CommitteeModal({ onClose }: Props) {
 
         {/* Icon */}
         <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/25 flex items-center justify-center text-[22px] mb-5">
-          🎓
+          ✦
         </div>
 
         <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Get involved</p>
@@ -51,7 +51,7 @@ export function CommitteeModal({ onClose }: Props) {
 
         <p className="text-[13px] text-[var(--t3)] leading-relaxed mb-6">
           Whether you're interested in organising events, managing social media, building tech
-          projects, or leading sponsorship — there's a role for you. No experience needed, just
+          projects, or leading sponsorship. There's a role for you. No experience needed, just
           enthusiasm and a drive to make a difference for fellow students.
         </p>
 

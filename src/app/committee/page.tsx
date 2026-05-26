@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -24,8 +24,8 @@ const LEADERSHIP: Member[] = [
   {
     name: 'Tayyeb Nadeem Somro',
     role: 'President',
-    linkedin: '', // TODO: Add Tayyeb's LinkedIn URL
-    website: '',  // TODO: Add Tayyeb's website URL
+    linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', // TODO: Add Tayyeb's LinkedIn URL
+    website: 'http://tayyebns.com',  // TODO: Add Tayyeb's website URL
   },
 ]
 
@@ -34,9 +34,9 @@ const DIVISIONS: Division[] = [
     name: 'Cyber Security',
     color: '#ef4444',
     members: [
-      { name: 'Bilal Arshad', role: 'VP Cyber Security', linkedin: '', website: '' },
-      { name: 'Prem Lodhia', role: 'Technical Coordinator', linkedin: '' },
-      { name: 'Daeron Wallace', role: 'Cyber Security Project Supervisor', linkedin: '' },
+      { name: 'Bilal Arshad', role: 'VP Cyber Security', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'Prem Lodhia', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/' },
+      { name: 'Daeron Wallace', role: 'Cyber Security Project Supervisor', linkedin: 'https://www.linkedin.com/in/daeron-wallace/' },
     ],
   },
   {
@@ -44,53 +44,54 @@ const DIVISIONS: Division[] = [
     color: '#22c55e',
     members: [
       { name: 'Yasamin Zaid', role: 'VP Software Engineering', linkedin: '' },
-      { name: 'Asim Raza', role: 'Software Engineering Project Supervisor', linkedin: '' },
-      { name: 'Hamzah Abdur Rahman', role: 'Software Engineering Project Supervisor', linkedin: '' },
+      { name: 'Asim Raza', role: 'Software Engineering Project Supervisor', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
+      { name: 'Hamzah Abdur Rahman', role: 'Software Engineering Project Supervisor', linkedin: 'https://www.linkedin.com/in/hamzah-abdur-rahman-5553ab2b8/' },
     ],
   },
   {
     name: 'Artificial Intelligence',
     color: '#a855f7',
     members: [
-      { name: 'Orlando Igwe', role: 'VP Artificial Intelligence', linkedin: '' },
-      { name: 'Mohamed Dahir', role: 'Analytics Lead', linkedin: '' },
-      { name: 'Ali Bhuiyan', role: 'AI Project Supervisor', linkedin: '' },
-      { name: 'Zakaria Miah', role: 'AI Project Supervisor', linkedin: '' },
-      { name: 'Al Tahsin Rafi', role: 'AI Project Supervisor', linkedin: '' },
+      { name: 'Orlando Igwe', role: 'VP Artificial Intelligence', linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
+      { name: 'Mohamed Dahir', role: 'Analytics Lead', linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
+      { name: 'Ali Bhuiyan', role: 'AI Project Supervisor', linkedin: 'https://www.linkedin.com/in/shakayat-ali-bhuiyan-b93179309/' },
+      { name: 'Zakaria Miah', role: 'AI Project Supervisor', linkedin: 'https://www.linkedin.com/in/zakaria-miah/' },
+      { name: 'Al Tahsin Rafi', role: 'AI Project Supervisor', linkedin: 'https://www.linkedin.com/in/al-tahsin-rafi-18b75631b/' },
     ],
   },
   {
     name: 'Computer Science',
     color: '#f59e0b',
     members: [
-      { name: 'Alaa Aljasem', role: 'VP Computer Science', linkedin: '' },
-      { name: 'Jasleen Kaur', role: 'Events Assistant', linkedin: '' },
+      { name: 'Azka Hussain', role: 'VP Computer Science', linkedin: '' },
+      { name: 'Alaa Aljasem', role: 'Secretary of Computer Science', linkedin: 'https://www.linkedin.com/in/alaa-aljasem-b816b83aa/' },
+      { name: 'Jasleen Kaur', role: 'Events Assistant', linkedin: 'https://www.linkedin.com/in/jasleen-kaur-269367387/' },
     ],
   },
   {
     name: 'Digital Transformation',
     color: '#06b6d4',
     members: [
-      { name: 'Hodane Gouled', role: 'VP Digital Transformation', linkedin: '' },
-      { name: 'Joe Paddock', role: 'Strategic Advisor', linkedin: '' },
+      { name: 'Hodane Gouled', role: 'VP Digital Transformation', linkedin: 'https://www.linkedin.com/in/hodane-gouled-b32534230/' },
+      { name: 'Joe Paddock', role: 'Strategic Advisor', linkedin: 'https://www.linkedin.com/in/joepaddock-uk/' },
     ],
   },
   {
     name: 'Research & Development',
     color: '#f97316',
     members: [
-      { name: 'Michael Martinak', role: 'Head of R&D', linkedin: '' },
-      { name: 'George James', role: 'Researcher', linkedin: '' },
+      { name: 'Michael Martinak', role: 'Head of R&D', linkedin: 'https://www.linkedin.com/in/profile-mmartinak/' },
+      { name: 'George James', role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
     ],
   },
   {
     name: 'Platform & Media',
     color: '#ec4899',
     members: [
-      { name: 'Baber Khan', role: 'Web Platform Engineer', linkedin: '', website: '' },
-      { name: 'Abrar Alam', role: 'Content Creator / Photographer', linkedin: '' },
-      { name: 'Samyaan Khan', role: 'Graphic Designer', linkedin: '' },
-      { name: 'Mohammad Hamza', role: 'Social Media Manager', linkedin: '' },
+      { name: 'Baber Khan', role: 'Web Platform Engineer', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
+      { name: 'Abrar Alam', role: 'Content Creator / Photographer', linkedin: 'https://www.linkedin.com/in/abrartalam/' },
+      { name: 'Samyaan Khan', role: 'Graphic Designer', linkedin: 'https://www.linkedin.com/in/samyaan-khan-036977250/' },
+      { name: 'Mohammad Hamza', role: 'Social Media Manager', linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/' },
     ],
   },
 ]
@@ -125,7 +126,7 @@ function LinkedInButton({ member }: { member: Member }) {
     )
   }
   return (
-    <span className="flex items-center justify-center w-7 h-7 rounded-lg text-[var(--t4)] bg-[var(--bg3)] border border-[var(--b1)]" title="LinkedIn — coming soon">
+    <span className="flex items-center justify-center w-7 h-7 rounded-lg text-[var(--t4)] bg-[var(--bg3)] border border-[var(--b1)]" title="LinkedIn coming soon">
       <LinkedInIcon />
     </span>
   )
@@ -144,7 +145,7 @@ function WebsiteButton({ member }: { member: Member }) {
     )
   }
   return (
-    <span className="flex items-center justify-center w-7 h-7 rounded-lg text-[var(--t4)] bg-[var(--bg3)] border border-[var(--b1)]" title="Website — coming soon">
+    <span className="flex items-center justify-center w-7 h-7 rounded-lg text-[var(--t4)] bg-[var(--bg3)] border border-[var(--b1)]" title="Website coming soon">
       <PaperclipIcon />
     </span>
   )
@@ -192,8 +193,16 @@ function MemberCard({ member, accentColor, isVP, index }: { member: Member; acce
 
 export default function CommitteePage() {
   const [selected, setSelected] = useState<string | null>(null)
+  const divisionsRef = useRef<HTMLElement>(null)
 
   const activeDivision = DIVISIONS.find(d => d.name === selected) ?? null
+
+  function openDivision(name: string) {
+    setSelected(name)
+    setTimeout(() => {
+      divisionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
+  }
 
   return (
     <div className="max-w-[1000px] mx-auto px-8 py-10">
@@ -203,46 +212,85 @@ export default function CommitteePage() {
         <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Student Computing Association</p>
         <h1 className="text-[26px] font-black tracking-[-0.6px] text-[var(--t1)] mb-2">Meet the Committee</h1>
         <p className="text-[13px] text-[var(--t3)] max-w-lg leading-relaxed">
-          The people behind the SCA — organising events, driving projects, and building the BCU computing community.
+          The people behind the SCA, organising events, driving projects, and building the BCU computing community.
         </p>
       </div>
 
       {/* ── Leadership ──────────────────────────────────────────────────────── */}
       <section className="mb-10">
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-5">
           <span className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest">Leadership</span>
           <div className="flex-1 h-px bg-[var(--b1)]" />
         </div>
-        <div className="flex justify-center">
-          <div className="w-full max-w-[340px]">
-            <div className="relative p-5 rounded-2xl border border-accent/25 bg-[var(--bg2)] shadow-[0_0_40px_rgba(91,141,245,0.08)]">
-              <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[9px] font-semibold tracking-wide text-accent bg-accent/10 border border-accent/20 uppercase">
-                President
+
+        {/* President */}
+        <div className="flex justify-center mb-4">
+          <div className="p-5 rounded-2xl border border-accent/25 bg-[var(--bg2)] shadow-[0_0_40px_rgba(91,141,245,0.08)] w-full max-w-[300px]">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-[15px] font-bold flex-shrink-0 text-accent border border-accent/25"
+                style={{ background: 'rgba(91,141,245,0.12)' }}>
+                TNS
               </div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center text-[15px] font-bold flex-shrink-0 text-accent border border-accent/25"
-                  style={{ background: 'rgba(91,141,245,0.12)' }}>
-                  TN
-                </div>
-                <div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
                   <p className="text-[14px] font-bold text-[var(--t1)]">{LEADERSHIP[0].name}</p>
-                  <p className="text-[11px] text-[var(--t3)]">{LEADERSHIP[0].role}</p>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-semibold tracking-wide text-accent bg-accent/10 border border-accent/20 uppercase flex-shrink-0">
+                    President
+                  </span>
                 </div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <LinkedInButton member={LEADERSHIP[0]} />
-                <WebsiteButton member={LEADERSHIP[0]} />
               </div>
             </div>
-            <div className="flex justify-center">
-              <div className="w-px h-6 bg-[var(--b2)]" />
+            <div className="flex items-center gap-1.5">
+              <LinkedInButton member={LEADERSHIP[0]} />
+              <WebsiteButton member={LEADERSHIP[0]} />
             </div>
           </div>
+        </div>
+
+        {/* Connector */}
+        <div className="flex justify-center mb-4">
+          <div className="w-px h-5 bg-[var(--b2)]" />
+        </div>
+
+        {/* Vice Presidents */}
+        <div className="flex flex-wrap justify-center gap-3">
+          {DIVISIONS.map(div => {
+            const vp = div.members[0]
+            const initials = vp.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
+            return (
+              <button
+                key={div.name}
+                onClick={() => openDivision(div.name)}
+                className="w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] lg:w-[calc(25%-9px)] text-left flex flex-col gap-3 p-4 rounded-xl border bg-[var(--bg2)] hover:bg-[var(--bg3)] transition-all duration-200 group"
+                style={{ borderColor: `${div.color}30` }}>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-[12px] font-bold flex-shrink-0"
+                    style={{ background: `${div.color}18`, color: div.color, border: `1px solid ${div.color}30` }}>
+                    {initials}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-semibold text-[var(--t1)] leading-tight">{vp.name}</p>
+                    <p className="text-[11px] leading-tight mt-0.5 font-medium" style={{ color: div.color }}>{div.name}</p>
+                  </div>
+                </div>
+                <p className="text-[11px] text-[var(--t3)] leading-tight">{vp.role}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
+                    <LinkedInButton member={vp} />
+                    <WebsiteButton member={vp} />
+                  </div>
+                  <span className="text-[10px] text-[var(--t4)] group-hover:text-[var(--t2)] transition-colors">
+                    View team →
+                  </span>
+                </div>
+              </button>
+            )
+          })}
         </div>
       </section>
 
       {/* ── Division selector ────────────────────────────────────────────────── */}
-      <section>
+      <section ref={divisionsRef}>
         <div className="flex items-center gap-3 mb-5">
           <span className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest">Divisions</span>
           <div className="flex-1 h-px bg-[var(--b1)]" />
@@ -255,14 +303,14 @@ export default function CommitteePage() {
         </div>
 
         {/* Tile grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           {DIVISIONS.map(div => {
             const isActive = selected === div.name
             return (
               <button
                 key={div.name}
                 onClick={() => setSelected(isActive ? null : div.name)}
-                className="relative text-left p-4 rounded-2xl border transition-all duration-200 overflow-hidden group"
+                className="relative text-left p-4 rounded-2xl border transition-all duration-200 overflow-hidden group w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] lg:w-[calc(25%-9px)]"
                 style={{
                   borderColor: isActive ? `${div.color}60` : 'var(--b1)',
                   background: isActive ? `${div.color}12` : 'var(--bg2)',
@@ -278,7 +326,7 @@ export default function CommitteePage() {
                   style={{ background: div.color, boxShadow: isActive ? `0 0 8px ${div.color}` : 'none' }}
                 />
                 <p className="text-[12px] font-bold text-[var(--t1)] leading-snug mb-1">{div.name}</p>
-                <p className="text-[10px] text-[var(--t4)]">{div.members.length} member{div.members.length !== 1 ? 's' : ''}</p>
+                <p className="text-[10px] text-[var(--t4)]">{div.members.length - 1} member{div.members.length - 1 !== 1 ? 's' : ''}</p>
 
                 {isActive && (
                   <motion.div
@@ -313,15 +361,15 @@ export default function CommitteePage() {
                 <span className="text-[11px] text-[var(--t4)] ml-auto">{activeDivision.members.length} members</span>
               </div>
 
-              {/* Member cards */}
+              {/* Member cards — VPs shown in leadership above, so skip index 0 */}
               <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
                 style={{ background: 'var(--bg2)' }}>
-                {activeDivision.members.map((member, i) => (
+                {activeDivision.members.slice(1).map((member, i) => (
                   <MemberCard
                     key={member.name}
                     member={member}
                     accentColor={activeDivision.color}
-                    isVP={i === 0}
+                    isVP={false}
                     index={i}
                   />
                 ))}

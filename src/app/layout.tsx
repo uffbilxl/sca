@@ -7,11 +7,11 @@ import { PageTransition } from '@/components/layout/PageTransition'
 
 export const metadata: Metadata = {
   title: 'SCA Opportunities Tracker | BCU Student Computing Association',
-  description: 'Internships, placements, graduate roles, spring weeks and events — curated for computing students at Birmingham City University.',
+  description: 'Internships, placements, graduate roles, spring weeks and events curated for computing students at Birmingham City University.',
   keywords: ['internship', 'placement', 'graduate', 'BCU', 'computing', 'tech', 'SCA'],
   openGraph: {
     title: 'SCA Opportunities Tracker',
-    description: 'Find your next tech opportunity — built for BCU computing students.',
+    description: 'Find your next tech opportunity, built for BCU computing students.',
     type: 'website',
   },
 }

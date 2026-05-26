@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SCALogo } from '@/components/ui/SCALogo'
 import { CommitteeModal } from '@/components/layout/CommitteeModal'
 
 const navLinks = [
@@ -22,16 +21,13 @@ export function Navbar() {
       <header className="sticky top-0 z-50 bg-[var(--bg)]/95 backdrop-blur border-b border-[var(--b1)]">
         <nav className="flex items-center h-[52px] px-5 gap-0">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-            <SCALogo size={28} />
+          <Link href="/" className="flex items-center gap-4 flex-shrink-0 mr-2">
             <div className="flex flex-col leading-none">
-              <span className="text-[13px] font-black text-[var(--t1)] tracking-wide">SCA</span>
-              <span className="text-[9px] font-normal text-[var(--t1)] tracking-widest uppercase mt-[1px]">Opportunities Tracker</span>
+              <span className="text-[18px] font-black text-[var(--t1)] tracking-tight">SCA</span>
+              <span className="text-[8.5px] font-normal text-[var(--t3)] tracking-wide mt-[2px]">Birmingham City University</span>
             </div>
+            <div className="w-px h-7 bg-[var(--b2)]" />
           </Link>
-
-          {/* Divider */}
-          <div className="w-px h-[18px] bg-[var(--b2)] mx-4 flex-shrink-0" />
 
           {/* Nav tabs */}
           <div className="flex items-center gap-0.5 flex-1">

@@ -19,7 +19,7 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
       {/* Featured ribbon */}
       {showFeaturedBadge && (
         <div className="absolute top-0 right-0 flex items-center gap-1 px-2.5 py-1 bg-accent/10 border-b border-l border-accent/25 rounded-bl-lg rounded-tr-none text-[10px] font-semibold text-accent tracking-wide">
-          ★ Featured
+          Featured
         </div>
       )}
 

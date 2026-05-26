@@ -26,7 +26,7 @@ export default async function EventsPage() {
           <div className="text-[16px] font-semibold text-[var(--t1)] mb-2">Events coming soon</div>
           <div className="text-[13px] text-[var(--t3)] max-w-xs mx-auto leading-relaxed">
             The SCA is busy planning workshops, talks, and networking events for BCU computing students.
-            <span className="block mt-2 text-[var(--t2)] font-medium">Stay tuned — announcements dropping very soon.</span>
+            <span className="block mt-2 text-[var(--t2)] font-medium">Stay tuned. Announcements dropping very soon.</span>
           </div>
           <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 border border-[var(--b2)] rounded-full text-[11px] text-[var(--t4)] tracking-wide">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse inline-block" />

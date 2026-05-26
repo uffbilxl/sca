@@ -4,17 +4,17 @@ export default function SCAOpportunitiesPage() {
       <div className="mb-7">
         <h1 className="text-[20px] font-black tracking-[-0.4px] text-[var(--t1)]">SCA Opportunities</h1>
         <p className="text-[12px] text-[var(--t3)] mt-1">
-          Internal opportunities within the Student Computing Association — committee roles, volunteering, and more.
+          Internal opportunities within the Student Computing Association: committee roles, volunteering, and more.
         </p>
       </div>
 
       <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] py-20 px-10 text-center">
         <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-[28px] mx-auto mb-5">
-          ◈
+          ✦
         </div>
         <div className="text-[16px] font-semibold text-[var(--t1)] mb-2">Coming soon</div>
         <div className="text-[13px] text-[var(--t3)] max-w-sm mx-auto leading-relaxed">
-          The SCA is putting together a list of internal opportunities — from committee positions to
+          The SCA is putting together a list of internal opportunities including committee positions,
           event roles and volunteering.
           <span className="block mt-2 text-[var(--t2)] font-medium">
             Announcements dropping very soon.

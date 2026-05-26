@@ -49,7 +49,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
             <h1 className="text-[24px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-tight">{opp.title}</h1>
             <div className="flex gap-4 flex-wrap">
               {opp.startDate && <span className="text-[12px] text-[var(--t3)]">⊕ {opp.startDate}{opp.duration ? ` · ${opp.duration}` : ''}</span>}
-              <span className="text-[12px] text-[var(--t3)]">◈ {workModeLabel(opp.workMode)}</span>
+              <span className="text-[12px] text-[var(--t3)]">{workModeLabel(opp.workMode)}</span>
               {(opp.salary || opp.salaryMin) && (
                 <span className="text-[12px] text-[var(--t3)]">£ {formatSalary(opp.salaryMin, opp.salaryMax, opp.salary)}</span>
               )}
@@ -177,7 +177,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <div className="flex flex-col gap-2">
                 {related.map(r => (
                   <Link key={r.id} href={`/opportunities/${r.slug}`} className="p-2 rounded-md bg-[var(--bg3)] hover:bg-[var(--bg4)] transition-colors">
-                    <div className="text-[12px] font-medium text-[var(--t1)]">{r.company.name} — {r.title.split('—')[0].trim()}</div>
+                    <div className="text-[12px] font-medium text-[var(--t1)]">{r.company.name} · {r.title.split('—')[0].trim()}</div>
                     <div className="text-[10px] text-[var(--t4)] mt-0.5">{r.location}</div>
                   </Link>
                 ))}

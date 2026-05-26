@@ -58,7 +58,7 @@ export function HeroContent() {
         animate="show"
         className="text-[15px] text-[var(--t2)] font-normal max-w-[420px] mx-auto mb-10 leading-[1.7]"
       >
-        Internships, placements, grad roles, spring weeks and events —{' '}
+        Internships, placements, grad roles, spring weeks and events,{' '}
         <span className="text-[var(--t1)] font-medium">curated for BCU computing students.</span>
       </motion.p>
 

@@ -28,7 +28,7 @@ export function CommentsSection({ opportunityId, initialComments }: Props) {
       })
       if (res.ok) {
         setBody(''); setAuthorName(''); setSubmitted(true)
-        toast('Comment submitted — it will appear after review')
+        toast('Comment submitted. It will appear after review.')
       } else {
         toast('Failed to submit comment', 'error')
       }
@@ -83,14 +83,14 @@ export function CommentsSection({ opportunityId, initialComments }: Props) {
         </div>
       ) : (
         <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4 mb-4 text-[12px] text-[var(--t3)]">
-          ✓ Thanks — your comment will appear once reviewed by an admin.
+          Your comment will appear once reviewed by an admin.
         </div>
       )}
 
       {/* Comment list */}
       {comments.length === 0 ? (
         <div className="py-8 text-center text-[12px] text-[var(--t4)]">
-          No feedback yet — be the first to share your experience.
+          No feedback yet. Be the first to share your experience.
         </div>
       ) : (
         <div className="flex flex-col gap-2.5">

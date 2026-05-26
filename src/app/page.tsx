@@ -51,7 +51,7 @@ const categories = [
 const whyItems = [
   {
     title: 'Built for BCU computing students',
-    text: 'Only tech roles and opportunities relevant to you — no noise, no irrelevant listings to wade through.',
+    text: 'Only tech roles and opportunities relevant to you. No noise, no irrelevant listings to wade through.',
   },
   {
     title: 'Never miss a deadline',
@@ -155,7 +155,7 @@ export default async function HomePage() {
           Deadlines don&apos;t wait.
         </h2>
         <p className="text-[14px] text-[var(--t3)] mb-8 max-w-xs mx-auto leading-relaxed">
-          The best placements and internships fill up fast — start tracking today.
+          The best placements and internships fill up fast. Start tracking today.
         </p>
         <Link
           href="/opportunities"
