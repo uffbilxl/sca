@@ -1,0 +1,138 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id            String        @id @default(cuid())
+  name          String
+  slug          String        @unique
+  logo          String?
+  website       String?
+  description   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  opportunities Opportunity[]
+}
+
+model Tag {
+  id            String           @id @default(cuid())
+  name          String           @unique
+  opportunities OpportunityTag[]
+}
+
+model Opportunity {
+  id           String           @id @default(cuid())
+  title        String
+  slug         String           @unique
+  description  String
+  requirements String?
+  responsibilities String?
+  type         OpportunityType
+  location     String
+  workMode     WorkMode         @default(HYBRID)
+  salary       String?
+  salaryMin    Int?
+  salaryMax    Int?
+  deadline     DateTime?
+  startDate    String?
+  duration     String?
+  sponsored    Boolean          @default(false)
+  featured     Boolean          @default(false)
+  status       Status           @default(OPEN)
+  applyUrl     String?
+  companyId    String
+  company      Company          @relation(fields: [companyId], references: [id])
+  tags         OpportunityTag[]
+  comments     Comment[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+model OpportunityTag {
+  opportunityId String
+  tagId         String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  tag           Tag         @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  @@id([opportunityId, tagId])
+}
+
+model Event {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  location    String
+  isOnline    Boolean     @default(false)
+  date        DateTime
+  endDate     DateTime?
+  spots       Int?
+  registrations Int       @default(0)
+  registrationUrl String?
+  type        EventType   @default(WORKSHOP)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Comment {
+  id            String      @id @default(cuid())
+  body          String
+  authorName    String?
+  anonymous     Boolean     @default(false)
+  approved      Boolean     @default(false)
+  pinned        Boolean     @default(false)
+  opportunityId String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  type      String
+  body      String
+  email     String?
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+enum OpportunityType {
+  INTERNSHIP
+  PLACEMENT
+  GRADUATE
+  SPRING_WEEK
+  INSIGHT
+}
+
+enum WorkMode {
+  REMOTE
+  HYBRID
+  ONSITE
+}
+
+enum Status {
+  OPEN
+  CLOSING_SOON
+  CLOSED
+}
+
+enum EventType {
+  WORKSHOP
+  PANEL
+  HACKATHON
+  NETWORKING
+  TALK
+  OTHER
+}
