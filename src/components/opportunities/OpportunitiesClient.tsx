@@ -2,7 +2,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Opportunity, OpportunityType, WorkMode } from '@/types'
-import { formatDeadline, deadlineStatus, opportunityTypeLabel, workModeLabel, formatSalary } from '@/lib/utils'
+import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 const TYPES: { value: OpportunityType; label: string }[] = [
@@ -268,8 +268,8 @@ function OpportunityRow({ opp }: { opp: Opportunity }) {
         <div className="text-[13px] font-medium text-[var(--t1)] mb-1.5 group-hover:text-white transition-colors truncate">{opp.title}</div>
         <div className="flex gap-1.5 flex-wrap">
           {isNew && <span className="badge-blue">New</span>}
-          <span className="badge-gray">{opportunityTypeLabel(opp.type)}</span>
-          <span className="hidden sm:inline badge-gray">{workModeLabel(opp.workMode)}</span>
+          <span className={opportunityTypeBadgeClass(opp.type)}>{opportunityTypeLabel(opp.type)}</span>
+          <span className="hidden sm:inline badge-white">{workModeLabel(opp.workMode)}</span>
           {opp.tags.slice(0, 2).map(({ tag }) => (
             <span key={tag.id} className="tag">{tag.name}</span>
           ))}

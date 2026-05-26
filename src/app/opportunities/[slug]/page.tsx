@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { OPPORTUNITIES } from '@/data/opportunities'
-import { formatDeadline, deadlineStatus, opportunityTypeLabel, workModeLabel, formatSalary } from '@/lib/utils'
+import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
 import { CommentsSection } from '@/components/comments/CommentsSection'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
@@ -67,7 +67,7 @@ export default function OpportunityDetailPage({ params }: Props) {
             ◎ Save
           </button>
           <div className="flex gap-1.5">
-            <span className="badge-gray">{opportunityTypeLabel(opp.type)}</span>
+            <span className={opportunityTypeBadgeClass(opp.type)}>{opportunityTypeLabel(opp.type)}</span>
             {ds === 'open' && <span className="badge-green">Open</span>}
             {ds === 'closing' && <span className="badge-amber">Closing soon</span>}
             {ds === 'closed' && <span className="badge-red">Closed</span>}

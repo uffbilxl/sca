@@ -79,6 +79,15 @@ body {
   .badge-red {
     @apply badge bg-red-500/10 text-red-400 border border-red-500/25;
   }
+  .badge-purple {
+    @apply badge bg-purple-500/10 text-purple-400 border border-purple-500/25;
+  }
+  .badge-cyan {
+    @apply badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/25;
+  }
+  .badge-white {
+    @apply badge bg-white/10 text-white border border-white/20;
+  }
   .card {
     @apply bg-bg-2 border border-border-1 rounded-xl;
   }

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Opportunity } from '@/types'
-import { formatDeadline, deadlineStatus, opportunityTypeLabel, workModeLabel } from '@/lib/utils'
+import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel } from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface OpportunityCardProps {
@@ -52,7 +52,7 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
       </div>
 
       <div className="flex gap-1 flex-wrap mb-3">
-        <span className="badge-gray">{opportunityTypeLabel(opp.type)}</span>
+        <span className={opportunityTypeBadgeClass(opp.type)}>{opportunityTypeLabel(opp.type)}</span>
         {opp.tags.slice(0, 3).map(({ tag }) => (
           <span key={tag.id} className="tag">{tag.name}</span>
         ))}

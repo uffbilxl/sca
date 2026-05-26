@@ -47,6 +47,17 @@ export function opportunityTypeLabel(type: string): string {
   return map[type] ?? type
 }
 
+export function opportunityTypeBadgeClass(type: string): string {
+  const map: Record<string, string> = {
+    INTERNSHIP: 'badge-blue',
+    PLACEMENT: 'badge-purple',
+    GRADUATE: 'badge-green',
+    SPRING_WEEK: 'badge-amber',
+    INSIGHT: 'badge-cyan',
+  }
+  return map[type] ?? 'badge-gray'
+}
+
 export function workModeLabel(mode: string): string {
   const map: Record<string, string> = {
     REMOTE: 'Remote',
