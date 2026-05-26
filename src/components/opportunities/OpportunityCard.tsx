@@ -24,16 +24,18 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
       )}
 
       {/* Top row */}
-      <div className="flex items-start justify-between mb-3">
+      <div className={`flex items-start justify-between mb-3 ${showFeaturedBadge ? 'mt-5' : ''}`}>
         <CompanyLogo name={opp.company.name} logoUrl={opp.company.logo} size={36} />
-        <div className="flex gap-1.5 flex-wrap justify-end">
-          {!showFeaturedBadge && opp.createdAt > new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) && (
-            <span className="badge-blue">New</span>
-          )}
-          {ds === 'open' && <span className="badge-green">Open</span>}
-          {ds === 'closing' && <span className="badge-amber">Closing soon</span>}
-          {ds === 'closed' && <span className="badge-red">Closed</span>}
-        </div>
+        {!showFeaturedBadge && (
+          <div className="flex gap-1.5 flex-wrap justify-end">
+            {opp.createdAt > new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) && (
+              <span className="badge-blue">New</span>
+            )}
+            {ds === 'open' && <span className="badge-green">Open</span>}
+            {ds === 'closing' && <span className="badge-amber">Closing soon</span>}
+            {ds === 'closed' && <span className="badge-red">Closed</span>}
+          </div>
+        )}
       </div>
 
       <div className="text-[11px] text-[var(--t4)] mb-1">{opp.company.name}</div>

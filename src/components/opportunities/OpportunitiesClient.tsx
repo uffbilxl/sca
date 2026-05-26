@@ -18,10 +18,13 @@ const MODES: { value: WorkMode; label: string }[] = [
   { value: 'ONSITE', label: 'On-site' },
 ]
 
-interface Props { opportunities: Opportunity[] }
+interface Props {
+  opportunities: Opportunity[]
+  initialType?: OpportunityType
+}
 
-export function OpportunitiesClient({ opportunities }: Props) {
-  const [types, setTypes] = useState<OpportunityType[]>([])
+export function OpportunitiesClient({ opportunities, initialType }: Props) {
+  const [types, setTypes] = useState<OpportunityType[]>(initialType ? [initialType] : [])
   const [modes, setModes] = useState<WorkMode[]>([])
   const [sponsored, setSponsored] = useState(false)
   const [salaryMin, setSalaryMin] = useState(0)

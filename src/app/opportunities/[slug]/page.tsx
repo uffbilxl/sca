@@ -81,7 +81,7 @@ export default function OpportunityDetailPage({ params }: Props) {
         <div>
           <div className="mb-6">
             <h3 className="section-title mb-3">About the role</h3>
-            <p className="text-[13px] text-[var(--t3)] leading-relaxed whitespace-pre-line">{opp.description}</p>
+            <p className="text-[13px] text-[var(--t2)] leading-relaxed whitespace-pre-line">{opp.description}</p>
           </div>
 
           {opp.responsibilities && (
@@ -89,7 +89,7 @@ export default function OpportunityDetailPage({ params }: Props) {
               <h3 className="section-title mb-3">What you&apos;ll do</h3>
               <ul className="flex flex-col gap-1.5">
                 {opp.responsibilities.split('\n').filter(Boolean).map((line, i) => (
-                  <li key={i} className="text-[12px] text-[var(--t3)] pl-3.5 relative leading-relaxed before:content-['-'] before:absolute before:left-0 before:text-[var(--t4)]">
+                  <li key={i} className="text-[12px] text-[var(--t2)] pl-3.5 relative leading-relaxed before:content-['-'] before:absolute before:left-0 before:text-[var(--t4)]">
                     {line}
                   </li>
                 ))}
@@ -102,7 +102,7 @@ export default function OpportunityDetailPage({ params }: Props) {
               <h3 className="section-title mb-3">What they&apos;re looking for</h3>
               <ul className="flex flex-col gap-1.5">
                 {opp.requirements.split('\n').filter(Boolean).map((line, i) => (
-                  <li key={i} className="text-[12px] text-[var(--t3)] pl-3.5 relative leading-relaxed before:content-['-'] before:absolute before:left-0 before:text-[var(--t4)]">
+                  <li key={i} className="text-[12px] text-[var(--t2)] pl-3.5 relative leading-relaxed before:content-['-'] before:absolute before:left-0 before:text-[var(--t4)]">
                     {line}
                   </li>
                 ))}
