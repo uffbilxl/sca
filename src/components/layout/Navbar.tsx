@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/sca-opportunities', label: 'SCA Opportunities' },
   { href: '/events', label: 'Events' },
   { href: '/committee', label: 'Committee' },
+  { href: '/resources', label: 'Resources' },
 ]
 
 export function Navbar() {
