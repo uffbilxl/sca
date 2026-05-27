@@ -50,6 +50,13 @@ const C = {
   Graphcore:  co('Graphcore',                    'https://www.google.com/s2/favicons?domain=graphcore.ai&sz=256',              'https://www.graphcore.ai'),
   BAE:        co('BAE Systems',                  'https://www.google.com/s2/favicons?domain=baesystems.com&sz=256',            'https://www.baesystems.com/en-uk'),
   TPP:        co('TPP',                          'https://media.licdn.com/dms/image/v2/D4E0BAQHrF5WnLhhi8g/company-logo_200_200/B4EZfFOF7bHwAI-/0/1751360496561/the_phoenix_partnership_tpp__logo?e=2147483647&v=beta&t=T1HmYFQOD_LCRd_yfDY_VdQgiQhQzgG6Th95g0vOhpY', 'https://tpp-careers.com'),
+  PG:         co('Procter & Gamble',             'https://www.google.com/s2/favicons?domain=pg.co.uk&sz=256',                 'https://www.pg.co.uk'),
+  DRW:        co('DRW',                          'https://www.google.com/s2/favicons?domain=drw.com&sz=256',                  'https://drw.com'),
+  MandG:      co('M&G',                          'https://www.google.com/s2/favicons?domain=mandg.com&sz=256',                'https://www.mandg.com'),
+  Ultra:      co('Ultra',                        'https://www.google.com/s2/favicons?domain=ultra.group&sz=256',              'https://www.ultra.group'),
+  DXC:        co('DXC Technology',               'https://www.google.com/s2/favicons?domain=dxc.com&sz=256',                  'https://dxc.com'),
+  Motorola:   co('Motorola Solutions',           'https://www.google.com/s2/favicons?domain=motorolasolutions.com&sz=256',    'https://www.motorolasolutions.com'),
+  NatWest:    co('NatWest Group',                'https://www.google.com/s2/favicons?domain=natwestgroup.com&sz=256',         'https://www.natwestgroup.com'),
 }
 
 export const OPPORTUNITIES: Opportunity[] = [
@@ -352,4 +359,134 @@ export const OPPORTUNITIES: Opportunity[] = [
     "TPP (The Phoenix Partnership) is a UK health IT company that builds clinical software used across primary care, pharmacy, social care, and community healthcare settings.\n\nThe Summer Internship - Software Developer is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Leeds.",
     'INTERNSHIP', 'Leeds', 'HYBRID', false, false,
     'https://tpp-careers.com/roles/summer-internship-software-developer/', C.TPP, 59),
+
+  opp('amazon-2026-data-engineering-internship-uk', '2026 Data Engineering Internship - UK',
+    "Amazon is one of the world's most valuable technology companies, with divisions spanning e-commerce, cloud computing (AWS), AI, and logistics operating at massive scale.\n\nThe 2026 Data Engineering Internship - UK is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    'INTERNSHIP', 'London', 'HYBRID', true, false,
+    'https://www.amazon.jobs/en-gb/jobs/3183839/data-engineer-internship-uk-amazon-university-talent-acquisition-auta', C.Amazon, 60),
+
+  opp('amazon-2026-applied-scientist-intern', '2026 Applied Scientist Intern',
+    "Amazon is one of the world's most valuable technology companies, with divisions spanning e-commerce, cloud computing (AWS), AI, and logistics operating at massive scale.\n\nThe 2026 Applied Scientist Intern is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    'INTERNSHIP', 'United Kingdom', 'HYBRID', true, false,
+    'https://www.amazon.jobs/en-gb/jobs/3182383/2026-applied-scientist-intern-amazon-university-talent-acquisition', C.Amazon, 61),
+
+  opp('amazon-2026-data-scientist-internship', '2026 Data Scientist Internship',
+    "Amazon is one of the world's most valuable technology companies, with divisions spanning e-commerce, cloud computing (AWS), AI, and logistics operating at massive scale.\n\nThe 2026 Data Scientist Internship is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    'INTERNSHIP', 'United Kingdom', 'HYBRID', true, false,
+    'https://www.amazon.jobs/en-gb/jobs/3125279/2026-data-scientist-internship-amazon-university-talent-acquisition', C.Amazon, 62),
+
+  opp('aws-2026-data-center-technician-intern', '2026 Data Center Technician Intern',
+    "Amazon Web Services (AWS) is the world's leading cloud computing platform, offering over 200 fully featured services from data centres globally to millions of customers.\n\nThe 2026 Data Center Technician Intern is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Greater London (Slough); Hemel Hempstead.",
+    'INTERNSHIP', 'Greater London; Hemel Hempstead', 'HYBRID', false, false,
+    'https://amazon.jobs/en/jobs/3110268/2026-data-center-technician-intern', C.AWS, 63),
+
+  opp('apple-software-engineering-masters-internships', 'Software Engineering Masters Internships',
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Software Engineering Masters Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    'INTERNSHIP', 'United Kingdom', 'HYBRID', false, false,
+    'https://jobs.apple.com/en-gb/details/200664320/software-engineering-masters-internships', C.Apple, 64),
+
+  opp('apple-hardware-undergrad-engineering-internships', 'Hardware Undergrad Engineering Internships',
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Hardware Undergrad Engineering Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    'INTERNSHIP', 'United Kingdom', 'HYBRID', false, false,
+    'https://jobs.apple.com/en-gb/details/200663981-3810/hardware-undergrad-engineering-internships?team=STDNT', C.Apple, 65),
+
+  opp('apple-machine-learning-ai-undergrad-internships', 'Machine Learning and Artificial Intelligence Undergrad Internships',
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Machine Learning and Artificial Intelligence Undergrad Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    'INTERNSHIP', 'United Kingdom', 'HYBRID', true, false,
+    'https://jobs.apple.com/en-gb/details/200664780-3810/machine-learning-and-artificial-intelligence-undergrad-internships?team=STDNT', C.Apple, 66),
+
+  opp('apple-engineering-program-management-undergrad-internships', 'Engineering Program Management Undergrad Internships',
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Engineering Program Management Undergrad Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    'INTERNSHIP', 'United Kingdom', 'HYBRID', false, false,
+    'https://jobs.apple.com/en-gb/details/200664330-3810/engineering-program-management-undergrad-internships', C.Apple, 67),
+
+  opp('cloudflare-technical-support-engineer-intern-summer-2026', 'Technical Support Engineer Intern (Summer 2026)',
+    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable — protecting millions of websites and applications worldwide.\n\nThe Technical Support Engineer Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    'INTERNSHIP', 'London', 'HYBRID', false, false,
+    'https://job-boards.greenhouse.io/cloudflare/jobs/7726879', C.Cloudflare, 68),
+
+  opp('intropic-quantrepreneur-engineering', 'Quantrepreneur - Engineering',
+    "Intropic is a proprietary trading and technology firm building cutting-edge quantitative models and high-performance systems that operate across global financial markets.\n\nThe Quantrepreneur - Engineering is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    'INTERNSHIP', 'London', 'HYBRID', false, false,
+    'https://jobs.lever.co/intropic/c31c65cc-178d-4a50-bc6a-4f4b057f4381', C.Intropic, 69),
+
+  opp('drw-software-developer-intern-industrial-placement', 'Software Developer Intern - Industrial Placement',
+    "DRW is a diversified principal trading firm specialising in electronic market-making and proprietary trading across fixed income, equities, cryptocurrencies, and energy markets.\n\nThe Software Developer Intern - Industrial Placement is a year-long industrial placement where you will contribute to real engineering projects alongside experienced professionals, building skills that set you apart when you graduate.\n\nBased in London.",
+    'PLACEMENT', 'London', 'HYBRID', true, false,
+    'https://job-boards.greenhouse.io/drwuniversityjobs/jobs/7364884', C.DRW, 70),
+
+  opp('mastercard-software-engineer-intern-summer-2026', 'Software Engineer Intern, Summer 2026',
+    "Mastercard is a global technology company in the payments industry, enabling secure and seamless digital transactions for billions of people and businesses worldwide.\n\nThe Software Engineer Intern, Summer 2026 is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    'INTERNSHIP', 'London', 'HYBRID', true, false,
+    'https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Software-Engineer-Intern--Summer-2026---London--UK_R-257373-2/apply/autofillWithResume', C.Mastercard, 71),
+
+  opp('procter-gamble-software-development-industrial-placement-2026', 'Software Development Industrial Placement 2026',
+    "Procter & Gamble is one of the world's largest consumer goods companies, with brands like Gillette, Pampers, and Head & Shoulders, and a growing investment in digital technology and AI.\n\nThe Software Development Industrial Placement 2026 is a year-long industrial placement where you will contribute to real engineering projects alongside experienced professionals, building skills that set you apart when you graduate.\n\nBased in United Kingdom.",
+    'PLACEMENT', 'United Kingdom', 'HYBRID', false, false,
+    'https://pg.wd5.myworkdayjobs.com/en-GB/1000/job/Software-Development-Industrial-Placement-2026_R000147514/apply', C.PG, 72),
+
+  opp('mg-software-engineering-graduate', 'Software Engineering Graduate',
+    "M&G is a global savings and investment company with over £340 billion in assets under management, serving customers through insurance, wealth management, and investment products.\n\nThe Software Engineering Graduate is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
+    'GRADUATE', 'United Kingdom', 'HYBRID', false, false,
+    'https://mgpru.wd3.myworkdayjobs.com/en-US/mandgprudential/job/Software-Engineering-Graduate_R18162', C.MandG, 73),
+
+  opp('ultra-graduate-software-engineer', 'Graduate Software Engineer',
+    "Ultra is a global defence, security, and critical detection technology company delivering specialist capabilities to NATO, Five Eyes, and allied governments worldwide.\n\nThe Graduate Software Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
+    'GRADUATE', 'United Kingdom', 'HYBRID', false, false,
+    'https://ultra.wd3.myworkdayjobs.com/en-US/ultra-careers/job/Graduate-Software-Engineer_REQ-11210-2', C.Ultra, 74),
+
+  opp('dxc-graduate-programme-2026', 'DXC Graduate Programme 2026',
+    "DXC Technology is a global IT services and consulting company helping clients modernise their technology infrastructure and drive digital transformation at enterprise scale.\n\nThe DXC Graduate Programme 2026 is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in London.",
+    'GRADUATE', 'London', 'HYBRID', false, false,
+    'https://dxctechnology.wd1.myworkdayjobs.com/en-US/DXCJobs/job/GBR---ENG---LONDON/DXC-Graduate-Programme-2026_51567282', C.DXC, 75),
+
+  opp('motorola-solutions-graduate-software-engineer', 'Graduate Software Engineer',
+    "Motorola Solutions is a global leader in mission-critical communications technology — building radios, body cameras, software, and AI-powered video security for public safety organisations.\n\nThe Graduate Software Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
+    'GRADUATE', 'United Kingdom', 'HYBRID', false, false,
+    'https://motorolasolutions.wd5.myworkdayjobs.com/en-US/Careers/job/Graduate-Software-Engineer_R62287', C.Motorola, 76),
+
+  opp('natwest-tech-insight-experience-women-engineering', 'Tech Insight Experience for Women - Engineering',
+    "NatWest Group is one of the UK's largest retail and commercial banks, serving over 19 million customers and investing heavily in technology, digital banking, and engineering talent.\n\nThe Tech Insight Experience for Women - Engineering is a short insight programme giving you direct exposure to the business, industry professionals, and the skills needed to succeed in technology.\n\nBased in London; Edinburgh.",
+    'INSIGHT', 'London; Edinburgh', 'HYBRID', true, false,
+    'https://jobs.natwestgroup.com/jobs/17568644-tech-insight-experience-for-women-engineering', C.NatWest, 77),
+
+  opp('bae-systems-graduate-data-consultant-frimley', 'Graduate Data Consultant - Frimley',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Consultant - Frimley is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Frimley.",
+    'GRADUATE', 'Frimley', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-data-consultant-123034', C.BAE, 78),
+
+  opp('bae-systems-graduate-data-researcher', 'Graduate Data Researcher',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Researcher is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Great Baddow; Chelmsford.",
+    'GRADUATE', 'Great Baddow; Chelmsford', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-data-researcher-123005', C.BAE, 79),
+
+  opp('bae-systems-graduate-software-engineer-frimley', 'Graduate Software Engineer - Frimley',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Software Engineer - Frimley is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Frimley.",
+    'GRADUATE', 'Frimley', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-software-engineer-123033', C.BAE, 80),
+
+  opp('bae-systems-graduate-security-consultant-london', 'Graduate Security Consultant - London',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Security Consultant - London is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in London.",
+    'GRADUATE', 'London', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-security-consultant-123006', C.BAE, 81),
+
+  opp('bae-systems-graduate-data-consultant-broad-oak', 'Graduate Data Consultant - Broad Oak',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Consultant - Broad Oak is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Broad Oak; Portsmouth.",
+    'GRADUATE', 'Broad Oak; Portsmouth', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-data-consultant-v05944-10401', C.BAE, 82),
+
+  opp('bae-systems-graduate-network-engineer', 'Graduate Network Engineer',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Network Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Yeovil.",
+    'GRADUATE', 'Yeovil', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-network-engineer-v05946-10403', C.BAE, 83),
+
+  opp('bae-systems-graduate-data-engineer-london', 'Graduate Data Engineer - London',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Engineer - London is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in London.",
+    'GRADUATE', 'London', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-data-engineer-123012', C.BAE, 84),
+
+  opp('bae-systems-graduate-software-engineer-leeds', 'Graduate Software Engineer - Leeds',
+    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Software Engineer - Leeds is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Leeds.",
+    'GRADUATE', 'Leeds', 'HYBRID', false, false,
+    'https://jobsearch.baesystems.com/job/graduate-software-engineer-123013', C.BAE, 85),
 ]
