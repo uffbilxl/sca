@@ -4,7 +4,6 @@ interface Resource {
   title: string
   description: string
   fileUrl?: string
-  comingSoon?: boolean
   pages?: string
 }
 
@@ -27,13 +26,11 @@ const CATEGORIES: Category[] = [
         title: '1-Page CV Template',
         description: 'Clean, concise single-page CV — ideal for internships and graduate roles.',
         pages: '1 page',
-        comingSoon: true,
       },
       {
         title: '2-Page CV Template',
         description: 'Extended format for candidates with more experience or academic projects.',
         pages: '2 pages',
-        comingSoon: true,
       },
     ],
   },
@@ -46,7 +43,6 @@ const CATEGORIES: Category[] = [
       {
         title: 'Cover Letter Template',
         description: 'Professional cover letter structure with guidance on what to include for tech roles.',
-        comingSoon: true,
       },
     ],
   },
@@ -59,7 +55,6 @@ const CATEGORIES: Category[] = [
       {
         title: 'More guides coming soon',
         description: 'Interview prep, LinkedIn tips, application strategies and more.',
-        comingSoon: true,
       },
     ],
   },
@@ -136,22 +131,26 @@ export default function ResourcesPage() {
                   </div>
 
                   {/* Action */}
-                  {resource.comingSoon ? (
-                    <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[var(--bg3)] border border-[var(--b1)] w-fit">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--t4)]" />
-                      <span className="text-[11px] text-[var(--t4)]">Upload pending</span>
-                    </div>
-                  ) : (
+                  {resource.fileUrl ? (
                     <a
                       href={resource.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium text-white w-fit transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium text-white w-fit transition-opacity hover:opacity-90"
                       style={{ background: cat.color }}
                     >
                       <DownloadIcon />
                       Download PDF
                     </a>
+                  ) : (
+                    <button
+                      disabled
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium text-white w-fit opacity-30 cursor-not-allowed"
+                      style={{ background: cat.color }}
+                    >
+                      <DownloadIcon />
+                      Download PDF
+                    </button>
                   )}
                 </div>
               ))}
