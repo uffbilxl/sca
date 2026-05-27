@@ -1,9 +1,10 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Opportunity, OpportunityType, WorkMode } from '@/types'
 import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
+import { lookupPostcode, locationCoordsWithinRadius } from '@/lib/geo'
 
 const TYPES: { value: OpportunityType; label: string }[] = [
   { value: 'INTERNSHIP', label: 'Internship' },
@@ -31,6 +32,32 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<'newest' | 'deadline' | 'salary' | 'az'>('newest')
   const [showFilters, setShowFilters] = useState(false)
+  const [postcode, setPostcode] = useState('')
+  const [radius, setRadius] = useState(25)
+  const [postcodeCoords, setPostcodeCoords] = useState<{ lat: number; lng: number } | null>(null)
+  const [postcodeState, setPostcodeState] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    const trimmed = postcode.trim()
+    if (trimmed.length < 5) {
+      setPostcodeCoords(null)
+      setPostcodeState('idle')
+      return
+    }
+    setPostcodeState('loading')
+    debounceRef.current = setTimeout(async () => {
+      const result = await lookupPostcode(trimmed)
+      if (result) {
+        setPostcodeCoords(result)
+        setPostcodeState('ok')
+      } else {
+        setPostcodeCoords(null)
+        setPostcodeState('error')
+      }
+    }, 600)
+  }, [postcode])
 
   function toggleType(t: OpportunityType) {
     setTypes(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t])
@@ -40,9 +67,10 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
   }
   function clearAll() {
     setTypes([]); setModes([]); setSponsored(false); setSalaryMin(0); setSearch('')
+    setPostcode(''); setPostcodeCoords(null); setPostcodeState('idle'); setRadius(25)
   }
 
-  const activeFilterCount = types.length + modes.length + (sponsored ? 1 : 0) + (salaryMin > 0 ? 1 : 0)
+  const activeFilterCount = types.length + modes.length + (sponsored ? 1 : 0) + (salaryMin > 0 ? 1 : 0) + (postcodeCoords ? 1 : 0)
 
   const filtered = useMemo(() => {
     let list = [...opportunities]
@@ -50,6 +78,10 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
     if (modes.length) list = list.filter(o => modes.includes(o.workMode))
     if (sponsored) list = list.filter(o => o.sponsored)
     if (salaryMin > 0) list = list.filter(o => (o.salaryMin ?? 0) >= salaryMin || (o.salaryMax ?? 0) >= salaryMin)
+    if (postcodeCoords) {
+      const radiusKm = radius * 1.60934
+      list = list.filter(o => locationCoordsWithinRadius(o.location, postcodeCoords.lat, postcodeCoords.lng, radiusKm))
+    }
     if (search.trim()) {
       const q = search.toLowerCase()
       list = list.filter(o =>
@@ -67,7 +99,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
     if (sort === 'salary') list.sort((a, b) => (b.salaryMin ?? b.salaryMax ?? 0) - (a.salaryMin ?? a.salaryMax ?? 0))
     if (sort === 'az') list.sort((a, b) => a.title.localeCompare(b.title))
     return list
-  }, [opportunities, types, modes, sponsored, salaryMin, search, sort])
+  }, [opportunities, types, modes, sponsored, salaryMin, postcodeCoords, radius, search, sort])
 
   const filterPanel = (
     <div className="flex flex-col h-full">
@@ -152,6 +184,50 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
         <div className="flex justify-between text-[10px] text-[var(--t4)] mt-1">
           <span>£0</span><span>£60k+</span>
         </div>
+      </div>
+
+      {/* Postcode proximity */}
+      <div className="mb-4">
+        <label className="label">Near postcode</label>
+        <div className="relative">
+          <input
+            type="text"
+            value={postcode}
+            onChange={e => setPostcode(e.target.value)}
+            placeholder="e.g. B1 1AA"
+            className="input text-[12px] pr-7"
+            maxLength={8}
+          />
+          {postcodeState === 'loading' && (
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-[var(--t4)]">...</span>
+          )}
+          {postcodeState === 'ok' && (
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-green-400">✓</span>
+          )}
+          {postcodeState === 'error' && (
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-red-400">✕</span>
+          )}
+        </div>
+        {postcodeState === 'error' && (
+          <p className="text-[10px] text-red-400 mt-1">Postcode not found</p>
+        )}
+        {postcodeCoords && (
+          <div className="mt-3">
+            <label className="label">Radius: {radius} miles</label>
+            <input
+              type="range"
+              min={5}
+              max={100}
+              step={5}
+              value={radius}
+              onChange={e => setRadius(Number(e.target.value))}
+              className="w-full accent-accent"
+            />
+            <div className="flex justify-between text-[10px] text-[var(--t4)] mt-1">
+              <span>5 mi</span><span>100 mi</span>
+            </div>
+          </div>
+        )}
       </div>
 
       <button
