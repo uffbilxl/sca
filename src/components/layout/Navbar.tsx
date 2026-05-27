@@ -100,44 +100,45 @@ export function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile menu */}
-        {mobileOpen && (
-          <div className="md:hidden border-t border-[var(--b1)] bg-[var(--bg)]/98 backdrop-blur">
-            <div className="px-4 py-2 flex flex-col gap-0.5">
-              {navLinks.map(link => {
-                const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`px-3 py-2.5 text-[14px] rounded-md transition-colors ${
-                      active
-                        ? 'text-[var(--t1)] bg-[var(--bg3)]'
-                        : 'text-[var(--t3)] hover:text-[var(--t2)] hover:bg-[var(--bg3)]'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              })}
-              <div className="h-px bg-[var(--b1)] my-1.5" />
-              <button
-                onClick={() => { setShowReportModal(true); setMobileOpen(false) }}
-                className="px-3 py-2.5 text-[14px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors mb-1"
-              >
-                Report an Issue
-              </button>
-              <button
-                onClick={() => { setShowModal(true); setMobileOpen(false) }}
-                className="px-3 py-2.5 text-[14px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-accent hover:text-accent transition-colors mb-1"
-              >
-                Join the Committee
-              </button>
-            </div>
-          </div>
-        )}
       </header>
+
+      {/* Mobile menu - full screen overlay below header */}
+      {mobileOpen && (
+        <div className="fixed top-[52px] inset-x-0 bottom-0 z-40 md:hidden bg-[var(--bg)] flex flex-col border-t border-[var(--b1)] overflow-y-auto">
+          <div className="px-4 py-3 flex flex-col gap-0.5">
+            {navLinks.map(link => {
+              const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`px-4 py-3 text-[15px] rounded-xl transition-colors ${
+                    active
+                      ? 'text-[var(--t1)] bg-[var(--bg3)]'
+                      : 'text-[var(--t3)] hover:text-[var(--t2)] hover:bg-[var(--bg3)]'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+            <div className="h-px bg-[var(--b1)] my-3" />
+            <button
+              onClick={() => { setShowReportModal(true); setMobileOpen(false) }}
+              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-xl hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors mb-2"
+            >
+              Report an Issue
+            </button>
+            <button
+              onClick={() => { setShowModal(true); setMobileOpen(false) }}
+              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-xl hover:border-accent hover:text-accent transition-colors"
+            >
+              Join the Committee
+            </button>
+          </div>
+        </div>
+      )}
 
       {showModal && <CommitteeModal onClose={() => setShowModal(false)} />}
       {showReportModal && <ReportIssueModal onClose={() => setShowReportModal(false)} />}
