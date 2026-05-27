@@ -154,12 +154,28 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <footer className="px-5 sm:px-10 py-4 sm:py-5 bg-[var(--bg2)] flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-[var(--b1)]">
-        <div className="flex items-center gap-2">
-          <SCALogo size={18} />
-          <span className="text-[11px] text-[var(--t4)]">Student Computing Association · Birmingham City University</span>
+      <footer className="px-5 sm:px-10 py-5 bg-[var(--bg2)] border-t border-[var(--b1)]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3">
+          <div className="flex items-center gap-2">
+            <SCALogo size={18} />
+            <span className="text-[11px] text-[var(--t4)]">Student Computing Association · Birmingham City University</span>
+          </div>
+          <span className="text-[11px] text-[var(--t4)]">© 2025 SCA BCU</span>
         </div>
-        <span className="text-[11px] text-[var(--t4)]">© 2025 SCA BCU</span>
+        <div className="border-t border-[var(--b1)] pt-3 flex flex-col sm:flex-row items-center justify-between gap-1.5">
+          <span className="text-[10px] text-[var(--t4)]">Found a bug or want to report something?</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            {[
+              { name: 'Baber', email: 'baber.khan@mail.bcu.ac.uk' },
+              { name: 'Tayyeb', email: 'tayyeb.nadeemsomro@mail.bcu.ac.uk' },
+              { name: 'Bilal', email: 'bilal.arshad2@mail.bcu.ac.uk' },
+            ].map(c => (
+              <a key={c.email} href={`mailto:${c.email}`} className="text-[10px] text-[var(--t3)] hover:text-accent transition-colors">
+                {c.name} - {c.email}
+              </a>
+            ))}
+          </div>
+        </div>
       </footer>
     </div>
   )
