@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { OPPORTUNITIES } from '@/data/opportunities'
 import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
-import { CommentsSection } from '@/components/comments/CommentsSection'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface Props { params: { slug: string } }
@@ -118,7 +117,6 @@ export default function OpportunityDetailPage({ params }: Props) {
             </div>
           )}
 
-          <CommentsSection opportunityId={opp.id} initialComments={[]} />
         </div>
 
         {/* Sidebar */}
