@@ -26,11 +26,13 @@ const CATEGORIES: Category[] = [
         title: '1-Page CV Template',
         description: 'Clean, concise single-page CV — ideal for internships and graduate roles.',
         pages: '1 page',
+        fileUrl: '/cv-1page.docx',
       },
       {
         title: '2-Page CV Template',
         description: 'Extended format for candidates with more experience or academic projects.',
         pages: '2 pages',
+        fileUrl: '/cv-2page.docx',
       },
     ],
   },
@@ -43,6 +45,7 @@ const CATEGORIES: Category[] = [
       {
         title: 'Cover Letter Template',
         description: 'Professional cover letter structure with guidance on what to include for tech roles.',
+        fileUrl: '/cover-letter.docx',
       },
     ],
   },
@@ -134,13 +137,12 @@ export default function ResourcesPage() {
                   {resource.fileUrl ? (
                     <a
                       href={resource.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      download
                       className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium text-white w-fit transition-opacity hover:opacity-90"
                       style={{ background: cat.color }}
                     >
                       <DownloadIcon />
-                      Download PDF
+                      Download DOCX
                     </a>
                   ) : (
                     <button
@@ -149,7 +151,7 @@ export default function ResourcesPage() {
                       style={{ background: cat.color }}
                     >
                       <DownloadIcon />
-                      Download PDF
+                      Download DOCX
                     </button>
                   )}
                 </div>
