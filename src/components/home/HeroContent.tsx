@@ -87,6 +87,17 @@ export function HeroContent() {
           Upcoming Events
         </Link>
       </motion.div>
+
+      {/* Affiliation disclaimer */}
+      <motion.p
+        custom={4}
+        variants={fadeUp}
+        initial="hidden"
+        animate="show"
+        className="text-[10px] text-[var(--t4)] mt-7 leading-relaxed"
+      >
+        Not linked or affiliated in any way, shape, or form with BCUSU, BCU Computer Science Society, or BCU Cyber Security Society.
+      </motion.p>
     </section>
   )
 }

@@ -47,6 +47,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       <TickerBanner />
+
       <HeroContent />
 
       {/* Featured */}
@@ -146,13 +147,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Disclaimer */}
-      <div className="px-5 sm:px-10 py-3 border-b border-[var(--b1)] bg-[var(--bg)] text-center">
-        <p className="text-[10px] text-[var(--t4)] leading-relaxed">
-          Not linked or affiliated in any way, shape, or form with BCUSU, BCU Computer Science Society, or BCU Cyber Security Society.
-        </p>
-      </div>
-
       {/* Footer */}
       <footer className="px-5 sm:px-10 py-5 bg-[var(--bg2)] border-t border-[var(--b1)]">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3">
@@ -160,7 +154,7 @@ export default function HomePage() {
             <SCALogo size={18} />
             <span className="text-[11px] text-[var(--t4)]">Student Computing Association · Birmingham City University</span>
           </div>
-          <span className="text-[11px] text-[var(--t4)]">© 2025 SCA BCU</span>
+          <span className="text-[11px] text-[var(--t4)]">© 2026 SCA BCU</span>
         </div>
         <div className="border-t border-[var(--b1)] pt-3 flex flex-col sm:flex-row items-center justify-between gap-1.5">
           <span className="text-[10px] text-[var(--t4)]">Found a bug or want to report something?</span>

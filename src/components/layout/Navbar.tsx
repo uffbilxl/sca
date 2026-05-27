@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CommitteeModal } from '@/components/layout/CommitteeModal'
+import { ReportIssueModal } from '@/components/layout/ReportIssueModal'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -17,6 +18,7 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname()
   const [showModal, setShowModal] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
@@ -54,6 +56,12 @@ export function Navbar() {
 
           {/* Desktop right side */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
+            <button
+              onClick={() => setShowReportModal(true)}
+              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors"
+            >
+              Report an Issue
+            </button>
             <button
               onClick={() => setShowModal(true)}
               className="px-3 py-1.5 text-[12px] font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-accent hover:text-accent transition-colors"
@@ -115,6 +123,12 @@ export function Navbar() {
               })}
               <div className="h-px bg-[var(--b1)] my-1.5" />
               <button
+                onClick={() => { setShowReportModal(true); setMobileOpen(false) }}
+                className="px-3 py-2.5 text-[14px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors mb-1"
+              >
+                Report an Issue
+              </button>
+              <button
                 onClick={() => { setShowModal(true); setMobileOpen(false) }}
                 className="px-3 py-2.5 text-[14px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-accent hover:text-accent transition-colors mb-1"
               >
@@ -126,6 +140,7 @@ export function Navbar() {
       </header>
 
       {showModal && <CommitteeModal onClose={() => setShowModal(false)} />}
+      {showReportModal && <ReportIssueModal onClose={() => setShowReportModal(false)} />}
     </>
   )
 }
