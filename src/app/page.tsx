@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { OPPORTUNITIES } from '@/data/opportunities'
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard'
-import { StatsBar } from '@/components/layout/StatsBar'
 import { SCALogo } from '@/components/ui/SCALogo'
 import { TickerBanner } from '@/components/home/TickerBanner'
 import { HeroContent } from '@/components/home/HeroContent'
@@ -15,56 +14,40 @@ function getHomeData() {
   const second = perType.map(arr => arr[1]).filter(Boolean)
   const featured = [...first, ...second].slice(0, 6)
 
-  const totalCount = OPPORTUNITIES.length
-  const openCount = OPPORTUNITIES.filter(o => o.status !== 'CLOSED').length
-  const companiesCount = new Set(OPPORTUNITIES.map(o => o.company.id)).size
-  const now = Date.now()
-  const week = 7 * 24 * 60 * 60 * 1000
-  const deadlineCount = OPPORTUNITIES.filter(o =>
-    o.deadline && +o.deadline >= now && +o.deadline <= now + week
-  ).length
-
-  return { featured, stats: { totalCount, openCount, companiesCount, deadlineCount } }
+  return { featured }
 }
 
-const categories = [
-  { label: 'Internships', type: 'INTERNSHIP', icon: null },
-  { label: 'Placements', type: 'PLACEMENT', icon: null },
-  { label: 'Graduate', type: 'GRADUATE', icon: null },
-  { label: 'Spring Weeks', type: 'SPRING_WEEK', icon: null },
-  { label: 'Events', type: null, href: '/events', icon: null },
+const strands = [
+  { label: 'Opportunities', desc: 'Internships, placements & graduate roles', href: '/opportunities' },
+  { label: 'Events', desc: 'Workshops, panels & networking nights', href: '/events' },
+  { label: 'Resources', desc: 'CV templates, cover letters & guides', href: '/resources' },
+  { label: 'Graduate Roles', desc: 'Life after university starts here', href: '/opportunities?type=GRADUATE' },
+  { label: 'Spring Weeks', desc: 'First & second year programmes', href: '/opportunities?type=SPRING_WEEK' },
+  { label: 'Meet the Committee', desc: 'The people behind the SCA', href: '/committee' },
 ]
 
 const whyItems = [
   {
-    title: 'Built for BCU computing students',
-    text: 'Only tech roles and opportunities relevant to you. No noise, no irrelevant listings to wade through.',
+    title: 'Opportunities curated for you',
+    text: 'Internships, placements, grad schemes and spring weeks - filtered for BCU computing students. No noise, no irrelevant listings.',
   },
   {
-    title: 'Never miss a deadline',
-    text: 'Countdown indicators and status badges on every listing so you know exactly how much time you have.',
+    title: 'Events & community',
+    text: 'Industry panels, workshops, hackathons and networking events. Build connections and skills alongside your degree.',
   },
   {
-    title: 'Peer insights',
-    text: 'Read honest feedback and tips from BCU students who have already applied, interviewed, and got the offer.',
+    title: 'Career support from day one',
+    text: 'CV templates, cover letter guides, and peer insights from BCU students who have already landed the role.',
   },
 ]
 
 export default function HomePage() {
-  const { featured, stats } = getHomeData()
+  const { featured } = getHomeData()
 
   return (
     <div className="min-h-screen">
       <TickerBanner />
       <HeroContent />
-
-      {/* Stats */}
-      <StatsBar
-        total={stats.totalCount}
-        open={stats.openCount}
-        companies={stats.companiesCount}
-        deadlines={stats.deadlineCount}
-      />
 
       {/* Featured */}
       <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
@@ -91,21 +74,24 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* Browse by type */}
+      {/* Strands */}
       <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
         <div className="mb-8">
-          <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-1">Explore</p>
-          <h2 className="text-[16px] font-semibold text-[var(--t1)]">Browse by type</h2>
+          <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-1">Everything we offer</p>
+          <h2 className="text-[16px] font-semibold text-[var(--t1)]">Where do you want to start?</h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          {categories.map(cat => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {strands.map(s => (
             <Link
-              key={cat.label}
-              href={cat.href ?? `/opportunities?type=${cat.type}`}
-              className="group bg-[var(--bg2)] border border-[var(--b1)] rounded-xl px-4 py-6 text-center hover:border-[var(--b3)] hover:bg-[var(--bg3)] transition-all duration-200"
+              key={s.label}
+              href={s.href}
+              className="group bg-[var(--bg2)] border border-[var(--b1)] rounded-xl px-5 py-5 flex items-center justify-between hover:border-[var(--b3)] hover:bg-[var(--bg3)] transition-all duration-200"
             >
-              <div className="text-[11px] font-medium text-[var(--t2)] group-hover:text-[var(--t1)] transition-colors tracking-wide">{cat.label}</div>
-              <div className="mt-2 h-px w-6 bg-[var(--b3)] mx-auto group-hover:bg-accent transition-colors" />
+              <div>
+                <div className="text-[13px] font-semibold text-[var(--t1)] group-hover:text-white transition-colors mb-1">{s.label}</div>
+                <div className="text-[11px] text-[var(--t4)]">{s.desc}</div>
+              </div>
+              <span className="text-[var(--t4)] group-hover:text-accent transition-colors text-[16px] flex-shrink-0 ml-4">→</span>
             </Link>
           ))}
         </div>
@@ -115,7 +101,7 @@ export default function HomePage() {
       <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
         <div className="mb-8">
           <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-1">About</p>
-          <h2 className="text-[16px] font-semibold text-[var(--t1)]">Why use SCA Tracker?</h2>
+          <h2 className="text-[16px] font-semibold text-[var(--t1)]">What the SCA offers</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {whyItems.map((v, i) => (
@@ -137,20 +123,35 @@ export default function HomePage() {
               'radial-gradient(ellipse 60% 80% at 50% 100%, rgba(91,141,245,0.07) 0%, transparent 70%)',
           }}
         />
-        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-4">Get started</p>
+        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-4">Join the community</p>
         <h2 className="text-[28px] font-black tracking-[-0.8px] text-[var(--t1)] mb-3 leading-tight">
-          Deadlines don&apos;t wait.
+          You belong here.
         </h2>
-        <p className="text-[14px] text-[var(--t3)] mb-8 max-w-xs mx-auto leading-relaxed">
-          The best placements and internships fill up fast. Start tracking today.
+        <p className="text-[14px] text-[var(--t3)] mb-8 max-w-sm mx-auto leading-relaxed">
+          Whether you&apos;re in your first year or finishing your degree, the SCA is here to support every step of your journey.
         </p>
-        <Link
-          href="/opportunities"
-          className="inline-flex items-center gap-2 px-7 py-3 bg-[var(--t1)] text-[#090909] text-[13px] font-semibold rounded-xl hover:bg-[#e0e0e0] transition-colors"
-        >
-          Browse all opportunities →
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            href="/opportunities"
+            className="inline-flex items-center gap-2 px-7 py-3 bg-[var(--t1)] text-[#090909] text-[13px] font-semibold rounded-xl hover:bg-[#e0e0e0] transition-colors"
+          >
+            Browse opportunities →
+          </Link>
+          <Link
+            href="/events"
+            className="inline-flex items-center gap-2 px-7 py-3 border border-[var(--b2)] text-[var(--t2)] text-[13px] font-medium rounded-xl hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors"
+          >
+            See upcoming events
+          </Link>
+        </div>
       </section>
+
+      {/* Disclaimer */}
+      <div className="px-5 sm:px-10 py-3 border-b border-[var(--b1)] bg-[var(--bg)] text-center">
+        <p className="text-[10px] text-[var(--t4)] leading-relaxed">
+          Not linked or affiliated in any way, shape, or form with BCUSU, BCU Computer Science Society, or BCU Cyber Security Society.
+        </p>
+      </div>
 
       {/* Footer */}
       <footer className="px-5 sm:px-10 py-4 sm:py-5 bg-[var(--bg2)] flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-[var(--b1)]">

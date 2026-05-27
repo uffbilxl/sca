@@ -1,13 +1,13 @@
 'use client'
 
 const items = [
-  'Google', 'Software Engineering Internship', 'Microsoft', 'Year in Industry',
-  'Amazon', 'Spring Week', 'Goldman Sachs', 'Data Science Placement',
-  'Meta', 'Graduate Scheme', 'Palantir', 'Cyber Security Internship',
-  'JPMorgan', 'Full-Stack Developer Placement', 'Apple', 'Machine Learning Intern',
-  'Deloitte', 'Cloud Engineering Placement', 'KPMG', 'UX Design Internship',
-  'IBM', 'Insight Programme', 'PwC', 'Software Developer Graduate',
-  'Accenture', 'BCU Computing', 'BCG', 'Technology Analyst Internship',
+  'Google', 'Open to all BCU Computing students', 'Amazon', 'Internships & Placements',
+  'Apple', 'Graduate Schemes', 'Cloudflare', 'Spring Weeks & Insight Programmes',
+  'Microsoft', 'Career Events & Workshops', 'Quantinuum', 'CV & Cover Letter Templates',
+  'Arm', 'Networking Opportunities', 'DRW', 'Peer Mentorship',
+  'IBM', 'Built by BCU students, for BCU students', 'Accenture', 'Community first',
+  'Mastercard', 'For every computing student', 'Visa', 'Start your tech career here',
+  'TPP', 'BCU Student Computing Association', 'G-Research', 'From first year to first job',
 ]
 
 export function TickerBanner() {

@@ -24,7 +24,7 @@ const CATEGORIES: Category[] = [
     resources: [
       {
         title: '1-Page CV Template',
-        description: 'Clean, concise single-page CV — ideal for internships and graduate roles.',
+        description: 'Clean, concise single-page CV - ideal for internships and graduate roles.',
         pages: '1 page',
         fileUrl: '/cv-1page.docx',
       },
@@ -93,7 +93,7 @@ export default function ResourcesPage() {
         <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Student Computing Association</p>
         <h1 className="text-[26px] font-black tracking-[-0.6px] text-[var(--t1)] mb-2">Resources</h1>
         <p className="text-[13px] text-[var(--t3)] max-w-lg leading-relaxed">
-          Templates and guides to help you land your next opportunity — CVs, cover letters, and more.
+          Templates and guides to help you land your next opportunity - CVs, cover letters, and more.
         </p>
       </div>
 

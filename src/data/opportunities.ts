@@ -85,32 +85,32 @@ export const OPPORTUNITIES: Opportunity[] = [
     'https://www.amazon.jobs/en-gb/jobs/3143769/associate-solutions-architect-intern-2026', C.AWS, 4),
 
   opp('apple-software-undergrad-engineering-internships', 'Software Undergrad Engineering Internships',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Software Undergrad Engineering Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Software Undergrad Engineering Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
     'INTERNSHIP', 'United Kingdom', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200664785/software-undergrad-engineering-internships', C.Apple, 5),
 
   opp('apple-gpu-internship-platform-architecture', 'GPU Internship - Platform Architecture',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe GPU Internship - Platform Architecture is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Cambridge; London; St Albans.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe GPU Internship - Platform Architecture is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Cambridge; London; St Albans.",
     'INTERNSHIP', 'Cambridge; London; St Albans', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200617616-2114/gpu-internship-platform-architecture', C.Apple, 6),
 
   opp('apple-soc-performance-modeling-internship-platform-architect', 'SoC Performance Modeling Internship - Platform Architecture',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe SoC Performance Modeling Internship - Platform Architecture is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe SoC Performance Modeling Internship - Platform Architecture is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
     'INTERNSHIP', 'London', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200629965-2114/soc-performance-modeling-internship-platform-architecture', C.Apple, 7),
 
   opp('apple-camera-algorithms-intern', 'Camera Algorithms Intern',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Camera Algorithms Intern is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Cambridge.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Camera Algorithms Intern is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Cambridge.",
     'INTERNSHIP', 'Cambridge', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200647028-1251/camera-algorithms-intern?team=HRDWR', C.Apple, 8),
 
   opp('apple-software-engineering-intern-machine-learning-ai-workfl', 'Software Engineering Intern (Machine Learning & AI Workflows)',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Software Engineering Intern (Machine Learning & AI Workflows) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Software Engineering Intern (Machine Learning & AI Workflows) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
     'INTERNSHIP', 'United Kingdom', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200655115-1731/software-engineering-intern-machine-learning-ai-workflows?team=HRDWR', C.Apple, 9),
 
   opp('apple-machine-learning-engineer-nlp-llm-2026-new-grad', 'Machine Learning Engineer - NLP/LLM (2026 New Grad)',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Machine Learning Engineer - NLP/LLM (2026 New Grad) is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Machine Learning Engineer - NLP/LLM (2026 New Grad) is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
     'GRADUATE', 'United Kingdom', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200658046-0351/machine-learning-engineer-nlp-llm-2026-new-grad?team=MLAI', C.Apple, 10),
 
@@ -180,17 +180,17 @@ export const OPPORTUNITIES: Opportunity[] = [
     'https://guggenheim.wd1.myworkdayjobs.com/en-US/Guggenheim_Careers_Campus/job/XMLNAME-2026-Investment-Banking-Intern---Technology---Services--London-_14631', C.Guggenheim, 23),
 
   opp('cloudflare-security-engineer-intern-summer-2026', 'Security Engineer Intern (Summer 2026)',
-    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable — protecting millions of websites and applications worldwide.\n\nThe Security Engineer Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable - protecting millions of websites and applications worldwide.\n\nThe Security Engineer Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
     'INTERNSHIP', 'London', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/cloudflare/jobs/7582169', C.Cloudflare, 24),
 
   opp('cloudflare-grc-team-intern-summer-2026', 'GRC Team Intern (Summer 2026)',
-    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable — protecting millions of websites and applications worldwide.\n\nThe GRC Team Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable - protecting millions of websites and applications worldwide.\n\nThe GRC Team Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
     'INTERNSHIP', 'London', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/cloudflare/jobs/7577564', C.Cloudflare, 25),
 
   opp('axon-2026-uk-software-engineering-internship', '2026 UK Software Engineering Internship',
-    "Axon is a public safety technology company building connected devices and cloud software — including body cameras, TASER, and AI-powered evidence management platforms.\n\nThe 2026 UK Software Engineering Internship is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    "Axon is a public safety technology company building connected devices and cloud software - including body cameras, TASER, and AI-powered evidence management platforms.\n\nThe 2026 UK Software Engineering Internship is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
     'INTERNSHIP', 'London', 'HYBRID', false, false,
     'https://job-boards.greenhouse.io/axontalentcommunity/jobs/7122432003', C.Axon, 26),
 
@@ -270,52 +270,52 @@ export const OPPORTUNITIES: Opportunity[] = [
     'https://hp.wd5.myworkdayjobs.com/en-US/ExternalCareerSite/job/Cambridge-Cambridgeshire-United-Kingdom/Graduate-Software-Developer--C----2-year-Placement_3156191-1/apply/autofillWithResume?source=MyGWorks', C.HP, 41),
 
   opp('graphcore-intern-research', 'Intern - Research',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe Intern - Research is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Bristol; Cambridge; London.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe Intern - Research is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in Bristol; Cambridge; London.",
     'INTERNSHIP', 'Bristol; Cambridge; London', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8287389002', C.Graphcore, 42),
 
   opp('graphcore-2026-graduate-machine-learning-engineer-applied-ai', '2026 Graduate Machine Learning Engineer - Applied AI',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Machine Learning Engineer - Applied AI is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Machine Learning Engineer - Applied AI is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8234675002', C.Graphcore, 43),
 
   opp('graphcore-2026-graduate-it-infrastructure-engineer', '2026 Graduate IT Infrastructure Engineer',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate IT Infrastructure Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate IT Infrastructure Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8425273002', C.Graphcore, 44),
 
   opp('graphcore-2026-graduate-firmware-engineer', '2026 Graduate Firmware Engineer',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Firmware Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Firmware Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8238597002', C.Graphcore, 45),
 
   opp('graphcore-2026-graduate-software-engineer-drivers', '2026 Graduate Software Engineer - Drivers',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - Drivers is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - Drivers is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8238605002', C.Graphcore, 46),
 
   opp('graphcore-2026-graduate-software-engineer-analysis-tools', '2026 Graduate Software Engineer - Analysis Tools',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - Analysis Tools is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - Analysis Tools is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8420657002', C.Graphcore, 47),
 
   opp('graphcore-2026-graduate-software-engineer-ml-kernels-runtime', '2026 Graduate Software Engineer - ML Kernels & Runtime Team',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - ML Kernels & Runtime Team is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - ML Kernels & Runtime Team is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8230202002', C.Graphcore, 48),
 
   opp('graphcore-2026-graduate-software-engineer-triton', '2026 Graduate Software Engineer - Triton',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - Triton is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - Triton is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8238577002', C.Graphcore, 49),
 
   opp('graphcore-2026-graduate-software-engineer-ai-ml-test-systems', '2026 Graduate Software Engineer - AI/ML Test Systems',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - AI/ML Test Systems is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - AI/ML Test Systems is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8245655002', C.Graphcore, 50),
 
   opp('graphcore-2026-graduate-software-engineer-devops', '2026 Graduate Software Engineer - DevOps',
-    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) — processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - DevOps is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
+    "Graphcore is a Bristol-based AI chip company building Intelligence Processing Units (IPUs) - processors designed from the ground up for machine intelligence workloads.\n\nThe 2026 Graduate Software Engineer - DevOps is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Bristol.",
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8282735002', C.Graphcore, 51),
 
@@ -355,27 +355,27 @@ export const OPPORTUNITIES: Opportunity[] = [
     'https://amazon.jobs/en/jobs/3110268/2026-data-center-technician-intern', C.AWS, 63),
 
   opp('apple-software-engineering-masters-internships', 'Software Engineering Masters Internships',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Software Engineering Masters Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Software Engineering Masters Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
     'INTERNSHIP', 'United Kingdom', 'HYBRID', false, false,
     'https://jobs.apple.com/en-gb/details/200664320/software-engineering-masters-internships', C.Apple, 64),
 
   opp('apple-hardware-undergrad-engineering-internships', 'Hardware Undergrad Engineering Internships',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Hardware Undergrad Engineering Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Hardware Undergrad Engineering Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
     'INTERNSHIP', 'United Kingdom', 'HYBRID', false, false,
     'https://jobs.apple.com/en-gb/details/200663981-3810/hardware-undergrad-engineering-internships?team=STDNT', C.Apple, 65),
 
   opp('apple-machine-learning-ai-undergrad-internships', 'Machine Learning and Artificial Intelligence Undergrad Internships',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Machine Learning and Artificial Intelligence Undergrad Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Machine Learning and Artificial Intelligence Undergrad Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
     'INTERNSHIP', 'United Kingdom', 'HYBRID', true, false,
     'https://jobs.apple.com/en-gb/details/200664780-3810/machine-learning-and-artificial-intelligence-undergrad-internships?team=STDNT', C.Apple, 66),
 
   opp('apple-engineering-program-management-undergrad-internships', 'Engineering Program Management Undergrad Internships',
-    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology — from iPhone to Mac to Apple Silicon.\n\nThe Engineering Program Management Undergrad Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
+    "Apple is one of the world's most innovative technology companies, designing hardware, software, and services that define consumer technology - from iPhone to Mac to Apple Silicon.\n\nThe Engineering Program Management Undergrad Internships is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in United Kingdom.",
     'INTERNSHIP', 'United Kingdom', 'HYBRID', false, false,
     'https://jobs.apple.com/en-gb/details/200664330-3810/engineering-program-management-undergrad-internships', C.Apple, 67),
 
   opp('cloudflare-technical-support-engineer-intern-summer-2026', 'Technical Support Engineer Intern (Summer 2026)',
-    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable — protecting millions of websites and applications worldwide.\n\nThe Technical Support Engineer Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
+    "Cloudflare is a global cloud services provider making the internet faster, more secure, and more reliable - protecting millions of websites and applications worldwide.\n\nThe Technical Support Engineer Intern (Summer 2026) is a paid internship where you will embed in a working team, tackle real technical challenges, and build the practical skills and network that top employers look for.\n\nBased in London.",
     'INTERNSHIP', 'London', 'HYBRID', false, false,
     'https://job-boards.greenhouse.io/cloudflare/jobs/7726879', C.Cloudflare, 68),
 
@@ -415,7 +415,7 @@ export const OPPORTUNITIES: Opportunity[] = [
     'https://dxctechnology.wd1.myworkdayjobs.com/en-US/DXCJobs/job/GBR---ENG---LONDON/DXC-Graduate-Programme-2026_51567282', C.DXC, 75),
 
   opp('motorola-solutions-graduate-software-engineer', 'Graduate Software Engineer',
-    "Motorola Solutions is a global leader in mission-critical communications technology — building radios, body cameras, software, and AI-powered video security for public safety organisations.\n\nThe Graduate Software Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
+    "Motorola Solutions is a global leader in mission-critical communications technology - building radios, body cameras, software, and AI-powered video security for public safety organisations.\n\nThe Graduate Software Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in United Kingdom.",
     'GRADUATE', 'United Kingdom', 'HYBRID', false, false,
     'https://motorolasolutions.wd5.myworkdayjobs.com/en-US/Careers/job/Graduate-Software-Engineer_R62287', C.Motorola, 76),
 

@@ -3,7 +3,7 @@ import { eventTypeLabel, spotsLeft } from '@/lib/utils'
 import { RegisterButton } from '@/components/events/RegisterButton'
 import type { SCAEvent } from '@/types'
 
-// Add events here — same pattern as src/data/opportunities.ts
+// Add events here - same pattern as src/data/opportunities.ts
 const EVENTS: SCAEvent[] = [
   // {
   //   id: 'example-event',

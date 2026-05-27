@@ -170,7 +170,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
   const placements = opportunities.filter(o => o.type === 'PLACEMENT').length
 
   const tickerItems = [
-    { text: `We aim to provide as many opportunities as possible, but we will not promote defence companies — BCUSCA`, highlight: true },
+    { text: `We aim to provide as many opportunities as possible, but we will not promote defence companies - BCUSCA`, highlight: true },
     { text: `${totalOpen} opportunities currently open` },
     { text: `Roles from ${companies} companies across the UK` },
     { text: `${internships} internships · ${placements} placements · ${graduates} graduate roles` },
@@ -189,6 +189,21 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
             </span>
           ))}
         </div>
+      </div>
+
+      {/* Mini stats strip */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-[var(--b1)] bg-[var(--bg2)]">
+        {[
+          { n: totalOpen, l: 'Opportunities' },
+          { n: internships, l: 'Internships' },
+          { n: graduates, l: 'Graduate Roles' },
+          { n: companies, l: 'Companies' },
+        ].map((s, i) => (
+          <div key={i} className={`py-4 text-center ${i < 3 ? 'border-r border-[var(--b1)]' : ''} ${i < 2 ? 'border-b sm:border-b-0 border-[var(--b1)]' : ''}`}>
+            <div className="text-[20px] font-black text-[var(--t1)] tabular-nums">{s.n}</div>
+            <div className="text-[9px] text-[var(--t4)] uppercase tracking-[0.12em] mt-0.5">{s.l}</div>
+          </div>
+        ))}
       </div>
 
       <div className="flex flex-1">

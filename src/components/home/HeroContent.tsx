@@ -44,10 +44,10 @@ export function HeroContent() {
         animate="show"
         className="text-[38px] sm:text-[52px] font-black tracking-[-2px] leading-[1.05] text-[var(--t1)] mb-4"
       >
-        Find Your Next
+        Your BCU Computing
         <br />
         <span className="font-light tracking-[-1px] text-[var(--t2)]">
-          Tech Opportunity
+          Community & Career Hub
         </span>
       </motion.h1>
 
@@ -57,18 +57,19 @@ export function HeroContent() {
         variants={fadeUp}
         initial="hidden"
         animate="show"
-        className="text-[14px] sm:text-[15px] text-[var(--t2)] font-normal max-w-[420px] mx-auto mb-10 leading-[1.7]"
+        className="text-[14px] sm:text-[15px] text-[var(--t2)] font-normal max-w-[480px] mx-auto mb-10 leading-[1.7]"
       >
-        Internships, placements, grad roles, spring weeks and events,{' '}
-        <span className="text-[var(--t1)] font-medium">curated for BCU computing students.</span>
+        From your first year to landing your first role - events, resources, opportunities, and a{' '}
+        <span className="text-[var(--t1)] font-medium">community built for every BCU computing student.</span>
       </motion.p>
 
-      {/* CTA */}
+      {/* CTAs */}
       <motion.div
         custom={3}
         variants={fadeUp}
         initial="hidden"
         animate="show"
+        className="flex flex-col sm:flex-row items-center justify-center gap-3"
       >
         <Link
           href="/opportunities"
@@ -78,6 +79,12 @@ export function HeroContent() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
+        </Link>
+        <Link
+          href="/events"
+          className="inline-flex items-center gap-2 px-7 py-3.5 border border-[var(--b2)] text-[var(--t2)] text-[14px] font-medium rounded-2xl hover:border-[var(--b3)] hover:text-[var(--t1)] transition-all duration-200"
+        >
+          Upcoming Events
         </Link>
       </motion.div>
     </section>

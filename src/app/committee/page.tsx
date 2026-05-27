@@ -18,7 +18,7 @@ interface Division {
 
 // ─── Committee data ──────────────────────────────────────────────────────────
 // LinkedIn: set the `linkedin` field to the full profile URL for each member
-// Website (paperclip): set the `website` field — only Tayyeb, Bilal, and Baber have this
+// Website (paperclip): set the `website` field - only Tayyeb, Bilal, and Baber have this
 
 const LEADERSHIP: Member[] = [
   {
@@ -360,7 +360,7 @@ export default function CommitteePage() {
                 <span className="text-[11px] text-[var(--t4)] ml-auto">{activeDivision.members.length} members</span>
               </div>
 
-              {/* Member cards — VPs shown in leadership above, so skip index 0 */}
+              {/* Member cards - VPs shown in leadership above, so skip index 0 */}
               <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
                 style={{ background: 'var(--bg2)' }}>
                 {activeDivision.members.slice(1).map((member, i) => (

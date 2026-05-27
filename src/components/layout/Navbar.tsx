@@ -11,6 +11,7 @@ const navLinks = [
   { href: '/events', label: 'Events' },
   { href: '/committee', label: 'Committee' },
   { href: '/resources', label: 'Resources' },
+  { href: '/about', label: 'About' },
 ]
 
 export function Navbar() {
@@ -26,7 +27,7 @@ export function Navbar() {
           <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-4 flex-shrink-0 mr-2">
             <div className="flex flex-col leading-none">
               <span className="text-[18px] font-black text-[var(--t1)] tracking-tight">SCA</span>
-              <span className="text-[8.5px] font-normal text-[var(--t3)] tracking-wide mt-[2px]">Birmingham City University</span>
+              <span className="text-[8.5px] font-normal text-[var(--t2)] tracking-wide mt-[2px]">Birmingham City University</span>
             </div>
             <div className="w-px h-7 bg-[var(--b2)]" />
           </Link>
