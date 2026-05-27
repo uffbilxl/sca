@@ -163,8 +163,26 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
     </div>
   )
 
+  const tickerText = "we aim to provide as many opportunities as possible, but we will not promote defence companies — BCUSCA"
+  const tickerItem = (
+    <span className="flex items-center gap-8 px-8 whitespace-nowrap text-[11px] font-medium text-amber-400">
+      {tickerText}
+      <span className="text-amber-600">◆</span>
+    </span>
+  )
+
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col min-h-screen">
+      {/* Disclaimer ticker */}
+      <div className="w-full overflow-hidden border-b border-amber-500/20 bg-amber-500/5 py-2">
+        <div className="ticker-track flex w-max">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span key={i}>{tickerItem}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-1">
       {/* Desktop sidebar */}
       <aside className="hidden md:block w-[240px] flex-shrink-0 border-r border-[var(--b1)] bg-[var(--bg2)] p-5 sticky top-[52px] self-start max-h-[calc(100vh-52px)] overflow-y-auto">
         {filterPanel}
@@ -247,6 +265,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   )

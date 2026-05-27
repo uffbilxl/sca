@@ -48,7 +48,6 @@ const C = {
   AVEVA:      co('AVEVA',                        'https://www.google.com/s2/favicons?domain=aveva.com&sz=256',                 'https://www.aveva.com'),
   HP:         co('HP',                           'https://www.google.com/s2/favicons?domain=hp.com&sz=256',                    'https://www.hp.com/gb-en'),
   Graphcore:  co('Graphcore',                    'https://www.google.com/s2/favicons?domain=graphcore.ai&sz=256',              'https://www.graphcore.ai'),
-  BAE:        co('BAE Systems',                  'https://www.google.com/s2/favicons?domain=baesystems.com&sz=256',            'https://www.baesystems.com/en-uk'),
   TPP:        co('TPP',                          'https://media.licdn.com/dms/image/v2/D4E0BAQHrF5WnLhhi8g/company-logo_200_200/B4EZfFOF7bHwAI-/0/1751360496561/the_phoenix_partnership_tpp__logo?e=2147483647&v=beta&t=T1HmYFQOD_LCRd_yfDY_VdQgiQhQzgG6Th95g0vOhpY', 'https://tpp-careers.com'),
   PG:         co('Procter & Gamble',             'https://www.google.com/s2/favicons?domain=pg.co.uk&sz=256',                 'https://www.pg.co.uk'),
   DRW:        co('DRW',                          'https://www.google.com/s2/favicons?domain=drw.com&sz=256',                  'https://drw.com'),
@@ -320,31 +319,6 @@ export const OPPORTUNITIES: Opportunity[] = [
     'GRADUATE', 'Bristol', 'HYBRID', true, false,
     'https://job-boards.greenhouse.io/graphcore/jobs/8282735002', C.Graphcore, 51),
 
-  opp('bae-systems-national-security-cyber-accelerator', 'National Security Cyber Accelerator',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe National Security Cyber Accelerator is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Gloucester; Manchester.",
-    'GRADUATE', 'Gloucester; Manchester', 'HYBRID', true, false,
-    'https://jobsearch.baesystems.com/job/national-security-cyber-accelerator-122986', C.BAE, 52),
-
-  opp('bae-systems-graduate-software-engineer', 'Graduate Software Engineer',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Software Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Christchurch.",
-    'GRADUATE', 'Christchurch', 'HYBRID', true, false,
-    'https://jobsearch.baesystems.com/job/graduate-software-engineer-v05928-10397', C.BAE, 53),
-
-  opp('bae-systems-graduate-information-management-technology', 'Graduate Information Management & Technology',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Information Management & Technology is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Barrow-in-Furness.",
-    'GRADUATE', 'Barrow-in-Furness', 'HYBRID', true, false,
-    'https://jobsearch.baesystems.com/job/graduate-information-management-technology-v05923-10395', C.BAE, 54),
-
-  opp('bae-systems-graduate-computing-and-it-engineer', 'Graduate Computing and IT Engineer',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Computing and IT Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Frimley.",
-    'GRADUATE', 'Frimley', 'HYBRID', true, false,
-    'https://jobsearch.baesystems.com/job/graduate-computing-and-it-engineer-v05900-10384', C.BAE, 55),
-
-  opp('bae-systems-graduate-systems-engineer', 'Graduate Systems Engineer',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Systems Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Broad Oak.",
-    'GRADUATE', 'Broad Oak', 'HYBRID', true, false,
-    'https://jobsearch.baesystems.com/job/graduate-systems-engineer-v05857-10184', C.BAE, 56),
-
   opp('tpp-graduate-software-developer', 'Graduate Software Developer',
     "TPP (The Phoenix Partnership) is a UK health IT company that builds clinical software used across primary care, pharmacy, social care, and community healthcare settings.\n\nThe Graduate Software Developer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Leeds.",
     'GRADUATE', 'Leeds', 'HYBRID', false, false,
@@ -450,43 +424,4 @@ export const OPPORTUNITIES: Opportunity[] = [
     'INSIGHT', 'London; Edinburgh', 'HYBRID', true, false,
     'https://jobs.natwestgroup.com/jobs/17568644-tech-insight-experience-for-women-engineering', C.NatWest, 77),
 
-  opp('bae-systems-graduate-data-consultant-frimley', 'Graduate Data Consultant - Frimley',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Consultant - Frimley is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Frimley.",
-    'GRADUATE', 'Frimley', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-data-consultant-123034', C.BAE, 78),
-
-  opp('bae-systems-graduate-data-researcher', 'Graduate Data Researcher',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Researcher is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Great Baddow; Chelmsford.",
-    'GRADUATE', 'Great Baddow; Chelmsford', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-data-researcher-123005', C.BAE, 79),
-
-  opp('bae-systems-graduate-software-engineer-frimley', 'Graduate Software Engineer - Frimley',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Software Engineer - Frimley is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Frimley.",
-    'GRADUATE', 'Frimley', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-software-engineer-123033', C.BAE, 80),
-
-  opp('bae-systems-graduate-security-consultant-london', 'Graduate Security Consultant - London',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Security Consultant - London is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in London.",
-    'GRADUATE', 'London', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-security-consultant-123006', C.BAE, 81),
-
-  opp('bae-systems-graduate-data-consultant-broad-oak', 'Graduate Data Consultant - Broad Oak',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Consultant - Broad Oak is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Broad Oak; Portsmouth.",
-    'GRADUATE', 'Broad Oak; Portsmouth', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-data-consultant-v05944-10401', C.BAE, 82),
-
-  opp('bae-systems-graduate-network-engineer', 'Graduate Network Engineer',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Network Engineer is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Yeovil.",
-    'GRADUATE', 'Yeovil', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-network-engineer-v05946-10403', C.BAE, 83),
-
-  opp('bae-systems-graduate-data-engineer-london', 'Graduate Data Engineer - London',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Data Engineer - London is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in London.",
-    'GRADUATE', 'London', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-data-engineer-123012', C.BAE, 84),
-
-  opp('bae-systems-graduate-software-engineer-leeds', 'Graduate Software Engineer - Leeds',
-    "BAE Systems is the UK's largest defence contractor, developing advanced technology for air, maritime, land, cyber, and space domains for governments worldwide.\n\nThe Graduate Software Engineer - Leeds is a structured early-career programme designed to accelerate your professional development through real responsibility, dedicated mentorship, and exposure to cutting-edge work.\n\nBased in Leeds.",
-    'GRADUATE', 'Leeds', 'HYBRID', false, false,
-    'https://jobsearch.baesystems.com/job/graduate-software-engineer-123013', C.BAE, 85),
 ]
