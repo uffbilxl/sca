@@ -163,21 +163,30 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
     </div>
   )
 
-  const tickerText = "we aim to provide as many opportunities as possible, but we will not promote defence companies — BCUSCA"
-  const tickerItem = (
-    <span className="flex items-center gap-8 px-8 whitespace-nowrap text-[11px] font-medium text-amber-400">
-      {tickerText}
-      <span className="text-amber-600">◆</span>
-    </span>
-  )
+  const totalOpen = opportunities.length
+  const companies = new Set(opportunities.map(o => o.company.name)).size
+  const internships = opportunities.filter(o => o.type === 'INTERNSHIP').length
+  const graduates = opportunities.filter(o => o.type === 'GRADUATE').length
+  const placements = opportunities.filter(o => o.type === 'PLACEMENT').length
+
+  const tickerItems = [
+    { text: `We aim to provide as many opportunities as possible, but we will not promote defence companies — BCUSCA`, highlight: true },
+    { text: `${totalOpen} opportunities currently open` },
+    { text: `Roles from ${companies} companies across the UK` },
+    { text: `${internships} internships · ${placements} placements · ${graduates} graduate roles` },
+    { text: `Updated regularly with the latest UK tech opportunities` },
+  ]
+  const sep = <span className="text-[var(--b3)] mx-6">◆</span>
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Disclaimer ticker */}
-      <div className="w-full overflow-hidden border-b border-amber-500/20 bg-amber-500/5 py-2">
+      <div className="w-full overflow-hidden border-b border-[var(--b1)] bg-[var(--bg2)] py-2">
         <div className="ticker-track flex w-max">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i}>{tickerItem}</span>
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <span key={i} className={`flex items-center whitespace-nowrap text-[11px] font-medium ${item.highlight ? 'text-amber-400' : 'text-[var(--t3)]'}`}>
+              {sep}{item.text}
+            </span>
           ))}
         </div>
       </div>
