@@ -63,8 +63,7 @@ const DIVISIONS: Division[] = [
     name: 'Computer Science',
     color: '#f59e0b',
     members: [
-      { name: 'Azka Hussain', role: 'VP Computer Science', linkedin: '' },
-      { name: 'Alaa Aljasem', role: 'Secretary of Computer Science', linkedin: 'https://www.linkedin.com/in/alaa-aljasem-b816b83aa/' },
+      { name: 'Alaa Aljasem', role: 'VP Computer Science', linkedin: 'https://www.linkedin.com/in/alaa-aljasem-b816b83aa/' },
       { name: 'Jasleen Kaur', role: 'Events Assistant', linkedin: 'https://www.linkedin.com/in/jasleen-kaur-269367387/' },
     ],
   },
