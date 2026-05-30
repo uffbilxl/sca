@@ -1,5 +1,3 @@
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -28,31 +26,31 @@ model Tag {
 }
 
 model Opportunity {
-  id           String           @id @default(cuid())
-  title        String
-  slug         String           @unique
-  description  String
-  requirements String?
+  id               String           @id @default(cuid())
+  title            String
+  slug             String           @unique
+  description      String
+  requirements     String?
   responsibilities String?
-  type         OpportunityType
-  location     String
-  workMode     WorkMode         @default(HYBRID)
-  salary       String?
-  salaryMin    Int?
-  salaryMax    Int?
-  deadline     DateTime?
-  startDate    String?
-  duration     String?
-  sponsored    Boolean          @default(false)
-  featured     Boolean          @default(false)
-  status       Status           @default(OPEN)
-  applyUrl     String?
-  companyId    String
-  company      Company          @relation(fields: [companyId], references: [id])
-  tags         OpportunityTag[]
-  comments     Comment[]
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  type             OpportunityType
+  location         String
+  workMode         WorkMode         @default(HYBRID)
+  salary           String?
+  salaryMin        Int?
+  salaryMax        Int?
+  deadline         DateTime?
+  startDate        String?
+  duration         String?
+  sponsored        Boolean          @default(false)
+  featured         Boolean          @default(false)
+  status           Status           @default(OPEN)
+  applyUrl         String?
+  companyId        String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  comments         Comment[]
+  company          Company          @relation(fields: [companyId], references: [id])
+  tags             OpportunityTag[]
 }
 
 model OpportunityTag {
@@ -60,23 +58,24 @@ model OpportunityTag {
   tagId         String
   opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
   tag           Tag         @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
   @@id([opportunityId, tagId])
 }
 
 model Event {
-  id          String      @id @default(cuid())
-  title       String
-  description String?
-  location    String
-  isOnline    Boolean     @default(false)
-  date        DateTime
-  endDate     DateTime?
-  spots       Int?
-  registrations Int       @default(0)
+  id              String    @id @default(cuid())
+  title           String
+  description     String?
+  location        String
+  isOnline        Boolean   @default(false)
+  date            DateTime
+  endDate         DateTime?
+  spots           Int?
+  registrations   Int       @default(0)
   registrationUrl String?
-  type        EventType   @default(WORKSHOP)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  type            EventType @default(WORKSHOP)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model Comment {
@@ -87,8 +86,8 @@ model Comment {
   approved      Boolean     @default(false)
   pinned        Boolean     @default(false)
   opportunityId String
-  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
   createdAt     DateTime    @default(now())
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
 }
 
 model Feedback {
