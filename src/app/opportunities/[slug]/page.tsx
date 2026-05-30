@@ -1,29 +1,24 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
+import { OPPORTUNITIES } from '@/data/opportunities'
 import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface Props { params: { slug: string } }
 
-export const dynamic = 'force-dynamic'
+export function generateStaticParams() {
+  return OPPORTUNITIES.map(o => ({ slug: o.slug }))
+}
 
-export default async function OpportunityDetailPage({ params }: Props) {
-  const opp = await prisma.opportunity.findUnique({
-    where: { slug: params.slug },
-    include: { company: true, tags: { include: { tag: true } } },
-  })
+export default function OpportunityDetailPage({ params }: Props) {
+  const opp = OPPORTUNITIES.find(o => o.slug === params.slug)
   if (!opp) notFound()
 
-  const related = await prisma.opportunity.findMany({
-    where: {
-      slug: { not: params.slug },
-      status: { not: 'CLOSED' },
-      OR: [{ type: opp.type }, { companyId: opp.companyId }],
-    },
-    include: { company: true, tags: { include: { tag: true } } },
-    take: 3,
-  })
+  const related = OPPORTUNITIES.filter(o =>
+    o.slug !== params.slug &&
+    (o.type === opp.type || o.company.id === opp.company.id) &&
+    o.status !== 'CLOSED'
+  ).slice(0, 3)
 
   const ds = deadlineStatus(opp.deadline)
 

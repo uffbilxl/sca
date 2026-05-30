@@ -1,9 +1,20 @@
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
+import { OPPORTUNITIES } from '@/data/opportunities'
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard'
 import { SCALogo } from '@/components/ui/SCALogo'
 import { TickerBanner } from '@/components/home/TickerBanner'
 import { HeroContent } from '@/components/home/HeroContent'
+
+function getHomeData() {
+  const types = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK'] as const
+  const perType = types.map(t =>
+    OPPORTUNITIES.filter(o => o.featured && o.status !== 'CLOSED' && o.type === t).slice(0, 2)
+  )
+  const first = perType.map(arr => arr[0]).filter(Boolean)
+  const second = perType.map(arr => arr[1]).filter(Boolean)
+  const featured = [...first, ...second].slice(0, 6)
+  return { featured }
+}
 
 const strands = [
   { label: 'Opportunities', desc: 'Internships, placements & graduate roles', href: '/opportunities' },
@@ -29,13 +40,8 @@ const whyItems = [
   },
 ]
 
-export default async function HomePage() {
-  const featured = await prisma.opportunity.findMany({
-    where: { featured: true, status: { not: 'CLOSED' } },
-    orderBy: { createdAt: 'desc' },
-    take: 6,
-    include: { company: true, tags: { include: { tag: true } } },
-  })
+export default function HomePage() {
+  const { featured } = getHomeData()
 
   return (
     <div className="min-h-screen">
