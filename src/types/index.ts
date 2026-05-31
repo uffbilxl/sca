@@ -65,6 +65,7 @@ export interface SCAEvent {
   registrations: number
   registrationUrl: string | null
   type: EventType
+  poster?: string | null
 }
 
 export interface FilterState {
