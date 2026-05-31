@@ -119,17 +119,34 @@ export default function SCAOpportunitiesPage() {
 
         {/* Footer / CTA */}
         <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-[11px] text-[var(--t4)]">
-            Summer pilot · Official launch September 2026
-          </p>
-          <a
-            href="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=VeArfoqCI0W15bd62ZOXhXzJrZmCHBlEj4k_jYn1UyZUNjFMRjc3OVRDRk1XQkVBVUdRUVlXTzdYNi4u"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-accent-hover transition-colors"
-          >
-            Apply now →
-          </a>
+          <div className="flex flex-col gap-0.5">
+            <p className="text-[11px] text-[var(--t4)]">Summer pilot · Official launch September 2026</p>
+            <div className="flex items-center gap-1.5 text-[11px] text-[var(--t4)]">
+              <span>Organiser:</span>
+              <a
+                href="mailto:Mohamed.Dahir@mail.bcu.ac.uk"
+                className="text-accent hover:underline font-medium"
+              >
+                Mohamed Dahir
+              </a>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <a
+              href="mailto:Mohamed.Dahir@mail.bcu.ac.uk"
+              className="inline-flex items-center gap-1.5 px-4 py-2 border border-[var(--b2)] rounded-xl text-[12px] text-[var(--t2)] font-medium hover:bg-[var(--bg3)] transition-colors"
+            >
+              Contact organiser
+            </a>
+            <a
+              href="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=VeArfoqCI0W15bd62ZOXhXzJrZmCHBlEj4k_jYn1UyZUNjFMRjc3OVRDRk1XQkVBVUdRUVlXTzdYNi4u"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-accent-hover transition-colors"
+            >
+              Apply now →
+            </a>
+          </div>
         </div>
       </div>
     </div>
