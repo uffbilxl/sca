@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     apple: '/sca-logo.png',
   },
   openGraph: {
-    title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer!',
+    title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer.',
     description: 'From your first lecture to your first offer.',
     type: 'website',
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer!',
+    title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer.',
     description: 'From your first lecture to your first offer.',
     images: ['/sca-logo.png'],
   },
