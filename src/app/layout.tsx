@@ -6,13 +6,31 @@ import { AnimatedBackground } from '@/components/layout/AnimatedBackground'
 import { PageTransition } from '@/components/layout/PageTransition'
 
 export const metadata: Metadata = {
-  title: 'SCA Opportunities Tracker | BCU Student Computing Association',
-  description: 'Internships, placements, graduate roles, spring weeks and events curated for computing students at Birmingham City University.',
+  title: 'BCUSCA - Student Computing Association',
+  description: 'With you from your first lecture to your first offer.',
   keywords: ['internship', 'placement', 'graduate', 'BCU', 'computing', 'tech', 'SCA'],
+  icons: {
+    icon: '/sca-logo.png',
+    apple: '/sca-logo.png',
+  },
   openGraph: {
-    title: 'SCA Opportunities Tracker',
-    description: 'Find your next tech opportunity, built for BCU computing students.',
+    title: 'BCUSCA - Student Computing Association: With you From your first lecture to your first offer!',
+    description: 'With you from your first lecture to your first offer.',
     type: 'website',
+    images: [
+      {
+        url: '/sca-logo.png',
+        width: 1080,
+        height: 1080,
+        alt: 'BCU Student Computing Association',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'BCUSCA - Student Computing Association: With you From your first lecture to your first offer!',
+    description: 'With you from your first lecture to your first offer.',
+    images: ['/sca-logo.png'],
   },
 }
 
