@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { eventTypeLabel, spotsLeft } from '@/lib/utils'
@@ -23,15 +23,46 @@ const EVENTS: SCAEvent[] = [
   },
 ]
 
+function useCountdown(target: Date | null) {
+  const [diff, setDiff] = useState(() => (target ? Math.max(0, +target - Date.now()) : 0))
+  useEffect(() => {
+    if (!target) return
+    const id = setInterval(() => setDiff(Math.max(0, +target - Date.now())), 1000)
+    return () => clearInterval(id)
+  }, [target])
+  return {
+    days:  Math.floor(diff / 86400000),
+    hours: Math.floor((diff % 86400000) / 3600000),
+    mins:  Math.floor((diff % 3600000) / 60000),
+    secs:  Math.floor((diff % 60000) / 1000),
+    over:  diff === 0,
+  }
+}
+
+function CountdownUnit({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <div className="w-[54px] sm:w-[62px] h-[54px] sm:h-[62px] rounded-xl bg-[var(--bg3)] border border-[var(--b2)] flex items-center justify-center">
+        <span className="text-[24px] sm:text-[28px] font-black text-[var(--t1)] tabular-nums leading-none">
+          {String(value).padStart(2, '0')}
+        </span>
+      </div>
+      <span className="text-[9px] font-semibold uppercase tracking-widest text-[var(--t4)]">{label}</span>
+    </div>
+  )
+}
+
 export default function EventsPage() {
   const now = new Date()
   const upcoming = EVENTS.filter(e => e.date >= now).sort((a, b) => +a.date - +b.date)
-  const past = EVENTS.filter(e => e.date < now).sort((a, b) => +b.date - +a.date)
+  const past     = EVENTS.filter(e => e.date < now).sort((a, b) => +b.date - +a.date)
 
   const [tab, setTab] = useState<'upcoming' | 'past'>('upcoming')
   const [posterSrc, setPosterSrc] = useState<string | null>(null)
 
-  const list = tab === 'upcoming' ? upcoming : past
+  const list      = tab === 'upcoming' ? upcoming : past
+  const nextEvent = upcoming[0] ?? null
+  const countdown = useCountdown(nextEvent?.date ?? null)
 
   return (
     <div className="max-w-[860px] mx-auto px-4 sm:px-8 py-5 sm:py-7">
@@ -41,6 +72,66 @@ export default function EventsPage() {
         <p className="text-[12px] text-[var(--t4)] mt-1">Workshops, talks, networking and career events for BCU computing students.</p>
       </div>
 
+      {/* Countdown hero — only shown for the next upcoming event */}
+      {nextEvent && !countdown.over && (
+        <div className="relative mb-6 rounded-2xl overflow-hidden border border-accent/20">
+          <div className="absolute inset-0 bg-[#171d30]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_0%_0%,rgba(91,141,245,0.18),transparent)]" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle,rgba(124,92,245,0.08),transparent_70%)]" />
+
+          <div className="relative px-5 sm:px-8 py-6 sm:py-8">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-accent">Next Event</span>
+            </div>
+
+            <h2 className="text-[22px] sm:text-[28px] font-black text-[var(--t1)] leading-tight text-balance mb-2">
+              {nextEvent.title}
+            </h2>
+
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-[var(--t3)] mb-6">
+              <span>{format(nextEvent.date, 'EEEE, d MMMM yyyy')}</span>
+              <span>◷ {format(nextEvent.date, 'h:mm a')}{nextEvent.endDate ? ` – ${format(nextEvent.endDate, 'h:mm a')}` : ''}</span>
+              <span>{nextEvent.isOnline ? '⊕' : '◎'} {nextEvent.location}</span>
+            </div>
+
+            {/* Countdown units */}
+            <div className="flex items-end gap-2 sm:gap-3 mb-6">
+              <CountdownUnit value={countdown.days}  label="Days"  />
+              <span className="text-[20px] font-black text-[var(--b3)] mb-[18px] select-none">:</span>
+              <CountdownUnit value={countdown.hours} label="Hours" />
+              <span className="text-[20px] font-black text-[var(--b3)] mb-[18px] select-none">:</span>
+              <CountdownUnit value={countdown.mins}  label="Mins"  />
+              <span className="text-[20px] font-black text-[var(--b3)] mb-[18px] select-none">:</span>
+              <CountdownUnit value={countdown.secs}  label="Secs"  />
+            </div>
+
+            {/* Hero actions */}
+            <div className="flex flex-wrap items-center gap-3">
+              {!nextEvent.spots && !nextEvent.registrationUrl ? (
+                <span className="px-4 py-2 border border-[var(--b2)] rounded-lg text-[12px] text-[var(--t3)] font-medium">
+                  Open to all — no registration needed
+                </span>
+              ) : (
+                <RegisterButton
+                  eventId={nextEvent.id}
+                  disabled={spotsLeft(nextEvent.spots, nextEvent.registrations) === 'Full'}
+                  registrationUrl={nextEvent.registrationUrl}
+                />
+              )}
+              {nextEvent.poster && (
+                <button
+                  onClick={() => setPosterSrc(nextEvent.poster!)}
+                  className="px-4 py-2 border border-[var(--b2)] rounded-lg text-[12px] text-[var(--t2)] hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors"
+                >
+                  View poster
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Tabs */}
       <div className="flex gap-1 mb-5 border border-[var(--b1)] rounded-lg p-1 w-fit bg-[var(--bg2)]">
         {(['upcoming', 'past'] as const).map(t => (
@@ -48,9 +139,7 @@ export default function EventsPage() {
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-1.5 rounded-md text-[12px] font-medium transition-colors capitalize ${
-              tab === t
-                ? 'bg-accent text-white'
-                : 'text-[var(--t3)] hover:text-[var(--t1)]'
+              tab === t ? 'bg-accent text-white' : 'text-[var(--t3)] hover:text-[var(--t1)]'
             }`}
           >
             {t === 'upcoming' ? `Upcoming${upcoming.length ? ` (${upcoming.length})` : ''}` : 'Past'}
@@ -78,32 +167,47 @@ export default function EventsPage() {
             <>
               <div className="text-[16px] font-semibold text-[var(--t1)] mb-2">No past events yet</div>
               <div className="text-[13px] text-[var(--t3)] max-w-xs mx-auto leading-relaxed">
-                Previous events will appear here once they've taken place.
+                Previous events will appear here once they have taken place.
               </div>
             </>
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-px border border-[var(--b1)] rounded-xl overflow-hidden">
+        <div className="flex flex-col gap-3">
           {list.map(event => {
-            const sl = spotsLeft(event.spots, event.registrations)
-            const full = sl === 'Full'
+            const sl    = spotsLeft(event.spots, event.registrations)
+            const full  = sl === 'Full'
             const isPast = event.date < now
 
             return (
               <div
                 key={event.id}
-                className={`bg-[var(--bg2)] px-4 sm:px-5 py-4 flex items-start gap-3 sm:gap-4 border-b border-[var(--b1)] last:border-b-0 transition-colors ${isPast ? 'opacity-70' : 'hover:bg-[var(--bg3)]'}`}
+                className={`bg-[var(--bg2)] rounded-xl border px-5 py-4 flex items-start gap-4 transition-colors ${
+                  isPast
+                    ? 'opacity-70 border-[var(--b1)]'
+                    : 'border-[var(--b1)] hover:bg-[var(--bg3)] hover:border-[var(--b2)]'
+                }`}
               >
-                {/* Date block */}
-                <div className={`w-11 h-11 rounded-md flex flex-col items-center justify-center flex-shrink-0 mt-0.5 ${isPast ? 'bg-[var(--bg3)] border border-[var(--b1)]' : 'bg-accent/10 border border-accent/25'}`}>
-                  <span className={`text-[9px] font-medium uppercase tracking-wider leading-none ${isPast ? 'text-[var(--t4)]' : 'text-accent'}`}>{format(event.date, 'MMM')}</span>
-                  <span className={`text-[17px] font-bold leading-tight ${isPast ? 'text-[var(--t3)]' : 'text-accent'}`}>{format(event.date, 'd')}</span>
+                {/* Calendar date block */}
+                <div className={`w-[58px] h-[66px] rounded-xl flex flex-col items-center justify-center flex-shrink-0 ${
+                  isPast
+                    ? 'bg-[var(--bg3)] border border-[var(--b1)]'
+                    : 'bg-accent/10 border border-accent/25'
+                }`}>
+                  <span className={`text-[9px] font-bold uppercase tracking-widest leading-none ${isPast ? 'text-[var(--t4)]' : 'text-accent/80'}`}>
+                    {format(event.date, 'MMM')}
+                  </span>
+                  <span className={`text-[28px] font-black leading-none my-0.5 ${isPast ? 'text-[var(--t3)]' : 'text-accent'}`}>
+                    {format(event.date, 'd')}
+                  </span>
+                  <span className={`text-[9px] font-medium uppercase tracking-wide ${isPast ? 'text-[var(--t4)]' : 'text-accent/60'}`}>
+                    {format(event.date, 'EEE')}
+                  </span>
                 </div>
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-semibold text-[var(--t1)] mb-1">{event.title}</div>
+                  <div className="text-[17px] font-black text-[var(--t1)] leading-snug mb-1.5">{event.title}</div>
                   {event.description && (
                     <p className="text-[12px] text-[var(--t3)] leading-relaxed mb-2">{event.description}</p>
                   )}
@@ -118,7 +222,7 @@ export default function EventsPage() {
                     {event.poster && (
                       <button
                         onClick={() => setPosterSrc(event.poster!)}
-                        className="text-[11px] text-accent hover:underline flex items-center gap-1"
+                        className="text-[11px] text-accent hover:underline"
                       >
                         View poster
                       </button>
@@ -155,7 +259,7 @@ export default function EventsPage() {
           <div className="relative max-w-sm w-full" onClick={e => e.stopPropagation()}>
             <button
               onClick={() => setPosterSrc(null)}
-              className="absolute -top-3 -right-3 z-10 w-7 h-7 rounded-full bg-[var(--bg1)] border border-[var(--b1)] flex items-center justify-center text-[var(--t3)] hover:text-[var(--t1)] text-[13px] font-bold"
+              className="absolute -top-3 -right-3 z-10 w-7 h-7 rounded-full bg-[var(--bg)] border border-[var(--b1)] flex items-center justify-center text-[var(--t3)] hover:text-[var(--t1)] text-[13px] font-bold"
             >
               ✕
             </button>
