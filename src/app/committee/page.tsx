@@ -84,13 +84,6 @@ const DIVISIONS: Division[] = [
     ],
   },
   {
-    name: 'Web Development',
-    color: '#6366f1',
-    members: [
-      { name: 'Laiba Raja', role: 'Administrator', linkedin: 'https://www.linkedin.com/in/laibaraja/' },
-    ],
-  },
-  {
     name: 'Platform & Media',
     color: '#ec4899',
     members: [
@@ -98,6 +91,7 @@ const DIVISIONS: Division[] = [
       { name: 'Abrar Alam', role: 'Content Creator / Photographer', linkedin: 'https://www.linkedin.com/in/abrartalam/' },
       { name: 'Samyaan Khan', role: 'Graphic Designer', linkedin: 'https://www.linkedin.com/in/samyaan-khan-036977250/' },
       { name: 'Mohammad Hamza', role: 'Social Media Manager', linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/' },
+      { name: 'Laiba Raja', role: 'Website Administrator', linkedin: 'https://www.linkedin.com/in/laibaraja/' },
     ],
   },
 ]
