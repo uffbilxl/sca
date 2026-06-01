@@ -7,15 +7,15 @@ import { PageTransition } from '@/components/layout/PageTransition'
 
 export const metadata: Metadata = {
   title: 'BCUSCA - Student Computing Association',
-  description: 'With you from your first lecture to your first offer.',
+  description: 'From your first lecture to your first offer.',
   keywords: ['internship', 'placement', 'graduate', 'BCU', 'computing', 'tech', 'SCA'],
   icons: {
     icon: '/sca-logo.png',
     apple: '/sca-logo.png',
   },
   openGraph: {
-    title: 'BCUSCA - Student Computing Association: With you From your first lecture to your first offer!',
-    description: 'With you from your first lecture to your first offer.',
+    title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer!',
+    description: 'From your first lecture to your first offer.',
     type: 'website',
     images: [
       {
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'BCUSCA - Student Computing Association: With you From your first lecture to your first offer!',
-    description: 'With you from your first lecture to your first offer.',
+    title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer!',
+    description: 'From your first lecture to your first offer.',
     images: ['/sca-logo.png'],
   },
 }
