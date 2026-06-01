@@ -84,6 +84,13 @@ const DIVISIONS: Division[] = [
     ],
   },
   {
+    name: 'Web Development',
+    color: '#6366f1',
+    members: [
+      { name: 'Laiba Raja', role: 'Administrator', linkedin: 'https://www.linkedin.com/in/laibaraja/' },
+    ],
+  },
+  {
     name: 'Platform & Media',
     color: '#ec4899',
     members: [
