@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="py-4 text-center border-t border-[var(--b1)]">
           <span className="text-[11px] text-[var(--t4)]">Made by </span>
           <a
-            href="https://keystonedigitalstrategy.co.uk"
+            href="https://www.keystonedigitalstrategy.co.uk"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[11px] text-[var(--t3)] hover:text-accent transition-colors"
