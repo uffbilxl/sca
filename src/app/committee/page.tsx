@@ -87,7 +87,7 @@ const DIVISIONS: Division[] = [
     ],
   },
   {
-    name: 'Platform & Media',
+    name: 'Web Platform',
     color: '#ec4899',
     members: [
       { name: 'Muhammad Asim Raza', role: 'Web Platform Engineer', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
@@ -96,7 +96,7 @@ const DIVISIONS: Division[] = [
     ],
   },
   {
-    name: 'Engagement',
+    name: 'Engagement & Marketing',
     color: '#2dd4bf',
     members: [
       { name: 'Maryam Ahmad', role: 'Head of Engagement', linkedin: 'https://www.linkedin.com/in/maryam-a-259297235' },
