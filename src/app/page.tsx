@@ -159,7 +159,6 @@ export default function HomePage() {
           <span className="text-[10px] text-[var(--t4)]">Found a bug or want to report something?</span>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             {[
-              { name: 'Baber', email: 'baber.khan@mail.bcu.ac.uk' },
               { name: 'Tayyeb', email: 'tayyeb.nadeemsomro@mail.bcu.ac.uk' },
               { name: 'Bilal', email: 'bilal.arshad2@mail.bcu.ac.uk' },
             ].map(c => (
