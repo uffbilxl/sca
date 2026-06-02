@@ -41,6 +41,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AnimatedBackground />
         <Navbar />
         <main><PageTransition>{children}</PageTransition></main>
+        <footer className="py-4 text-center border-t border-[var(--b1)]">
+          <span className="text-[11px] text-[var(--t4)]">Made by </span>
+          <a
+            href="https://keystonedigitalstrategy.co.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] text-[var(--t3)] hover:text-accent transition-colors"
+          >
+            Keystone
+          </a>
+        </footer>
         <Toaster />
       </body>
     </html>
