@@ -139,7 +139,15 @@ export default function SCAOpportunitiesPage() {
             </div>
 
             <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <p className="text-[11px] text-[var(--t4)]">Year-long · Starting 2026</p>
+              <div className="flex flex-col gap-0.5">
+                <p className="text-[11px] text-[var(--t4)]">Year-long · Starting 2026</p>
+                <div className="flex items-center gap-1.5 text-[11px] text-[var(--t4)]">
+                  <span>Organiser:</span>
+                  <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-accent hover:underline font-medium">
+                    Tayyeb Nadeem Somro
+                  </a>
+                </div>
+              </div>
               <a
                 href="https://tally.so/r/QK4R5l"
                 target="_blank"
