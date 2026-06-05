@@ -9,10 +9,28 @@ function ChevronIcon({ open }: { open: boolean }) {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
-      className={`text-[var(--t4)] transition-transform duration-200 flex-shrink-0 ${open ? 'rotate-180' : ''}`}
+      className={`text-[var(--t4)] transition-transform duration-300 flex-shrink-0 ${open ? 'rotate-180' : ''}`}
     >
       <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  )
+}
+
+function Collapsible({ open, children }: { open: boolean; children: React.ReactNode }) {
+  return (
+    <div
+      className="grid transition-[grid-template-rows] duration-300 ease-in-out"
+      style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
+    >
+      <div className="overflow-hidden">
+        <div
+          className="transition-opacity duration-300 ease-in-out"
+          style={{ opacity: open ? 1 : 0 }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -63,9 +81,9 @@ export default function SCAOpportunitiesPage() {
           </div>
         </button>
 
-        {openCards['webdev'] && (
-          <>
-            <div className="px-6 py-5 space-y-5 border-t border-[var(--b1)]">
+        <Collapsible open={!!openCards['webdev']}>
+          <div className="border-t border-[var(--b1)]">
+            <div className="px-6 py-5 space-y-5">
               <p className="text-[13px] text-[var(--t2)] leading-relaxed">
                 A year-long internship within the SCA&apos;s Web Division, responsible for building and maintaining the association&apos;s digital presence.
                 You&apos;ll work on live websites used by SCA members, keeping them up to date, functional, and well-designed.
@@ -131,8 +149,8 @@ export default function SCAOpportunitiesPage() {
                 Apply now →
               </a>
             </div>
-          </>
-        )}
+          </div>
+        </Collapsible>
       </div>
 
       {/* Sports Analytics Card */}
@@ -163,9 +181,9 @@ export default function SCAOpportunitiesPage() {
           </div>
         </button>
 
-        {openCards['sports'] && (
-          <>
-            <div className="px-6 py-5 space-y-5 border-t border-[var(--b1)]">
+        <Collapsible open={!!openCards['sports']}>
+          <div className="border-t border-[var(--b1)]">
+            <div className="px-6 py-5 space-y-5">
               <p className="text-[13px] text-[var(--t2)] leading-relaxed">
                 A student-led initiative under the AI Division supporting the BCU Basketball team ahead of the 2026/27 BUCS season.
                 Successful applicants will take part in a summer pilot programme before the official launch in September.
@@ -258,8 +276,8 @@ export default function SCAOpportunitiesPage() {
                 </a>
               </div>
             </div>
-          </>
-        )}
+          </div>
+        </Collapsible>
       </div>
     </div>
   )
