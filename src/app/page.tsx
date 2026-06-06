@@ -1,15 +1,20 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
-import { OPPORTUNITIES } from '@/data/opportunities'
+import { prisma } from '@/lib/prisma'
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard'
 import { SCALogo } from '@/components/ui/SCALogo'
 import { TickerBanner } from '@/components/home/TickerBanner'
 import { HeroContent } from '@/components/home/HeroContent'
 
-function getHomeData() {
+async function getHomeData() {
   const types = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK'] as const
-  const perType = types.map(t =>
-    OPPORTUNITIES.filter(o => o.featured && o.status !== 'CLOSED' && o.type === t).slice(0, 2)
-  )
+  const allFeatured = await prisma.opportunity.findMany({
+    where: { featured: true, status: { not: 'CLOSED' } },
+    include: { company: true, tags: { include: { tag: true } }, _count: { select: { comments: true } } },
+    orderBy: { createdAt: 'desc' },
+  })
+  const perType = types.map(t => allFeatured.filter(o => o.type === t).slice(0, 2))
   const first = perType.map(arr => arr[0]).filter(Boolean)
   const second = perType.map(arr => arr[1]).filter(Boolean)
   const featured = [...first, ...second].slice(0, 6)
@@ -40,8 +45,8 @@ const whyItems = [
   },
 ]
 
-export default function HomePage() {
-  const { featured } = getHomeData()
+export default async function HomePage() {
+  const { featured } = await getHomeData()
 
   return (
     <div className="min-h-screen">
