@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+export const dynamic = 'force-dynamic'
+
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET',
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const type = searchParams.get('type')
@@ -23,8 +30,8 @@ export async function GET(req: NextRequest) {
 
   const orderBy: any =
     sort === 'deadline' ? { deadline: 'asc' } :
-    sort === 'salary' ? { salaryMin: 'desc' } :
-    sort === 'az' ? { title: 'asc' } :
+    sort === 'salary'   ? { salaryMin: 'desc' } :
+    sort === 'az'       ? { title: 'asc' } :
     { createdAt: 'desc' }
 
   const opportunities = await prisma.opportunity.findMany({
@@ -33,7 +40,7 @@ export async function GET(req: NextRequest) {
     include: { company: true, tags: { include: { tag: true } } },
   })
 
-  return NextResponse.json({ opportunities })
+  return NextResponse.json(opportunities, { headers: CORS })
 }
 
 export async function POST(req: NextRequest) {
@@ -47,7 +54,7 @@ export async function POST(req: NextRequest) {
       },
     })
     return NextResponse.json({ opportunity: opp }, { status: 201 })
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }
