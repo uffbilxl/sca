@@ -9,7 +9,6 @@ const nav = [
   { section: 'Opportunities', items: [
     { href: '/admin/opportunities', label: 'All Opportunities', icon: '◉' },
     { href: '/admin/opportunities/import', label: 'Import CSV', icon: '⇪' },
-    { href: '/admin/seed', label: 'Seed Database', icon: '◎' },
   ]},
 ]
 

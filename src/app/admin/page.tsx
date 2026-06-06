@@ -58,9 +58,7 @@ export default async function AdminDashboard() {
         {d.recentOpps.length === 0 ? (
           <div className="py-10 text-center text-[12px] text-[var(--t4)]">
             No opportunities yet.{' '}
-            <Link href="/admin/seed" className="text-accent hover:underline">Seed the database</Link>
-            {' '}or{' '}
-            <Link href="/admin/opportunities/import" className="text-accent hover:underline">import a CSV</Link>.
+            <Link href="/admin/opportunities/import" className="text-accent hover:underline">Import a CSV</Link> to get started.
           </div>
         ) : (
           <table className="w-full" style={{ tableLayout: 'fixed' }}>
