@@ -5,18 +5,11 @@ import { usePathname, useRouter } from 'next/navigation'
 const nav = [
   { section: 'Overview', items: [
     { href: '/admin', label: 'Dashboard', icon: '▣' },
-    { href: '/admin/analytics', label: 'Analytics', icon: '◈' },
   ]},
-  { section: 'Content', items: [
-    { href: '/admin/opportunities', label: 'Opportunities', icon: '◉' },
+  { section: 'Opportunities', items: [
+    { href: '/admin/opportunities', label: 'All Opportunities', icon: '◉' },
     { href: '/admin/opportunities/import', label: 'Import CSV', icon: '⇪' },
-    { href: '/admin/companies', label: 'Companies', icon: '◎' },
-    { href: '/admin/events', label: 'Events', icon: '◷' },
-    { href: '/admin/tags', label: 'Tags', icon: '◌' },
-  ]},
-  { section: 'Moderation', items: [
-    { href: '/admin/comments', label: 'Comments', icon: '◆' },
-    { href: '/admin/feedback', label: 'Feedback', icon: '◇' },
+    { href: '/admin/seed', label: 'Seed Database', icon: '◎' },
   ]},
 ]
 
