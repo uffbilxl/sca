@@ -2,8 +2,28 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import type { OpportunityType, WorkMode, Status } from '@prisma/client'
 
-// ─── CSV parsing ─────────────────────────────────────────────────────────────
+// ─── Defence company blocklist ───────────────────────────────────────────────
+const DEFENCE_BLOCKLIST = new Set([
+  'bae systems', 'leonardo', 'ultra', 'ultra electronics',
+  'lockheed martin', 'raytheon', 'rtx', 'northrop grumman',
+  'general dynamics', 'l3harris', 'qinetiq', 'dstl', 'mbda',
+  'thales', 'saab', 'rheinmetall', 'elbit systems',
+  'rafael', 'airbus defence', 'airbus defence and space',
+  'serco', 'leidos', 'saic', 'dyncorp', 'mantech',
+  'rolls-royce defence', 'cobham', 'ultra intelligence',
+  'chemring', 'meggitt', 'avon protection',
+])
 
+function isDefenceCompany(name: string): boolean {
+  return DEFENCE_BLOCKLIST.has(name.trim().toLowerCase())
+}
+
+// ─── URL normalisation ───────────────────────────────────────────────────────
+function normalizeUrl(url: string): string {
+  return url.trim().toLowerCase().replace(/\/+$/, '')
+}
+
+// ─── CSV parsing ─────────────────────────────────────────────────────────────
 function parseCSVRow(line: string): string[] {
   const result: string[] = []
   let current = ''
@@ -27,7 +47,6 @@ function parseCSV(text: string): Record<string, string>[] {
   const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(l => l.trim())
   if (lines.length < 2) return []
   const rawHeaders = parseCSVRow(lines[0])
-  // Normalise headers: lowercase, strip non-alphanumeric so we can match flexibly
   const headers = rawHeaders.map(h => h.trim().toLowerCase().replace(/[^a-z0-9]+/g, ''))
   const rows: Record<string, string>[] = []
   for (let i = 1; i < lines.length; i++) {
@@ -40,7 +59,6 @@ function parseCSV(text: string): Record<string, string>[] {
   return rows
 }
 
-// Looks up a field by trying multiple normalised key variants
 function field(row: Record<string, string>, ...keys: string[]): string {
   for (const k of keys) {
     const norm = k.toLowerCase().replace(/[^a-z0-9]+/g, '')
@@ -49,19 +67,13 @@ function field(row: Record<string, string>, ...keys: string[]): string {
   return ''
 }
 
-// ─── Type inference from descriptive string ──────────────────────────────────
-
+// ─── Type inference ───────────────────────────────────────────────────────────
 function inferType(raw: string): OpportunityType {
   const t = raw.toLowerCase()
   if (t.includes('spring week') || t.includes('spring insight')) return 'SPRING_WEEK'
   if (t.includes('insight week')) return 'INSIGHT'
-  // "placement" before "internship" so "industrial placement" wins over generic intern
   if (t.includes('placement') || t.includes('industrial placement') || t.includes('year in industry')) return 'PLACEMENT'
-  if (
-    t.includes('graduate') || t.includes('grad ') || t.includes('new grad') ||
-    t.includes('graduate scheme') || t.includes('apprenticeship') || t.includes('new analyst')
-  ) return 'GRADUATE'
-  // Fall back to internship for anything with intern / internship / summer / phd intern etc.
+  if (t.includes('graduate') || t.includes('grad ') || t.includes('new grad') || t.includes('new analyst') || t.includes('apprenticeship')) return 'GRADUATE'
   return 'INTERNSHIP'
 }
 
@@ -88,7 +100,6 @@ function getDomain(url: string): string {
 }
 
 // ─── Handler ─────────────────────────────────────────────────────────────────
-
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
@@ -104,70 +115,43 @@ export async function POST(request: NextRequest) {
       updated: 0,
       closed: 0,
       skipped: 0,
+      blocked: 0,
       errors: [] as string[],
     }
 
+    // Collect all normalised URLs from the CSV for the "close unlisted" pass at the end
+    const csvUrls = new Set<string>()
     const seenUrls = new Set<string>()
 
     for (const row of rows) {
-      // ── Field extraction ─────────────────────────────────────────────────
-      // Supports both the SCA CSV headings AND generic alternatives
-      const title = field(row,
-        'opportunity name',       // SCA CSV
-        'title', 'role', 'job title', 'position', 'job'
-      )
-      const companyName = field(row,
-        'company name',           // SCA CSV
-        'company', 'employer', 'organization', 'organisation'
-      )
-      const rawType = field(row,
-        'opportunity type',       // SCA CSV
-        'type', 'category', 'kind'
-      )
-      const location = field(row,
-        'location',               // SCA CSV (same)
-        'city', 'place', 'region'
-      ) || 'United Kingdom'
-      const applyUrl = field(row,
-        'direct apply link',      // SCA CSV
-        'apply url', 'apply link', 'url', 'link', 'applyurl', 'applicationurl', 'apply'
-      )
-      const startDate = field(row,
-        'estimated start date',   // SCA CSV
-        'start date', 'startdate', 'start', 'start year'
-      )
-      const deadlineRaw = field(row,
-        'application deadline',   // SCA CSV
-        'deadline', 'closing date', 'closes', 'close date'
-      )
-      const logoUrl = field(row,
-        'company logo png url',   // SCA CSV
-        'logo', 'logo url', 'company logo'
-      )
-      const companyWebsite = field(row,
-        'company website',        // SCA CSV
-        'website', 'company url'
-      )
-      const rawWorkMode = field(row,
-        'work mode', 'workmode', 'mode', 'remote', 'remote/hybrid/onsite'
-      )
-      const rawStatus = field(row,
-        'status', 'open/closed', 'state'
-      )
+      const title = field(row, 'opportunity name', 'title', 'role', 'job title', 'position', 'job')
+      const companyName = field(row, 'company name', 'company', 'employer', 'organization', 'organisation')
+      const rawType = field(row, 'opportunity type', 'type', 'category', 'kind')
+      const location = field(row, 'location', 'city', 'place', 'region') || 'United Kingdom'
+      const applyUrl = field(row, 'direct apply link', 'apply url', 'apply link', 'url', 'link', 'applyurl', 'applicationurl', 'apply')
+      const startDate = field(row, 'estimated start date', 'start date', 'startdate', 'start')
+      const deadlineRaw = field(row, 'application deadline', 'deadline', 'closing date', 'closes')
+      const logoUrl = field(row, 'company logo png url', 'logo', 'logo url', 'company logo')
+      const companyWebsite = field(row, 'company website', 'website', 'company url')
+      const rawWorkMode = field(row, 'work mode', 'workmode', 'mode', 'remote')
+      const rawStatus = field(row, 'status', 'open/closed', 'state')
       const rawFeatured = field(row, 'featured')
       const rawSponsored = field(row, 'sponsored')
 
-      // ── Validation ───────────────────────────────────────────────────────
-      if (!title || !companyName) {
-        results.errors.push(`Skipped: missing title or company`)
-        results.skipped++
+      if (!title || !companyName) { results.skipped++; continue }
+
+      // Block defence companies
+      if (isDefenceCompany(companyName)) {
+        results.blocked++
         continue
       }
 
-      // Dedupe within this import by URL
-      if (applyUrl) {
-        if (seenUrls.has(applyUrl)) { results.skipped++; continue }
-        seenUrls.add(applyUrl)
+      // Normalise URL and dedupe within this import
+      const normUrl = applyUrl ? normalizeUrl(applyUrl) : ''
+      if (normUrl) {
+        csvUrls.add(normUrl)
+        if (seenUrls.has(normUrl)) { results.skipped++; continue }
+        seenUrls.add(normUrl)
       }
 
       const type = inferType(rawType)
@@ -176,7 +160,6 @@ export async function POST(request: NextRequest) {
       const featured = ['true', '1', 'yes'].includes(rawFeatured.toLowerCase())
       const sponsored = ['true', '1', 'yes'].includes(rawSponsored.toLowerCase())
 
-      // "Rolling" deadline → null; otherwise try to parse a real date
       let deadline: Date | null = null
       if (deadlineRaw && deadlineRaw.toLowerCase() !== 'rolling') {
         const d = new Date(deadlineRaw)
@@ -186,7 +169,6 @@ export async function POST(request: NextRequest) {
       const description = `${title} at ${companyName}. Based in ${location}.`
 
       try {
-        // ── Upsert company ───────────────────────────────────────────────
         const companySlug = toSlug(companyName)
         const domain = applyUrl ? getDomain(applyUrl) : companyWebsite ? getDomain(companyWebsite) : ''
         const logo = logoUrl || (domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=256` : null)
@@ -202,9 +184,9 @@ export async function POST(request: NextRequest) {
           },
         })
 
-        // ── Check for existing entry ─────────────────────────────────────
-        const existing = applyUrl
-          ? await prisma.opportunity.findFirst({ where: { applyUrl } })
+        // Find existing by normalised URL or title+company
+        const existing = normUrl
+          ? await prisma.opportunity.findFirst({ where: { applyUrl: { equals: applyUrl, mode: 'insensitive' } } })
           : await prisma.opportunity.findFirst({ where: { title, companyId: company.id } })
 
         if (existing) {
@@ -220,7 +202,7 @@ export async function POST(request: NextRequest) {
           continue
         }
 
-        // ── Generate unique slug ─────────────────────────────────────────
+        // Generate unique slug
         const baseSlug = toSlug(`${companySlug}-${toSlug(title)}`)
         let slug = baseSlug
         let n = 0
@@ -231,15 +213,8 @@ export async function POST(request: NextRequest) {
 
         await prisma.opportunity.create({
           data: {
-            title,
-            slug,
-            description,
-            type,
-            location,
-            workMode,
-            status,
-            featured,
-            sponsored,
+            title, slug, description, type, location, workMode, status,
+            featured, sponsored,
             applyUrl: applyUrl || null,
             startDate: startDate || null,
             deadline,
@@ -249,6 +224,23 @@ export async function POST(request: NextRequest) {
         results.added++
       } catch (err) {
         results.errors.push(`Error on "${title}": ${err instanceof Error ? err.message : String(err)}`)
+      }
+    }
+
+    // ── Close anything currently OPEN that wasn't in this CSV ────────────────
+    // Only applies to entries that have an applyUrl (so we can match them)
+    if (csvUrls.size > 0) {
+      const openWithUrl = await prisma.opportunity.findMany({
+        where: { status: { not: 'CLOSED' }, applyUrl: { not: null } },
+        select: { id: true, applyUrl: true },
+      })
+
+      for (const entry of openWithUrl) {
+        if (!entry.applyUrl) continue
+        if (!csvUrls.has(normalizeUrl(entry.applyUrl))) {
+          await prisma.opportunity.update({ where: { id: entry.id }, data: { status: 'CLOSED' } })
+          results.closed++
+        }
       }
     }
 

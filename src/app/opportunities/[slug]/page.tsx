@@ -1,24 +1,29 @@
+export const dynamic = 'force-dynamic'
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { OPPORTUNITIES } from '@/data/opportunities'
+import { prisma } from '@/lib/prisma'
 import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface Props { params: { slug: string } }
 
-export function generateStaticParams() {
-  return OPPORTUNITIES.map(o => ({ slug: o.slug }))
-}
-
-export default function OpportunityDetailPage({ params }: Props) {
-  const opp = OPPORTUNITIES.find(o => o.slug === params.slug)
+export default async function OpportunityDetailPage({ params }: Props) {
+  const opp = await prisma.opportunity.findFirst({
+    where: { slug: params.slug },
+    include: { company: true, tags: { include: { tag: true } } },
+  })
   if (!opp) notFound()
 
-  const related = OPPORTUNITIES.filter(o =>
-    o.slug !== params.slug &&
-    (o.type === opp.type || o.company.id === opp.company.id) &&
-    o.status !== 'CLOSED'
-  ).slice(0, 3)
+  const related = await prisma.opportunity.findMany({
+    where: {
+      slug: { not: params.slug },
+      status: { not: 'CLOSED' },
+      OR: [{ type: opp.type }, { companyId: opp.companyId }],
+    },
+    include: { company: true },
+    take: 3,
+  })
 
   const ds = deadlineStatus(opp.deadline)
 
@@ -62,7 +67,7 @@ export default function OpportunityDetailPage({ params }: Props) {
               Application closed
             </button>
           )}
-<div className="flex gap-1.5">
+          <div className="flex gap-1.5">
             <span className={opportunityTypeBadgeClass(opp.type)}>{opportunityTypeLabel(opp.type)}</span>
             {ds === 'open' && <span className="badge-green">Open</span>}
             {ds === 'closing' && <span className="badge-amber">Closing soon</span>}
@@ -116,12 +121,10 @@ export default function OpportunityDetailPage({ params }: Props) {
               </div>
             </div>
           )}
-
         </div>
 
         {/* Sidebar */}
         <div className="flex flex-col gap-3">
-          {/* Overview */}
           <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
             <div className="section-title mb-3">Overview</div>
             <div className="flex flex-col">
@@ -142,7 +145,6 @@ export default function OpportunityDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* About company */}
           {opp.company.description && (
             <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
               <div className="section-title mb-3">About {opp.company.name}</div>
@@ -155,7 +157,6 @@ export default function OpportunityDetailPage({ params }: Props) {
             </div>
           )}
 
-          {/* Related */}
           {related.length > 0 && (
             <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
               <div className="section-title mb-3">Related roles</div>

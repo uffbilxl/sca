@@ -92,7 +92,6 @@ const DIVISIONS: Division[] = [
     members: [
       { name: 'Muhammad Asim Raza', role: 'Web Platform Engineer', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
       { name: 'Bilal Arshad', role: 'Website Administrator', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
-      { name: 'Laiba Raja', role: 'Website Administrator', linkedin: 'https://www.linkedin.com/in/laibaraja/' },
     ],
   },
   {
