@@ -6,7 +6,7 @@ interface Props {
 }
 
 const contacts = [
-  { name: 'Baber Khan', role: 'Web Platform Engineer', email: 'baber.khan@mail.bcu.ac.uk' },
+  { name: 'Muhammad Asim Raza', role: 'Web Platform Engineer', email: 'Muhammad.raza6@mail.bcu.ac.uk' },
   { name: 'Tayyeb Nadeem Somro', role: 'President', email: 'tayyeb.nadeemsomro@mail.bcu.ac.uk' },
   { name: 'Bilal Arshad', role: 'VP Cyber Security', email: 'bilal.arshad2@mail.bcu.ac.uk' },
 ]
