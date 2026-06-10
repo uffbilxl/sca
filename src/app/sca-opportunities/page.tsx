@@ -175,7 +175,7 @@ export default function SCAOpportunitiesPage() {
                   Now open
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
-                  Web Division
+                  CivitasAccess
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
                   3–4 positions
@@ -185,7 +185,7 @@ export default function SCAOpportunitiesPage() {
                 SCA Software Developers
               </h2>
               <p className="text-[12px] text-[var(--t3)] mt-0.5">
-                BCU Student Computing Association
+                CivitasAccess · Promoted by BCU Student Computing Association
               </p>
             </div>
             <ChevronIcon open={!!openCards['softwaredev']} />
@@ -196,9 +196,9 @@ export default function SCAOpportunitiesPage() {
           <div className="border-t border-[var(--b1)]">
             <div className="px-6 py-5 space-y-5">
               <p className="text-[13px] text-[var(--t2)] leading-relaxed">
-                A hands-on internship where 3–4 students will collaborate to design and build a full stack application for the SCA.
-                You&apos;ll work as a small team across the full development lifecycle — from planning and architecture through to deployment.
-                Ideal for students who want real project experience and the chance to ship something used by the SCA community.
+                An opportunity promoted by the SCA to work with CivitasAccess, a real company building access control and visitor management software.
+                3–4 students will collaborate to design and build a full stack application, working across the full development lifecycle — from planning and architecture through to deployment.
+                Ideal for students who want genuine industry experience and the chance to ship something used in a production environment.
               </p>
 
               <div>
@@ -208,7 +208,7 @@ export default function SCAOpportunitiesPage() {
                     'Design and build a full stack application from the ground up',
                     'Collaborate as a small team across frontend, backend, and database',
                     'Contribute to architecture decisions and technical planning',
-                    'Deploy and maintain the application for real SCA use',
+                    'Deploy and maintain the application in a real production environment',
                   ].map(item => (
                     <li key={item} className="flex items-start gap-2 text-[12px] text-[var(--t2)]">
                       <span className="text-accent mt-0.5 flex-shrink-0">→</span>
@@ -239,7 +239,7 @@ export default function SCAOpportunitiesPage() {
               <div className="rounded-xl bg-[var(--bg3)] border border-[var(--b1)] px-4 py-3">
                 <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Why apply</p>
                 <div className="flex flex-wrap gap-x-5 gap-y-1">
-                  {['Ship a real full stack product', 'Team-based development experience', 'Build a portfolio for internships & placements'].map(benefit => (
+                  {['Real industry experience', 'Team-based development at a company', 'Build a portfolio for internships & placements'].map(benefit => (
                     <span key={benefit} className="text-[12px] text-[var(--t2)] flex items-center gap-1.5">
                       <span className="text-accent text-[10px]">✦</span>
                       {benefit}
