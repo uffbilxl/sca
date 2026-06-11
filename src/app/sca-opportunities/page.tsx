@@ -161,129 +161,6 @@ export default function SCAOpportunitiesPage() {
         </Collapsible>
       </div>
 
-      {/* SCA Software Developers Card */}
-      <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden mb-5">
-        <button
-          onClick={() => toggle('softwaredev')}
-          className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-semibold text-accent tracking-wide uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse inline-block" />
-                  Now open
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
-                  CivitasAccess
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
-                  3–4 positions
-                </span>
-              </div>
-              <h2 className="text-[17px] font-bold text-[var(--t1)] tracking-tight">
-                SCA Software Developers
-              </h2>
-              <p className="text-[12px] text-[var(--t3)] mt-0.5">
-                CivitasAccess · Promoted by BCU Student Computing Association
-              </p>
-            </div>
-            <ChevronIcon open={!!openCards['softwaredev']} />
-          </div>
-        </button>
-
-        <Collapsible open={!!openCards['softwaredev']}>
-          <div className="border-t border-[var(--b1)]">
-            <div className="px-6 py-5 space-y-5">
-              <p className="text-[13px] text-[var(--t2)] leading-relaxed">
-                An opportunity promoted by the SCA to work with CivitasAccess, a real company building access control and visitor management software.
-                3–4 students will collaborate to design and build a full stack application, working across the full development lifecycle — from planning and architecture through to deployment.
-                Ideal for students who want genuine industry experience and the chance to ship something used in a production environment.
-              </p>
-
-              <div>
-                <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
-                <ul className="space-y-1.5">
-                  {[
-                    'Design and build a full stack application from the ground up',
-                    'Collaborate as a small team across frontend, backend, and database',
-                    'Contribute to architecture decisions and technical planning',
-                    'Deploy and maintain the application in a real production environment',
-                  ].map(item => (
-                    <li key={item} className="flex items-start gap-2 text-[12px] text-[var(--t2)]">
-                      <span className="text-accent mt-0.5 flex-shrink-0">→</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {['HTML/CSS', 'JavaScript', 'Git'].map(skill => (
-                      <span key={skill} className="px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/20 text-[11px] text-accent font-medium">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-[11px] text-[var(--t4)] mt-1.5">Basic proficiency required</p>
-                </div>
-                <div>
-                  <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Team size</p>
-                  <span className="text-[11px] text-[var(--t3)]">3–4 interns working together</span>
-                </div>
-              </div>
-
-              <div className="rounded-xl bg-[var(--bg3)] border border-[var(--b1)] px-4 py-3">
-                <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Why apply</p>
-                <div className="flex flex-wrap gap-x-5 gap-y-1">
-                  {['Real industry experience', 'Team-based development at a company', 'Build a portfolio for internships & placements'].map(benefit => (
-                    <span key={benefit} className="text-[12px] text-[var(--t2)] flex items-center gap-1.5">
-                      <span className="text-accent text-[10px]">✦</span>
-                      {benefit}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div className="flex flex-col gap-1">
-                <p className="text-[11px] text-[var(--t4)]">3–4 positions available</p>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[var(--t4)]">
-                  <span>Organisers:</span>
-                  <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-accent hover:underline font-medium">
-                    Tayyeb Nadeem Somro
-                  </a>
-                  <span>&amp;</span>
-                  <a href="mailto:bilal.arshad2@mail.bcu.ac.uk" className="text-accent hover:underline font-medium">
-                    Bilal Arshad
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <a
-                  href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk,bilal.arshad2@mail.bcu.ac.uk"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 border border-[var(--b2)] rounded-xl text-[12px] text-[var(--t2)] font-medium hover:bg-[var(--bg3)] transition-colors"
-                >
-                  Contact organisers
-                </a>
-                <a
-                  href="https://tally.so/r/xXzeyy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-accent-hover transition-colors"
-                >
-                  Apply now →
-                </a>
-              </div>
-            </div>
-          </div>
-        </Collapsible>
-      </div>
-
       {/* Sports Analytics Card */}
       <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden">
         <button
@@ -407,6 +284,114 @@ export default function SCAOpportunitiesPage() {
                 </a>
               </div>
             </div>
+          </div>
+        </Collapsible>
+      </div>
+
+      {/* Previous Opportunities */}
+      <div className="mt-10">
+        <button
+          onClick={() => toggle('previous')}
+          className="flex items-center gap-2 text-[12px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-4 hover:text-[var(--t2)] transition-colors"
+        >
+          <ChevronIcon open={!!openCards['previous']} />
+          Previous Opportunities
+        </button>
+
+        <Collapsible open={!!openCards['previous']}>
+          <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden opacity-70">
+            <button
+              onClick={() => toggle('softwaredev')}
+              className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] font-semibold text-[var(--t4)] tracking-wide uppercase">
+                      Filled
+                    </span>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                      CivitasAccess
+                    </span>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                      3–4 positions
+                    </span>
+                  </div>
+                  <h2 className="text-[17px] font-bold text-[var(--t1)] tracking-tight">
+                    SCA Software Developers
+                  </h2>
+                  <p className="text-[12px] text-[var(--t3)] mt-0.5">
+                    CivitasAccess · Promoted by BCU Student Computing Association
+                  </p>
+                </div>
+                <ChevronIcon open={!!openCards['softwaredev']} />
+              </div>
+            </button>
+
+            <Collapsible open={!!openCards['softwaredev']}>
+              <div className="border-t border-[var(--b1)]">
+                <div className="px-6 py-5 space-y-5">
+                  <p className="text-[13px] text-[var(--t2)] leading-relaxed">
+                    An opportunity promoted by the SCA to work with CivitasAccess, a real company building access control and visitor management software.
+                    3–4 students will collaborate to design and build a full stack application, working across the full development lifecycle — from planning and architecture through to deployment.
+                    Ideal for students who want genuine industry experience and the chance to ship something used in a production environment.
+                  </p>
+
+                  <div>
+                    <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
+                    <ul className="space-y-1.5">
+                      {[
+                        'Design and build a full stack application from the ground up',
+                        'Collaborate as a small team across frontend, backend, and database',
+                        'Contribute to architecture decisions and technical planning',
+                        'Deploy and maintain the application in a real production environment',
+                      ].map(item => (
+                        <li key={item} className="flex items-start gap-2 text-[12px] text-[var(--t2)]">
+                          <span className="text-[var(--t4)] mt-0.5 flex-shrink-0">→</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {['HTML/CSS', 'JavaScript', 'Git'].map(skill => (
+                          <span key={skill} className="px-2.5 py-0.5 rounded-md bg-[var(--bg3)] border border-[var(--b2)] text-[11px] text-[var(--t3)] font-medium">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Team size</p>
+                      <span className="text-[11px] text-[var(--t3)]">3–4 interns working together</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[11px] text-[var(--t4)]">All positions filled</p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[var(--t4)]">
+                      <span>Organisers:</span>
+                      <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
+                        Tayyeb Nadeem Somro
+                      </a>
+                      <span>&amp;</span>
+                      <a href="mailto:bilal.arshad2@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
+                        Bilal Arshad
+                      </a>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b2)] text-[var(--t4)] text-[13px] font-semibold rounded-xl cursor-default">
+                    Applications closed
+                  </span>
+                </div>
+              </div>
+            </Collapsible>
           </div>
         </Collapsible>
       </div>
