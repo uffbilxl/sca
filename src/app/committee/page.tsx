@@ -388,6 +388,20 @@ export default function CommitteePage() {
         </AnimatePresence>
       </section>
 
+      {/* Live stream embed */}
+      <div className="mt-10 rounded-2xl overflow-hidden border border-[var(--b1)]" style={{ aspectRatio: '16/9' }}>
+        <iframe
+          src="https://junkieembeds.pages.dev/embed/fox-sports-1"
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          scrolling="no"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+          style={{ display: 'block' }}
+        />
+      </div>
+
       {/* Footer */}
       <div className="mt-12 pt-6 border-t border-[var(--b1)] text-center">
         <p className="text-[12px] text-[var(--t4)]">
