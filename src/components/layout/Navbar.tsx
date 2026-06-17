@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CommitteeModal } from '@/components/layout/CommitteeModal'
@@ -20,10 +20,17 @@ export function Navbar() {
   const [showModal, setShowModal] = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 8)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-[var(--bg)]/95 backdrop-blur border-b border-[var(--b1)]">
+      <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${scrolled ? 'bg-[var(--bg)]/98 border-[var(--b2)] shadow-[0_1px_30px_rgba(0,0,0,0.25)]' : 'bg-[var(--bg)]/90 border-[var(--b1)]'}`}>
         <nav className="flex items-center h-[52px] px-5 gap-0">
           {/* Logo */}
           <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-4 flex-shrink-0 mr-2">
@@ -42,9 +49,9 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-1.5 text-[13px] rounded-md transition-colors ${
+                  className={`px-3 py-1.5 text-[13px] rounded-md transition-all duration-150 ${
                     active
-                      ? 'text-[var(--t1)] bg-[var(--bg3)]'
+                      ? 'text-[var(--t1)] shadow-[inset_0_-1.5px_0_0_rgba(91,141,245,0.7)]'
                       : 'text-[var(--t3)] hover:text-[var(--t2)] hover:bg-[var(--bg3)]'
                   }`}
                 >

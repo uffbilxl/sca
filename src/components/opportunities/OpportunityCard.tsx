@@ -14,7 +14,7 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
   return (
     <Link
       href={`/opportunities/${opp.slug}`}
-      className="bg-[var(--bg2)] p-5 hover:bg-[var(--bg3)] transition-colors group block relative"
+      className="bg-[var(--bg2)] p-5 hover:bg-[var(--bg3)] hover:shadow-[inset_0_0_0_1px_rgba(91,141,245,0.18),inset_0_1px_0_rgba(91,141,245,0.25)] transition-all duration-200 group block relative"
     >
       {/* Featured ribbon */}
       {showFeaturedBadge && (

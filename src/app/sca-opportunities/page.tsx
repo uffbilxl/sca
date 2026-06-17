@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -43,15 +44,25 @@ export default function SCAOpportunitiesPage() {
 
   return (
     <div className="max-w-[860px] mx-auto px-8 py-7">
-      <div className="mb-7">
+      <motion.div
+        className="mb-7"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      >
         <h1 className="text-[20px] font-black tracking-[-0.4px] text-[var(--t1)]">SCA Opportunities</h1>
         <p className="text-[12px] text-[var(--t3)] mt-1">
           Internal opportunities within the Student Computing Association: committee roles, volunteering, and more.
         </p>
-      </div>
+      </motion.div>
 
       {/* Web Development Intern Card */}
-      <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden mb-5">
+      <motion.div
+        className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden mb-5"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      >
         <button
           onClick={() => toggle('webdev')}
           className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
@@ -159,10 +170,15 @@ export default function SCAOpportunitiesPage() {
             </div>
           </div>
         </Collapsible>
-      </div>
+      </motion.div>
 
       {/* Sports Analytics Card */}
-      <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden">
+      <motion.div
+        className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      >
         <button
           onClick={() => toggle('sports')}
           className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
@@ -286,7 +302,7 @@ export default function SCAOpportunitiesPage() {
             </div>
           </div>
         </Collapsible>
-      </div>
+      </motion.div>
 
       {/* Previous Opportunities */}
       <div className="mt-10">
