@@ -174,9 +174,9 @@ export default function SCAOpportunitiesPage() {
 
       {/* Sports Analytics Card */}
       <motion.div
-        className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden"
+        className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden opacity-70"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 0.7, y: 0 }}
         transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
       >
         <button
@@ -186,9 +186,8 @@ export default function SCAOpportunitiesPage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-semibold text-accent tracking-wide uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse inline-block" />
-                  Now open
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] font-semibold text-[var(--t4)] tracking-wide uppercase">
+                  Filled
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
                   AI Division
@@ -278,27 +277,14 @@ export default function SCAOpportunitiesPage() {
                 <p className="text-[11px] text-[var(--t4)]">Summer pilot · Official launch September 2026</p>
                 <div className="flex items-center gap-1.5 text-[11px] text-[var(--t4)]">
                   <span>Organiser:</span>
-                  <a href="mailto:Mohamed.Dahir@mail.bcu.ac.uk" className="text-accent hover:underline font-medium">
-                    Mohamed Dahir
+                  <a href="mailto:Mohamed.Dahir@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
+                    Mohammed Dahir
                   </a>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <a
-                  href="mailto:Mohamed.Dahir@mail.bcu.ac.uk"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 border border-[var(--b2)] rounded-xl text-[12px] text-[var(--t2)] font-medium hover:bg-[var(--bg3)] transition-colors"
-                >
-                  Contact organiser
-                </a>
-                <a
-                  href="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=VeArfoqCI0W15bd62ZOXhXzJrZmCHBlEj4k_jYn1UyZUNjFMRjc3OVRDRk1XQkVBVUdRUVlXTzdYNi4u"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-accent-hover transition-colors"
-                >
-                  Apply now →
-                </a>
-              </div>
+              <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b2)] text-[var(--t4)] text-[13px] font-semibold rounded-xl cursor-default">
+                Applications closed
+              </span>
             </div>
           </div>
         </Collapsible>
