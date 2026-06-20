@@ -50,6 +50,49 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
+    id: 'cheat-sheets',
+    label: 'Cheat Sheets',
+    color: '#f59e0b',
+    icon: '⚡',
+    resources: [
+      {
+        title: 'C++ Cheat Sheet',
+        description: 'Quick reference for C++ syntax, operators, pointers, and multithreading.',
+        fileUrl: '/sca_cpp_cheatsheet.pdf',
+      },
+      {
+        title: 'Python Cheat Sheet',
+        description: 'Essential Python concepts - variables, lists, functions, classes, and more.',
+        fileUrl: '/sca_python_cheatsheet.pdf',
+      },
+      {
+        title: 'GitHub/Git Cheat Sheet',
+        description: 'Git commands for version control, branches, merging, and collaboration.',
+        fileUrl: '/sca_git_cheatsheet.pdf',
+      },
+      {
+        title: 'JavaScript Cheat Sheet',
+        description: 'Core JS features - variables, loops, conditionals, strings, and arrays.',
+        fileUrl: '/sca_js_cheatsheet.pdf',
+      },
+      {
+        title: 'HTML Cheat Sheet',
+        description: 'Complete HTML reference with tags, forms, tables, layouts, and more.',
+        fileUrl: '/sca_html_cheatsheet.pdf',
+      },
+      {
+        title: 'Linux Cheat Sheet',
+        description: 'Essential Linux commands for file operations, processes, and system info.',
+        fileUrl: '/sca_linux_cheatsheet.pdf',
+      },
+      {
+        title: 'npm Cheat Sheet',
+        description: 'Node Package Manager reference for package management and scripts.',
+        fileUrl: '/sca_npm_cheatsheet.pdf',
+      },
+    ],
+  },
+  {
     id: 'guides',
     label: 'Guides',
     color: '#a855f7',
@@ -142,7 +185,7 @@ export default function ResourcesPage() {
                       style={{ background: cat.color }}
                     >
                       <DownloadIcon />
-                      Download DOCX
+                      Download {resource.fileUrl.endsWith('.pdf') ? 'PDF' : 'DOCX'}
                     </a>
                   ) : (
                     <button
@@ -151,7 +194,7 @@ export default function ResourcesPage() {
                       style={{ background: cat.color }}
                     >
                       <DownloadIcon />
-                      Download DOCX
+                      Coming Soon
                     </button>
                   )}
                 </div>
