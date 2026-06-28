@@ -30,7 +30,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? 'bg-[var(--bg)]/98 border-[var(--b2)]' : 'bg-[var(--bg)]/90 border-[var(--b1)]'}`}>
+      <header className={`sticky top-0 z-50 border-b transition-all duration-300 backdrop-blur-md ${scrolled ? 'bg-[var(--bg)]/80 border-[var(--b2)]' : 'bg-[var(--bg)]/60 border-[var(--b1)]'}`}>
         <nav className="flex items-center h-[52px] px-5 gap-0">
           {/* Logo */}
           <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-4 flex-shrink-0 mr-2">
