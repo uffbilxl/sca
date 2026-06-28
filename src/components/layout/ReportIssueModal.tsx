@@ -23,25 +23,25 @@ export function ReportIssueModal({ onClose }: Props) {
       className="fixed inset-0 z-[200] flex items-center justify-center px-4"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-[var(--t1)]/40 backdrop-blur-sm" />
 
       <div
-        className="relative z-10 w-full max-w-[460px] bg-[var(--bg2)] border border-[var(--b2)] rounded-2xl p-8 shadow-2xl"
+        className="relative z-10 w-full max-w-[460px] bg-[var(--bg)] border border-[var(--b1)] p-8"
         onClick={e => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center rounded-md text-[var(--t4)] hover:text-[var(--t2)] hover:bg-[var(--bg4)] transition-colors text-[16px]"
+          className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-[var(--t4)] hover:text-[var(--t1)] transition-colors text-[16px]"
         >
           ✕
         </button>
 
-        <div className="w-12 h-12 rounded-xl bg-[var(--bg3)] border border-[var(--b2)] flex items-center justify-center text-[20px] mb-5">
+        <div className="w-10 h-10 border border-[var(--b1)] flex items-center justify-center text-[18px] text-[var(--t3)] mb-5">
           ◎
         </div>
 
-        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Get in touch</p>
-        <h2 className="text-[20px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-snug">
+        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-2">// get in touch</p>
+        <h2 className="font-display text-[20px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-snug">
           Report an Issue
         </h2>
 
@@ -54,18 +54,18 @@ export function ReportIssueModal({ onClose }: Props) {
             <a
               key={c.email}
               href={`mailto:${c.email}`}
-              className="flex items-center justify-between gap-3 p-3.5 rounded-xl border border-[var(--b1)] bg-[var(--bg3)] hover:border-[var(--b3)] hover:bg-[var(--bg4)] transition-all group"
+              className="flex items-center justify-between gap-3 p-3.5 border border-[var(--b1)] bg-[var(--bg2)] hover:border-[var(--t1)] hover:bg-[var(--bg3)] transition-all group"
             >
               <div>
                 <div className="text-[12px] font-semibold text-[var(--t1)]">{c.name}</div>
-                <div className="text-[10px] text-[var(--t4)] mt-0.5">{c.role}</div>
+                <div className="text-[10px] font-mono text-[var(--t4)] mt-0.5">{c.role}</div>
               </div>
-              <span className="text-[11px] text-[var(--t3)] group-hover:text-accent transition-colors shrink-0">{c.email}</span>
+              <span className="text-[11px] font-mono text-[var(--t3)] group-hover:text-[var(--t1)] transition-colors shrink-0">{c.email}</span>
             </a>
           ))}
         </div>
 
-        <p className="text-center text-[11px] text-[var(--t4)] mt-5">
+        <p className="text-center text-[11px] font-mono text-[var(--t4)] mt-5">
           Clicking a name will open your email client directly.
         </p>
       </div>

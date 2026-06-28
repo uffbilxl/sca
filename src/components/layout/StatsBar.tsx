@@ -43,10 +43,10 @@ export function StatsBar({ total, open, companies, deadlines }: StatsBarProps) {
           animate="show"
           className={`py-6 sm:py-8 text-center ${borderClass(i)}`}
         >
-          <div className="text-[26px] sm:text-[30px] font-black text-[var(--t1)] tracking-tight tabular-nums">
+          <div className="font-display text-[26px] sm:text-[30px] font-black text-[var(--t1)] tracking-tight tabular-nums">
             {s.n.toLocaleString()}
           </div>
-          <div className="text-[10px] text-[var(--t4)] uppercase tracking-[0.12em] mt-1.5">{s.l}</div>
+          <div className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.12em] mt-1.5">{s.l}</div>
         </motion.div>
       ))}
     </div>

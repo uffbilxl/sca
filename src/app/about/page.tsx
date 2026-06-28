@@ -44,8 +44,8 @@ export default function AboutPage() {
 
       {/* Header */}
       <div className="mb-12">
-        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Birmingham City University</p>
-        <h1 className="text-[30px] sm:text-[38px] font-black tracking-[-0.8px] text-[var(--t1)] mb-4 leading-tight">
+        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-2">// Birmingham City University</p>
+        <h1 className="font-display text-[30px] sm:text-[38px] font-black tracking-[-0.8px] text-[var(--t1)] mb-4 leading-tight">
           Who We Are
         </h1>
         <p className="text-[15px] text-[var(--t2)] leading-relaxed max-w-[600px]">
@@ -54,17 +54,17 @@ export default function AboutPage() {
       </div>
 
       {/* Mission */}
-      <section className="mb-12 p-6 sm:p-8 rounded-2xl border border-accent/25 bg-accent/5">
-        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-3">Our mission</p>
-        <p className="text-[16px] sm:text-[18px] font-semibold text-[var(--t1)] leading-relaxed">
-          To make the path from BCU student to tech professional as clear, supported, and accessible as possible - for everyone.
+      <section className="mb-12 p-6 sm:p-8 border border-[var(--b1)] border-l-2 border-l-[var(--t1)]">
+        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-3">// our mission</p>
+        <p className="font-display text-[16px] sm:text-[18px] font-semibold text-[var(--t1)] leading-relaxed">
+          To make the path from BCU student to tech professional as clear, supported, and accessible as possible — for everyone.
         </p>
       </section>
 
       {/* What we do */}
       <section className="mb-12">
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest">What we do</span>
+          <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">// what we do</span>
           <div className="flex-1 h-px bg-[var(--b1)]" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -72,11 +72,11 @@ export default function AboutPage() {
             <Link
               key={item.label}
               href={item.href}
-              className="group flex flex-col gap-2 p-5 rounded-xl border border-[var(--b1)] bg-[var(--bg2)] hover:border-[var(--b3)] hover:bg-[var(--bg3)] transition-all duration-200"
+              className="group flex flex-col gap-2 p-5 border border-[var(--b1)] bg-[var(--bg)] hover:border-[var(--t1)] hover:bg-[var(--bg2)] transition-all duration-200"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-semibold text-[var(--t1)] group-hover:text-white transition-colors">{item.label}</span>
-                <span className="text-[var(--t4)] group-hover:text-accent transition-colors">-&gt;</span>
+                <span className="font-display text-[13px] font-semibold text-[var(--t1)]">{item.label}</span>
+                <span className="text-[var(--t4)] group-hover:text-[var(--t1)] transition-colors">→</span>
               </div>
               <p className="text-[12px] text-[var(--t3)] leading-relaxed">{item.desc}</p>
             </Link>
@@ -87,15 +87,15 @@ export default function AboutPage() {
       {/* Values */}
       <section className="mb-12">
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest">Our values</span>
+          <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">// our values</span>
           <div className="flex-1 h-px bg-[var(--b1)]" />
         </div>
         <div className="flex flex-col gap-3">
           {values.map((v, i) => (
-            <div key={v.title} className="flex gap-5 p-5 rounded-xl border border-[var(--b1)] bg-[var(--bg2)]">
-              <div className="text-[10px] text-[var(--t4)] uppercase tracking-[0.14em] pt-0.5 flex-shrink-0 w-6">0{i + 1}</div>
+            <div key={v.title} className="flex gap-5 p-5 border border-[var(--b1)] bg-[var(--bg)]">
+              <div className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] pt-0.5 flex-shrink-0 w-6">0{i + 1}</div>
               <div>
-                <div className="text-[13px] font-semibold text-[var(--t1)] mb-1.5">{v.title}</div>
+                <div className="font-display text-[13px] font-semibold text-[var(--t1)] mb-1.5">{v.title}</div>
                 <div className="text-[12px] text-[var(--t3)] leading-relaxed">{v.text}</div>
               </div>
             </div>
@@ -104,8 +104,8 @@ export default function AboutPage() {
       </section>
 
       {/* A note on opportunities */}
-      <section className="mb-12 p-5 rounded-xl border border-amber-500/20 bg-amber-500/5">
-        <p className="text-[10px] text-amber-400 uppercase tracking-[0.14em] mb-2">Our position</p>
+      <section className="mb-12 p-5 border border-[var(--b1)] border-l-2 border-l-amber-700/60">
+        <p className="text-[10px] font-mono text-amber-700/80 uppercase tracking-[0.14em] mb-2">// our position</p>
         <p className="text-[13px] text-[var(--t2)] leading-relaxed">
           We aim to share as many opportunities as possible, but we are selective about what we promote. We will not list roles from defence companies. We believe every student deserves access to opportunity, and we take seriously our responsibility in shaping what that looks like.
         </p>
@@ -114,12 +114,12 @@ export default function AboutPage() {
       {/* Get involved */}
       <section>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest">Get involved</span>
+          <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">// get involved</span>
           <div className="flex-1 h-px bg-[var(--b1)]" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="p-5 rounded-xl border border-[var(--b1)] bg-[var(--bg2)]">
-            <div className="text-[13px] font-semibold text-[var(--t1)] mb-1.5">Join the SCA</div>
+          <div className="p-5 border border-[var(--b1)] bg-[var(--bg)]">
+            <div className="font-display text-[13px] font-semibold text-[var(--t1)] mb-1.5">Join the SCA</div>
             <p className="text-[12px] text-[var(--t3)] leading-relaxed mb-4">
               Open to all BCU computing students. Follow us on LinkedIn and stay up to date with everything we are doing.
             </p>
@@ -127,13 +127,13 @@ export default function AboutPage() {
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[12px] font-medium text-accent hover:underline"
+              className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[var(--t1)] hover:underline"
             >
-              Follow on LinkedIn -&gt;
+              Follow on LinkedIn →
             </Link>
           </div>
-          <div className="p-5 rounded-xl border border-[var(--b1)] bg-[var(--bg2)]">
-            <div className="text-[13px] font-semibold text-[var(--t1)] mb-1.5">Join the committee</div>
+          <div className="p-5 border border-[var(--b1)] bg-[var(--bg)]">
+            <div className="font-display text-[13px] font-semibold text-[var(--t1)] mb-1.5">Join the committee</div>
             <p className="text-[12px] text-[var(--t3)] leading-relaxed mb-4">
               Want to help shape the SCA? We are always looking for students to join the committee and contribute to what we build.
             </p>
@@ -141,9 +141,9 @@ export default function AboutPage() {
               href="https://tally.so/r/681g7e"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[12px] font-medium text-accent hover:underline"
+              className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[var(--t1)] hover:underline"
             >
-              Apply here -&gt;
+              Apply here →
             </Link>
           </div>
         </div>

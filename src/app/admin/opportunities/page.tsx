@@ -13,14 +13,14 @@ async function getOpportunities() {
 }
 
 const statusColour: Record<string, string> = {
-  OPEN: 'text-green-400',
-  CLOSING_SOON: 'text-amber-400',
+  OPEN: 'text-green-700',
+  CLOSING_SOON: 'text-amber-700',
   CLOSED: 'text-[var(--t4)]',
 }
 
 const statusDot: Record<string, string> = {
-  OPEN: 'bg-green-400',
-  CLOSING_SOON: 'bg-amber-400',
+  OPEN: 'bg-green-600',
+  CLOSING_SOON: 'bg-amber-600',
   CLOSED: 'bg-[var(--t4)]',
 }
 
@@ -37,13 +37,13 @@ export default async function OpportunitiesAdminPage() {
         </div>
         <Link
           href="/admin/opportunities/import"
-          className="px-4 py-2 bg-accent text-white text-[12px] font-semibold rounded-lg hover:opacity-90 transition-opacity"
+          className="px-4 py-2 bg-[var(--t1)] text-[var(--bg)] text-[12px] font-semibold hover:opacity-80 transition-opacity"
         >
           Import CSV ↑
         </Link>
       </div>
 
-      <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl overflow-hidden">
+      <div className="bg-[var(--bg2)] border border-[var(--b1)] overflow-hidden">
         <table className="w-full" style={{ tableLayout: 'fixed' }}>
           <thead>
             <tr>
@@ -61,7 +61,7 @@ export default async function OpportunitiesAdminPage() {
           </thead>
           <tbody>
             {opps.map(opp => (
-              <tr key={opp.id} className="border-b border-[var(--b1)] last:border-b-0 hover:bg-[rgba(255,255,255,0.015)]">
+              <tr key={opp.id} className="border-b border-[var(--b1)] last:border-b-0 hover:bg-[var(--bg3)]">
                 <td className="px-4 py-3 text-[12px] text-[var(--t1)] truncate" title={opp.title}>{opp.title}</td>
                 <td className="px-4 py-3 text-[11px] text-[var(--t3)] truncate">{opp.company.name}</td>
                 <td className="px-4 py-3 text-[11px] text-[var(--t3)]">{opportunityTypeLabel(opp.type)}</td>
@@ -83,9 +83,9 @@ export default async function OpportunitiesAdminPage() {
         {opps.length === 0 && (
           <div className="py-12 text-center text-[12px] text-[var(--t4)]">
             No opportunities yet.{' '}
-            <Link href="/admin/opportunities/import" className="text-accent hover:underline">Import a CSV</Link>
+            <Link href="/admin/opportunities/import" className="text-[var(--t1)] hover:underline">Import a CSV</Link>
             {' '}or{' '}
-            <Link href="/admin/seed" className="text-accent hover:underline">seed from static data</Link>.
+            <Link href="/admin/seed" className="text-[var(--t1)] hover:underline">seed from static data</Link>.
           </div>
         )}
       </div>

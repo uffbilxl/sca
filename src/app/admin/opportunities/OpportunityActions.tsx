@@ -33,7 +33,7 @@ export default function OpportunityActions({ id, status }: { id: string; status:
         <button
           onClick={() => setStatus('CLOSED')}
           disabled={busy}
-          className="px-2 py-1 border border-[var(--b2)] rounded text-[10px] text-[var(--t3)] hover:bg-[var(--bg3)] transition-colors disabled:opacity-40"
+          className="px-2 py-1 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] hover:bg-[var(--bg3)] transition-colors disabled:opacity-40"
         >
           Close
         </button>
@@ -42,7 +42,7 @@ export default function OpportunityActions({ id, status }: { id: string; status:
         <button
           onClick={() => setStatus('OPEN')}
           disabled={busy}
-          className="px-2 py-1 border border-green-500/30 rounded text-[10px] text-green-400 hover:bg-green-500/10 transition-colors disabled:opacity-40"
+          className="px-2 py-1 border border-green-700/40 text-[10px] font-mono text-green-700 hover:bg-green-50 transition-colors disabled:opacity-40"
         >
           Reopen
         </button>
@@ -50,7 +50,7 @@ export default function OpportunityActions({ id, status }: { id: string; status:
       <button
         onClick={deleteOpp}
         disabled={busy}
-        className="px-2 py-1 border border-red-500/25 rounded text-[10px] text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-40"
+        className="px-2 py-1 border border-red-700/30 text-[10px] font-mono text-red-700 hover:bg-red-50 transition-colors disabled:opacity-40"
       >
         Delete
       </button>

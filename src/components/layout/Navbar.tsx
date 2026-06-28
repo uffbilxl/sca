@@ -30,15 +30,15 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${scrolled ? 'bg-[var(--bg)]/98 border-[var(--b2)] shadow-[0_1px_30px_rgba(0,0,0,0.25)]' : 'bg-[var(--bg)]/90 border-[var(--b1)]'}`}>
+      <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? 'bg-[var(--bg)]/98 border-[var(--b2)]' : 'bg-[var(--bg)]/90 border-[var(--b1)]'}`}>
         <nav className="flex items-center h-[52px] px-5 gap-0">
           {/* Logo */}
           <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-4 flex-shrink-0 mr-2">
             <div className="flex flex-col leading-none">
-              <span className="text-[18px] font-black text-[var(--t1)] tracking-tight">SCA</span>
-              <span className="text-[8.5px] font-normal text-[var(--t2)] tracking-wide mt-[2px]">Birmingham City University</span>
+              <span className="text-[18px] font-black font-display text-[var(--t1)] tracking-tight">SCA</span>
+              <span className="text-[8.5px] font-mono font-normal text-[var(--t4)] tracking-wide mt-[2px]">Birmingham City University</span>
             </div>
-            <div className="w-px h-7 bg-[var(--b2)]" />
+            <div className="w-px h-7 bg-[var(--b1)]" />
           </Link>
 
           {/* Desktop nav */}
@@ -49,10 +49,10 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-1.5 text-[13px] rounded-md transition-all duration-150 ${
+                  className={`px-3 py-1.5 text-[13px] transition-all duration-150 ${
                     active
-                      ? 'text-[var(--t1)] shadow-[inset_0_-1.5px_0_0_rgba(91,141,245,0.7)]'
-                      : 'text-[var(--t3)] hover:text-[var(--t2)] hover:bg-[var(--bg3)]'
+                      ? 'text-[var(--t1)] underline decoration-[var(--t1)] underline-offset-4'
+                      : 'text-[var(--t3)] hover:text-[var(--t1)]'
                   }`}
                 >
                   {link.label}
@@ -65,13 +65,13 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
             <button
               onClick={() => setShowReportModal(true)}
-              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors"
+              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
             >
               Report an Issue
             </button>
             <button
               onClick={() => setShowModal(true)}
-              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t2)] border border-[var(--b2)] rounded-md hover:border-accent hover:text-accent transition-colors"
+              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
             >
               Join the Committee
             </button>
@@ -79,7 +79,7 @@ export function Navbar() {
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 text-[12px] font-medium text-[#090909] bg-[var(--t1)] rounded-md hover:bg-[#e0e0e0] transition-colors"
+              className="px-3 py-1.5 text-[12px] font-medium text-[var(--bg)] bg-[var(--t1)] hover:opacity-80 transition-opacity"
             >
               Join SCA
             </Link>
@@ -91,13 +91,13 @@ export function Navbar() {
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1 text-[11px] font-medium text-[#090909] bg-[var(--t1)] rounded-md hover:bg-[#e0e0e0] transition-colors"
+              className="px-2.5 py-1 text-[11px] font-medium text-[var(--bg)] bg-[var(--t1)] hover:opacity-80 transition-opacity"
             >
               Join SCA
             </Link>
             <button
               onClick={() => setMobileOpen(o => !o)}
-              className="w-8 h-8 flex flex-col items-center justify-center gap-1.5 rounded-md hover:bg-[var(--bg3)] transition-colors flex-shrink-0"
+              className="w-8 h-8 flex flex-col items-center justify-center gap-1.5 hover:bg-[var(--bg3)] transition-colors flex-shrink-0"
               aria-label="Toggle menu"
             >
               <span className={`w-5 h-0.5 bg-[var(--t2)] transition-all duration-200 origin-center ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -120,10 +120,10 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-3 text-[15px] rounded-xl transition-colors ${
+                  className={`px-4 py-3 text-[15px] transition-colors ${
                     active
-                      ? 'text-[var(--t1)] bg-[var(--bg3)]'
-                      : 'text-[var(--t3)] hover:text-[var(--t2)] hover:bg-[var(--bg3)]'
+                      ? 'text-[var(--t1)] bg-[var(--bg2)] border-l-2 border-[var(--t1)]'
+                      : 'text-[var(--t3)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
                   }`}
                 >
                   {link.label}
@@ -133,13 +133,13 @@ export function Navbar() {
             <div className="h-px bg-[var(--b1)] my-3" />
             <button
               onClick={() => { setShowReportModal(true); setMobileOpen(false) }}
-              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-xl hover:border-[var(--b3)] hover:text-[var(--t1)] transition-colors mb-2"
+              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors mb-2"
             >
               Report an Issue
             </button>
             <button
               onClick={() => { setShowModal(true); setMobileOpen(false) }}
-              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t2)] border border-[var(--b2)] rounded-xl hover:border-accent hover:text-accent transition-colors"
+              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
             >
               Join the Committee
             </button>

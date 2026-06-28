@@ -18,14 +18,14 @@ export function TickerBanner() {
       <div className="ticker-track flex gap-8 whitespace-nowrap w-max">
         {doubled.map((item, i) => (
           <span key={i} className="flex items-center gap-8">
-            <span className={`text-[11px] tracking-wide ${
+            <span className={`text-[11px] font-mono tracking-wide ${
               i % 2 === 0
-                ? 'text-accent/60 font-medium'
+                ? 'text-[var(--t1)] font-medium'
                 : 'text-[var(--t4)] font-normal'
             }`}>
               {item}
             </span>
-            <span className="text-[var(--b3)] text-[10px]">·</span>
+            <span className="text-[var(--b2)] text-[10px]">·</span>
           </span>
         ))}
       </div>

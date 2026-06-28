@@ -14,11 +14,11 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
   return (
     <Link
       href={`/opportunities/${opp.slug}`}
-      className="bg-[var(--bg2)] p-5 hover:bg-[var(--bg3)] hover:shadow-[inset_0_0_0_1px_rgba(91,141,245,0.18),inset_0_1px_0_rgba(91,141,245,0.25)] transition-all duration-200 group block relative"
+      className="bg-[var(--bg)] p-5 hover:bg-[var(--bg2)] transition-colors group block relative"
     >
       {/* Featured ribbon */}
       {showFeaturedBadge && (
-        <div className="absolute top-0 right-0 flex items-center gap-1 px-2.5 py-1 bg-accent/10 border-b border-l border-accent/25 rounded-bl-lg rounded-tr-none text-[10px] font-semibold text-accent tracking-wide">
+        <div className="absolute top-0 right-0 flex items-center gap-1 px-2.5 py-1 bg-[var(--bg3)] border-b border-l border-[var(--b1)] text-[10px] font-mono font-medium text-[var(--t3)] tracking-wide">
           Featured
         </div>
       )}
@@ -38,8 +38,8 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
         )}
       </div>
 
-      <div className="text-[11px] text-[var(--t4)] mb-1">{opp.company.name}</div>
-      <div className="text-[14px] font-medium text-[var(--t1)] leading-snug mb-2 group-hover:text-white transition-colors">
+      <div className="text-[11px] font-mono text-[var(--t4)] mb-1">{opp.company.name}</div>
+      <div className="text-[14px] font-medium text-[var(--t1)] leading-snug mb-2 group-hover:underline group-hover:decoration-[var(--t1)] transition-all">
         {opp.title}
       </div>
 
@@ -64,10 +64,10 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
       <div className="flex items-center justify-between pt-2.5 border-t border-[var(--b1)]">
         <div className="text-[11px] text-[var(--t4)]">
           {opp.deadline
-            ? <>Closes <span className="text-amber-400">{formatDeadline(opp.deadline)}</span></>
+            ? <>Closes <span className="text-amber-700">{formatDeadline(opp.deadline)}</span></>
             : 'Rolling deadline'}
         </div>
-        <span className="px-3 py-1 bg-transparent border border-[var(--b2)] rounded text-[11px] font-medium text-[var(--t3)] group-hover:bg-accent group-hover:border-accent group-hover:text-white transition-all">
+        <span className="px-3 py-1 bg-transparent border border-[var(--b1)] text-[11px] font-medium text-[var(--t3)] group-hover:bg-[var(--t1)] group-hover:border-[var(--t1)] group-hover:text-[var(--bg)] transition-all">
           Apply
         </span>
       </div>

@@ -7,7 +7,7 @@ interface Props {
 export function RegisterButton({ eventId, disabled, registrationUrl }: Props) {
   if (disabled) {
     return (
-      <button disabled className="px-3 py-1.5 bg-[var(--bg4)] text-[var(--t4)] text-[11px] font-medium rounded-md cursor-not-allowed">
+      <button disabled className="px-3 py-1.5 bg-[var(--bg3)] text-[var(--t4)] text-[11px] font-medium cursor-not-allowed">
         Full
       </button>
     )
@@ -18,7 +18,7 @@ export function RegisterButton({ eventId, disabled, registrationUrl }: Props) {
         href={registrationUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="px-3 py-1.5 bg-accent text-white text-[11px] font-medium rounded-md hover:bg-accent-hover transition-colors"
+        className="px-3 py-1.5 bg-[var(--t1)] text-[var(--bg)] text-[11px] font-medium hover:opacity-80 transition-opacity"
       >
         Register
       </a>
@@ -27,7 +27,7 @@ export function RegisterButton({ eventId, disabled, registrationUrl }: Props) {
   return (
     <button
       onClick={() => alert('Registration will be available soon. Check back later.')}
-      className="px-3 py-1.5 bg-accent text-white text-[11px] font-medium rounded-md hover:bg-accent-hover transition-colors"
+      className="px-3 py-1.5 bg-[var(--t1)] text-[var(--bg)] text-[11px] font-medium hover:opacity-80 transition-opacity"
     >
       Register
     </button>

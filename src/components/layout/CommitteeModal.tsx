@@ -6,7 +6,6 @@ interface Props {
 }
 
 export function CommitteeModal({ onClose }: Props) {
-  // close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', handler)
@@ -19,28 +18,28 @@ export function CommitteeModal({ onClose }: Props) {
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-[var(--t1)]/40 backdrop-blur-sm" />
 
       {/* Panel */}
       <div
-        className="relative z-10 w-full max-w-[480px] bg-[var(--bg2)] border border-[var(--b2)] rounded-2xl p-8 shadow-2xl"
+        className="relative z-10 w-full max-w-[480px] bg-[var(--bg)] border border-[var(--b1)] p-8"
         onClick={e => e.stopPropagation()}
       >
         {/* Close */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center rounded-md text-[var(--t4)] hover:text-[var(--t2)] hover:bg-[var(--bg4)] transition-colors text-[16px]"
+          className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center text-[var(--t4)] hover:text-[var(--t1)] transition-colors text-[16px]"
         >
           ✕
         </button>
 
         {/* Icon */}
-        <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/25 flex items-center justify-center text-[22px] mb-5">
+        <div className="w-10 h-10 border border-[var(--b1)] flex items-center justify-center text-[18px] text-[var(--t3)] mb-5">
           ✦
         </div>
 
-        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Get involved</p>
-        <h2 className="text-[20px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-snug">
+        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-2">// get involved</p>
+        <h2 className="font-display text-[20px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-snug">
           Join the SCA Committee
         </h2>
 
@@ -55,10 +54,10 @@ export function CommitteeModal({ onClose }: Props) {
           enthusiasm and a drive to make a difference for fellow students.
         </p>
 
-        <div className="flex flex-col gap-2.5 p-4 bg-[var(--bg3)] border border-[var(--b1)] rounded-xl mb-6">
+        <div className="flex flex-col gap-2.5 p-4 bg-[var(--bg2)] border border-[var(--b1)] mb-6">
           {['Organise events & workshops', 'Grow the SCA community', 'Build real leadership experience', 'Network with industry professionals'].map(item => (
             <div key={item} className="flex items-center gap-2.5 text-[12px] text-[var(--t2)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+              <span className="text-[var(--t4)] font-mono">—</span>
               {item}
             </div>
           ))}
@@ -68,12 +67,12 @@ export function CommitteeModal({ onClose }: Props) {
           href="https://tally.so/r/681g7e"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full py-3 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-[var(--acc2)] transition-all duration-200 shadow-[0_0_30px_rgba(91,141,245,0.25)] hover:shadow-[0_0_40px_rgba(91,141,245,0.4)]"
+          className="flex items-center justify-center gap-2 w-full py-3 bg-[var(--t1)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-80 transition-opacity"
         >
           Apply now →
         </a>
 
-        <p className="text-center text-[11px] text-[var(--t4)] mt-3">
+        <p className="text-center text-[11px] font-mono text-[var(--t4)] mt-3">
           Takes less than 5 minutes · Open to all BCU computing students
         </p>
       </div>

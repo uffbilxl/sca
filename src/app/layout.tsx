@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body className="min-h-screen bg-[var(--bg)] text-[var(--t1)] antialiased">
         <AnimatedBackground />
         <Navbar />
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             href="https://www.keystonedigitalstrategy.co.uk"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] text-[var(--t3)] hover:text-accent transition-colors"
+            className="text-[11px] text-[var(--t3)] hover:text-[var(--t1)] transition-colors"
           >
             Keystone
           </a>

@@ -50,7 +50,8 @@ export default function SCAOpportunitiesPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h1 className="text-[20px] font-black tracking-[-0.4px] text-[var(--t1)]">SCA Opportunities</h1>
+        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-1">// internal</p>
+        <h1 className="font-display text-[20px] font-black tracking-[-0.4px] text-[var(--t1)]">SCA Opportunities</h1>
         <p className="text-[12px] text-[var(--t3)] mt-1">
           Internal opportunities within the Student Computing Association: committee roles, volunteering, and more.
         </p>
@@ -58,7 +59,7 @@ export default function SCAOpportunitiesPage() {
 
       {/* Web Development Intern Card */}
       <motion.div
-        className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden mb-5"
+        className="border border-[var(--b1)] bg-[var(--bg2)] overflow-hidden mb-5"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -70,21 +71,21 @@ export default function SCAOpportunitiesPage() {
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-semibold text-accent tracking-wide uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse inline-block" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-[var(--t1)] text-[10px] font-mono font-medium text-[var(--t1)] tracking-wide uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--t1)] inline-block" />
                   Now open
                 </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
                   Web Division
                 </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
                   Year-long
                 </span>
               </div>
-              <h2 className="text-[17px] font-bold text-[var(--t1)] tracking-tight">
+              <h2 className="font-display text-[17px] font-bold text-[var(--t1)] tracking-tight">
                 Web Development Intern
               </h2>
-              <p className="text-[12px] text-[var(--t3)] mt-0.5">
+              <p className="text-[12px] font-mono text-[var(--t3)] mt-0.5">
                 BCU Student Computing Association
               </p>
             </div>
@@ -102,7 +103,7 @@ export default function SCAOpportunitiesPage() {
               </p>
 
               <div>
-                <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
+                <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
                 <ul className="space-y-1.5">
                   {[
                     'Maintain and update existing SCA websites',
@@ -111,7 +112,7 @@ export default function SCAOpportunitiesPage() {
                     'Collaborate with other SCA divisions on web needs',
                   ].map(item => (
                     <li key={item} className="flex items-start gap-2 text-[12px] text-[var(--t2)]">
-                      <span className="text-accent mt-0.5 flex-shrink-0">→</span>
+                      <span className="text-[var(--t4)] mt-0.5 flex-shrink-0">→</span>
                       {item}
                     </li>
                   ))}
@@ -120,28 +121,26 @@ export default function SCAOpportunitiesPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
+                  <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
                   <div className="flex flex-wrap gap-1.5">
                     {['HTML', 'CSS', 'JavaScript'].map(skill => (
-                      <span key={skill} className="px-2.5 py-0.5 rounded-md bg-accent/10 border border-accent/20 text-[11px] text-accent font-medium">
-                        {skill}
-                      </span>
+                      <span key={skill} className="tag">{skill}</span>
                     ))}
                   </div>
-                  <p className="text-[11px] text-[var(--t4)] mt-1.5">Basic proficiency required</p>
+                  <p className="text-[11px] font-mono text-[var(--t4)] mt-1.5">Basic proficiency required</p>
                 </div>
                 <div>
-                  <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
+                  <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
                   <span className="text-[11px] text-[var(--t3)]">No prior experience required</span>
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[var(--bg3)] border border-[var(--b1)] px-4 py-3">
-                <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Why apply</p>
+              <div className="bg-[var(--bg3)] border border-[var(--b1)] px-4 py-3">
+                <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Why apply</p>
                 <div className="flex flex-wrap gap-x-5 gap-y-1">
                   {['Ownership of real, live products', 'Strengthen your CV', 'Build a portfolio for internships & placements'].map(benefit => (
                     <span key={benefit} className="text-[12px] text-[var(--t2)] flex items-center gap-1.5">
-                      <span className="text-accent text-[10px]">✦</span>
+                      <span className="text-[var(--t4)] text-[10px]">✦</span>
                       {benefit}
                     </span>
                   ))}
@@ -151,10 +150,10 @@ export default function SCAOpportunitiesPage() {
 
             <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex flex-col gap-0.5">
-                <p className="text-[11px] text-[var(--t4)]">Year-long · Starting 2026</p>
-                <div className="flex items-center gap-1.5 text-[11px] text-[var(--t4)]">
+                <p className="text-[11px] font-mono text-[var(--t4)]">Year-long · Starting 2026</p>
+                <div className="flex items-center gap-1.5 text-[11px] font-mono text-[var(--t4)]">
                   <span>Organiser:</span>
-                  <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-accent hover:underline font-medium">
+                  <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-[var(--t1)] hover:underline font-medium">
                     Tayyeb Nadeem Somro
                   </a>
                 </div>
@@ -163,7 +162,7 @@ export default function SCAOpportunitiesPage() {
                 href="https://tally.so/r/QK4R5l"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-accent-hover transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--t1)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-80 transition-opacity"
               >
                 Apply now →
               </a>
@@ -176,7 +175,7 @@ export default function SCAOpportunitiesPage() {
       <div className="mt-10">
         <button
           onClick={() => toggle('previous')}
-          className="flex items-center gap-2 text-[12px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-4 hover:text-[var(--t2)] transition-colors"
+          className="flex items-center gap-2 text-[12px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-4 hover:text-[var(--t1)] transition-colors"
         >
           <ChevronIcon open={!!openCards['previous']} />
           Previous Opportunities
@@ -186,7 +185,7 @@ export default function SCAOpportunitiesPage() {
           <div className="flex flex-col gap-3">
 
           {/* Sports Analytics */}
-          <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden opacity-70">
+          <div className="border border-[var(--b1)] bg-[var(--bg2)] overflow-hidden opacity-70">
             <button
               onClick={() => toggle('sports')}
               className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
@@ -194,17 +193,17 @@ export default function SCAOpportunitiesPage() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] font-semibold text-[var(--t4)] tracking-wide uppercase">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-[var(--b2)] text-[10px] font-mono font-medium text-[var(--t4)] tracking-wide uppercase">
                       Filled
                     </span>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                    <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
                       AI Division
                     </span>
                   </div>
-                  <h2 className="text-[17px] font-bold text-[var(--t1)] tracking-tight">
+                  <h2 className="font-display text-[17px] font-bold text-[var(--t1)] tracking-tight">
                     SCA Sports Analytics Department
                   </h2>
-                  <p className="text-[12px] text-[var(--t3)] mt-0.5">
+                  <p className="text-[12px] font-mono text-[var(--t3)] mt-0.5">
                     BCU Student Computing Association · BCU Basketball
                   </p>
                 </div>
@@ -222,18 +221,16 @@ export default function SCAOpportunitiesPage() {
                   </p>
 
                   <div>
-                    <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Roles available</p>
+                    <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Roles available</p>
                     <div className="flex flex-wrap gap-2">
                       {['Performance Analyst', 'Video Analyst', 'Data Collector'].map(role => (
-                        <span key={role} className="px-3 py-1 rounded-lg bg-[var(--bg3)] border border-[var(--b2)] text-[12px] text-[var(--t2)] font-medium">
-                          {role}
-                        </span>
+                        <span key={role} className="tag">{role}</span>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
+                    <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
                     <ul className="space-y-1.5">
                       {[
                         'Attend fixtures and collect live data',
@@ -251,17 +248,15 @@ export default function SCAOpportunitiesPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
+                      <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
                       <div className="flex flex-wrap gap-1.5">
                         {['Python', 'Excel', 'PowerPoint'].map(skill => (
-                          <span key={skill} className="px-2.5 py-0.5 rounded-md bg-[var(--bg3)] border border-[var(--b2)] text-[11px] text-[var(--t3)] font-medium">
-                            {skill}
-                          </span>
+                          <span key={skill} className="tag">{skill}</span>
                         ))}
                       </div>
                     </div>
                     <div>
-                      <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
+                      <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
                       <span className="text-[11px] text-[var(--t3)]">No prior experience required</span>
                     </div>
                   </div>
@@ -269,15 +264,15 @@ export default function SCAOpportunitiesPage() {
 
                 <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div className="flex flex-col gap-0.5">
-                    <p className="text-[11px] text-[var(--t4)]">All positions filled</p>
-                    <div className="flex items-center gap-1.5 text-[11px] text-[var(--t4)]">
+                    <p className="text-[11px] font-mono text-[var(--t4)]">All positions filled</p>
+                    <div className="flex items-center gap-1.5 text-[11px] font-mono text-[var(--t4)]">
                       <span>Organiser:</span>
                       <a href="mailto:Mohamed.Dahir@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
                         Mohammed Dahir
                       </a>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b2)] text-[var(--t4)] text-[13px] font-semibold rounded-xl cursor-default">
+                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b1)] text-[var(--t4)] text-[13px] font-medium cursor-default">
                     Applications closed
                   </span>
                 </div>
@@ -286,7 +281,7 @@ export default function SCAOpportunitiesPage() {
           </div>
 
           {/* Software Developers */}
-          <div className="border border-[var(--b1)] rounded-2xl bg-[var(--bg2)] overflow-hidden opacity-70">
+          <div className="border border-[var(--b1)] bg-[var(--bg2)] overflow-hidden opacity-70">
             <button
               onClick={() => toggle('softwaredev')}
               className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
@@ -294,20 +289,20 @@ export default function SCAOpportunitiesPage() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] font-semibold text-[var(--t4)] tracking-wide uppercase">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-[var(--b2)] text-[10px] font-mono font-medium text-[var(--t4)] tracking-wide uppercase">
                       Filled
                     </span>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                    <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
                       CivitasAccess
                     </span>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg3)] border border-[var(--b2)] text-[10px] text-[var(--t3)] tracking-wide">
+                    <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
                       3–4 positions
                     </span>
                   </div>
-                  <h2 className="text-[17px] font-bold text-[var(--t1)] tracking-tight">
+                  <h2 className="font-display text-[17px] font-bold text-[var(--t1)] tracking-tight">
                     SCA Software Developers
                   </h2>
-                  <p className="text-[12px] text-[var(--t3)] mt-0.5">
+                  <p className="text-[12px] font-mono text-[var(--t3)] mt-0.5">
                     CivitasAccess · Promoted by BCU Student Computing Association
                   </p>
                 </div>
@@ -325,7 +320,7 @@ export default function SCAOpportunitiesPage() {
                   </p>
 
                   <div>
-                    <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
+                    <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
                     <ul className="space-y-1.5">
                       {[
                         'Design and build a full stack application from the ground up',
@@ -343,17 +338,15 @@ export default function SCAOpportunitiesPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
+                      <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
                       <div className="flex flex-wrap gap-1.5">
                         {['HTML/CSS', 'JavaScript', 'Git'].map(skill => (
-                          <span key={skill} className="px-2.5 py-0.5 rounded-md bg-[var(--bg3)] border border-[var(--b2)] text-[11px] text-[var(--t3)] font-medium">
-                            {skill}
-                          </span>
+                          <span key={skill} className="tag">{skill}</span>
                         ))}
                       </div>
                     </div>
                     <div>
-                      <p className="text-[11px] font-semibold text-[var(--t4)] uppercase tracking-wider mb-2">Team size</p>
+                      <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Team size</p>
                       <span className="text-[11px] text-[var(--t3)]">3–4 interns working together</span>
                     </div>
                   </div>
@@ -361,8 +354,8 @@ export default function SCAOpportunitiesPage() {
 
                 <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div className="flex flex-col gap-1">
-                    <p className="text-[11px] text-[var(--t4)]">All positions filled</p>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[var(--t4)]">
+                    <p className="text-[11px] font-mono text-[var(--t4)]">All positions filled</p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-[var(--t4)]">
                       <span>Organisers:</span>
                       <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
                         Tayyeb Nadeem Somro
@@ -373,7 +366,7 @@ export default function SCAOpportunitiesPage() {
                       </a>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b2)] text-[var(--t4)] text-[13px] font-semibold rounded-xl cursor-default">
+                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b1)] text-[var(--t4)] text-[13px] font-medium cursor-default">
                     Applications closed
                   </span>
                 </div>

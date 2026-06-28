@@ -31,10 +31,10 @@ export function Toaster() {
       {toasts.map(t => (
         <div
           key={t.id}
-          className={`px-4 py-3 rounded-lg text-sm font-medium shadow-lg border animate-fade-in ${
+          className={`px-4 py-3 text-sm font-mono border animate-fade-in ${
             t.type === 'success'
-              ? 'bg-[var(--bg3)] border-[var(--b2)] text-[var(--t1)]'
-              : 'bg-red-500/10 border-red-500/25 text-red-400'
+              ? 'bg-[var(--bg3)] border-[var(--b1)] text-[var(--t1)]'
+              : 'bg-red-50 border-red-700/30 text-red-700'
           }`}
         >
           {t.message}

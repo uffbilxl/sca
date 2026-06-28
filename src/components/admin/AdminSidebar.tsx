@@ -53,7 +53,7 @@ export function AdminSidebar() {
         </Link>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 px-4 py-2 text-[12px] text-[var(--t4)] hover:text-red-400 hover:bg-[var(--bg3)] transition-colors w-full text-left"
+          className="flex items-center gap-2 px-4 py-2 text-[12px] text-[var(--t4)] hover:text-red-700 hover:bg-red-50 transition-colors w-full text-left"
         >
           ⎋ Logout
         </button>

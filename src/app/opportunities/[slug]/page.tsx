@@ -30,7 +30,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
   return (
     <div className="max-w-[900px] mx-auto px-4 sm:px-8 py-5 sm:py-7">
       {/* Back */}
-      <Link href="/opportunities" className="inline-flex items-center gap-1.5 text-[12px] text-[var(--t3)] hover:text-[var(--t1)] transition-colors mb-6 sm:mb-7">
+      <Link href="/opportunities" className="inline-flex items-center gap-1.5 text-[12px] font-mono text-[var(--t3)] hover:text-[var(--t1)] hover:underline transition-colors mb-6 sm:mb-7">
         ← Back to opportunities
       </Link>
 
@@ -39,15 +39,15 @@ export default async function OpportunityDetailPage({ params }: Props) {
         <div className="flex gap-4 items-start">
           <CompanyLogo name={opp.company.name} logoUrl={opp.company.logo} size={56} />
           <div>
-            <div className="text-[12px] text-[var(--t3)] mb-1">{opp.company.name} · {opp.location}</div>
-            <h1 className="text-[24px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-tight">{opp.title}</h1>
+            <div className="text-[12px] font-mono text-[var(--t3)] mb-1">{opp.company.name} · {opp.location}</div>
+            <h1 className="font-display text-[24px] font-black tracking-[-0.5px] text-[var(--t1)] mb-3 leading-tight">{opp.title}</h1>
             <div className="flex gap-4 flex-wrap">
-              {opp.startDate && <span className="text-[12px] text-[var(--t3)]">⊕ {opp.startDate}{opp.duration ? ` · ${opp.duration}` : ''}</span>}
-              <span className="text-[12px] text-[var(--t3)]">{workModeLabel(opp.workMode)}</span>
+              {opp.startDate && <span className="text-[12px] font-mono text-[var(--t3)]">⊕ {opp.startDate}{opp.duration ? ` · ${opp.duration}` : ''}</span>}
+              <span className="text-[12px] font-mono text-[var(--t3)]">{workModeLabel(opp.workMode)}</span>
               {(opp.salary || opp.salaryMin) && (
-                <span className="text-[12px] text-[var(--t3)]">£ {formatSalary(opp.salaryMin, opp.salaryMax, opp.salary)}</span>
+                <span className="text-[12px] font-mono text-[var(--t3)]">£ {formatSalary(opp.salaryMin, opp.salaryMax, opp.salary)}</span>
               )}
-              {opp.sponsored && <span className="text-[12px] text-[var(--t3)]">✓ Visa sponsored</span>}
+              {opp.sponsored && <span className="text-[12px] font-mono text-[var(--t3)]">✓ Visa sponsored</span>}
             </div>
           </div>
         </div>
@@ -58,12 +58,12 @@ export default async function OpportunityDetailPage({ params }: Props) {
               href={opp.applyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-accent text-white text-[13px] font-semibold rounded-xl hover:bg-accent-hover transition-colors whitespace-nowrap"
+              className="px-6 py-2.5 bg-[var(--t1)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-80 transition-opacity whitespace-nowrap"
             >
               Apply now →
             </a>
           ) : (
-            <button className="px-6 py-2.5 bg-accent text-white text-[13px] font-semibold rounded-xl whitespace-nowrap opacity-60 cursor-not-allowed">
+            <button className="px-6 py-2.5 bg-[var(--bg3)] text-[var(--t4)] text-[13px] font-semibold whitespace-nowrap opacity-60 cursor-not-allowed">
               Application closed
             </button>
           )}
@@ -116,7 +116,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <h3 className="section-title mb-3">Tech stack</h3>
               <div className="flex gap-1.5 flex-wrap">
                 {opp.tags.map(({ tag }) => (
-                  <span key={tag.id} className="px-2.5 py-1 bg-[var(--bg4)] border border-[var(--b1)] rounded text-[12px] text-[var(--t3)]">{tag.name}</span>
+                  <span key={tag.id} className="tag">{tag.name}</span>
                 ))}
               </div>
             </div>
@@ -125,7 +125,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
 
         {/* Sidebar */}
         <div className="flex flex-col gap-3">
-          <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
+          <div className="bg-[var(--bg2)] border border-[var(--b1)] p-4">
             <div className="section-title mb-3">Overview</div>
             <div className="flex flex-col">
               {(([
@@ -138,19 +138,19 @@ export default async function OpportunityDetailPage({ params }: Props) {
                 ['Visa', opp.sponsored ? 'Sponsored ✓' : 'Not sponsored'],
               ] as ([string, string] | null)[]).filter((x): x is [string, string] => x !== null).map(([k, v], i, arr) => (
                 <div key={k as string} className={`flex justify-between items-center py-2 ${i < arr.length - 1 ? 'border-b border-[var(--b1)]' : ''}`}>
-                  <span className="text-[11px] text-[var(--t4)]">{k}</span>
-                  <span className={`text-[11px] font-medium ${k === 'Salary' ? 'text-accent' : k === 'Deadline' && ds === 'closing' ? 'text-amber-400' : 'text-[var(--t1)]'}`}>{v}</span>
+                  <span className="text-[11px] font-mono text-[var(--t4)]">{k}</span>
+                  <span className={`text-[11px] font-medium ${k === 'Deadline' && ds === 'closing' ? 'text-amber-700' : 'text-[var(--t1)]'}`}>{v}</span>
                 </div>
               )))}
             </div>
           </div>
 
           {opp.company.description && (
-            <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
+            <div className="bg-[var(--bg2)] border border-[var(--b1)] p-4">
               <div className="section-title mb-3">About {opp.company.name}</div>
               <p className="text-[11px] text-[var(--t4)] leading-relaxed">{opp.company.description}</p>
               {opp.company.website && (
-                <a href={opp.company.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] text-accent mt-2 hover:underline">
+                <a href={opp.company.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] font-mono text-[var(--t1)] mt-2 hover:underline">
                   Website →
                 </a>
               )}
@@ -158,13 +158,13 @@ export default async function OpportunityDetailPage({ params }: Props) {
           )}
 
           {related.length > 0 && (
-            <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
+            <div className="bg-[var(--bg2)] border border-[var(--b1)] p-4">
               <div className="section-title mb-3">Related roles</div>
               <div className="flex flex-col gap-2">
                 {related.map(r => (
-                  <Link key={r.id} href={`/opportunities/${r.slug}`} className="p-2 rounded-md bg-[var(--bg3)] hover:bg-[var(--bg4)] transition-colors">
+                  <Link key={r.id} href={`/opportunities/${r.slug}`} className="p-2 bg-[var(--bg3)] border border-[var(--b1)] hover:bg-[var(--bg4)] hover:border-[var(--b2)] transition-colors">
                     <div className="text-[12px] font-medium text-[var(--t1)]">{r.company.name} · {r.title}</div>
-                    <div className="text-[10px] text-[var(--t4)] mt-0.5">{r.location}</div>
+                    <div className="text-[10px] font-mono text-[var(--t4)] mt-0.5">{r.location}</div>
                   </Link>
                 ))}
               </div>

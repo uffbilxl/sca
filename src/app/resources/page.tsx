@@ -10,8 +10,6 @@ interface Resource {
 interface Category {
   id: string
   label: string
-  color: string
-  icon: string
   resources: Resource[]
 }
 
@@ -19,8 +17,6 @@ const CATEGORIES: Category[] = [
   {
     id: 'cv',
     label: 'CV Templates',
-    color: '#5b8df5',
-    icon: '📄',
     resources: [
       {
         title: '1-Page CV Template',
@@ -39,8 +35,6 @@ const CATEGORIES: Category[] = [
   {
     id: 'cover-letter',
     label: 'Cover Letters',
-    color: '#22c55e',
-    icon: '✉️',
     resources: [
       {
         title: 'Cover Letter Template',
@@ -52,8 +46,6 @@ const CATEGORIES: Category[] = [
   {
     id: 'cheat-sheets',
     label: 'Cheat Sheets',
-    color: '#f59e0b',
-    icon: '⚡',
     resources: [
       {
         title: 'C++ Cheat Sheet',
@@ -95,8 +87,6 @@ const CATEGORIES: Category[] = [
   {
     id: 'guides',
     label: 'Guides',
-    color: '#a855f7',
-    icon: '📚',
     resources: [
       {
         title: 'More guides coming soon',
@@ -133,8 +123,8 @@ export default function ResourcesPage() {
     <div className="max-w-[900px] mx-auto px-4 sm:px-8 py-7 sm:py-10">
       {/* Header */}
       <div className="mb-10">
-        <p className="text-[10px] text-accent uppercase tracking-[0.14em] mb-2">Student Computing Association</p>
-        <h1 className="text-[26px] font-black tracking-[-0.6px] text-[var(--t1)] mb-2">Resources</h1>
+        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-2">// resources</p>
+        <h1 className="font-display text-[26px] font-black tracking-[-0.6px] text-[var(--t1)] mb-2">Resources</h1>
         <p className="text-[13px] text-[var(--t3)] max-w-lg leading-relaxed">
           Templates and guides to help you land your next opportunity - CVs, cover letters, and more.
         </p>
@@ -146,23 +136,20 @@ export default function ResourcesPage() {
           <section key={cat.id}>
             {/* Section header */}
             <div className="flex items-center gap-3 mb-5">
-              <span className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest">{cat.label}</span>
+              <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">{cat.label}</span>
               <div className="flex-1 h-px bg-[var(--b1)]" />
-              <span className="text-[10px] text-[var(--t4)]">{cat.resources.length} {cat.resources.length === 1 ? 'item' : 'items'}</span>
+              <span className="text-[10px] font-mono text-[var(--t4)]">{cat.resources.length} {cat.resources.length === 1 ? 'item' : 'items'}</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {cat.resources.map(resource => (
                 <div
                   key={resource.title}
-                  className="flex flex-col gap-3 p-4 rounded-xl border bg-[var(--bg2)] border-[var(--b1)]"
+                  className="flex flex-col gap-3 p-4 border border-[var(--b1)] bg-[var(--bg)]"
                 >
                   {/* Top row */}
                   <div className="flex items-start gap-3">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${cat.color}15`, color: cat.color, border: `1px solid ${cat.color}30` }}
-                    >
+                    <div className="w-10 h-10 border border-[var(--b1)] flex items-center justify-center flex-shrink-0 text-[var(--t3)]">
                       <PDFIcon />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -181,8 +168,7 @@ export default function ResourcesPage() {
                     <a
                       href={resource.fileUrl}
                       download
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium text-white w-fit transition-opacity hover:opacity-90"
-                      style={{ background: cat.color }}
+                      className="inline-flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium bg-[var(--t1)] text-[var(--bg)] w-fit hover:opacity-80 transition-opacity"
                     >
                       <DownloadIcon />
                       Download {resource.fileUrl.endsWith('.pdf') ? 'PDF' : 'DOCX'}
@@ -190,8 +176,7 @@ export default function ResourcesPage() {
                   ) : (
                     <button
                       disabled
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-medium text-white w-fit opacity-30 cursor-not-allowed"
-                      style={{ background: cat.color }}
+                      className="inline-flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium bg-[var(--bg3)] text-[var(--t4)] w-fit opacity-60 cursor-not-allowed"
                     >
                       <DownloadIcon />
                       Coming Soon
@@ -208,7 +193,7 @@ export default function ResourcesPage() {
       <div className="mt-12 pt-6 border-t border-[var(--b1)]">
         <p className="text-[12px] text-[var(--t4)]">
           Have a resource to contribute?{' '}
-          <Link href="https://tally.so/r/681g7e" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+          <Link href="https://tally.so/r/681g7e" target="_blank" rel="noopener noreferrer" className="text-[var(--t1)] hover:underline">
             Get in touch →
           </Link>
         </p>

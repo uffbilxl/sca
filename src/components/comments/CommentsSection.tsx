@@ -39,13 +39,13 @@ export function CommentsSection({ opportunityId, initialComments }: Props) {
 
   return (
     <div className="mt-7 pt-7 border-t border-[var(--b1)]">
-      <h2 className="text-[14px] font-semibold text-[var(--t1)] mb-4">
+      <h2 className="font-display text-[14px] font-semibold text-[var(--t1)] mb-4">
         Student feedback ({comments.filter(c => c.approved).length})
       </h2>
 
       {/* Input */}
       {!submitted ? (
-        <div className="bg-[var(--bg2)] border border-[var(--b2)] rounded-xl p-4 mb-4 focus-within:border-accent transition-colors">
+        <div className="bg-[var(--bg2)] border border-[var(--b1)] p-4 mb-4 focus-within:border-[var(--t1)] transition-colors">
           {!anonymous && (
             <input
               type="text"
@@ -63,49 +63,49 @@ export function CommentsSection({ opportunityId, initialComments }: Props) {
             className="w-full bg-transparent border-none outline-none text-[12px] text-[var(--t1)] placeholder-[var(--t4)] resize-none leading-relaxed"
           />
           <div className="flex items-center justify-between pt-2.5 border-t border-[var(--b1)] mt-2">
-            <label className="flex items-center gap-1.5 text-[11px] text-[var(--t4)] cursor-pointer">
+            <label className="flex items-center gap-1.5 text-[11px] font-mono text-[var(--t4)] cursor-pointer">
               <input
                 type="checkbox"
                 checked={anonymous}
                 onChange={e => setAnonymous(e.target.checked)}
-                className="accent-accent w-3 h-3"
+                className="accent-[var(--t1)] w-3 h-3"
               />
               Post anonymously
             </label>
             <button
               onClick={handleSubmit}
               disabled={submitting || !body.trim()}
-              className="px-4 py-1.5 bg-accent text-white text-[11px] font-medium rounded-md hover:bg-accent-hover transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="px-4 py-1.5 bg-[var(--t1)] text-[var(--bg)] text-[11px] font-medium hover:opacity-80 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {submitting ? 'Posting…' : 'Post comment'}
             </button>
           </div>
         </div>
       ) : (
-        <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4 mb-4 text-[12px] text-[var(--t3)]">
+        <div className="bg-[var(--bg2)] border border-[var(--b1)] p-4 mb-4 text-[12px] font-mono text-[var(--t3)]">
           Your comment will appear once reviewed by an admin.
         </div>
       )}
 
       {/* Comment list */}
       {comments.length === 0 ? (
-        <div className="py-8 text-center text-[12px] text-[var(--t4)]">
+        <div className="py-8 text-center text-[12px] font-mono text-[var(--t4)]">
           No feedback yet. Be the first to share your experience.
         </div>
       ) : (
         <div className="flex flex-col gap-2.5">
           {comments.map(c => (
-            <div key={c.id} className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-4">
+            <div key={c.id} className="bg-[var(--bg2)] border border-[var(--b1)] p-4">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-6 h-6 rounded-full bg-[var(--bg4)] flex items-center justify-center text-[9px] font-semibold text-[var(--t3)] flex-shrink-0">
+                <div className="w-6 h-6 border border-[var(--b1)] flex items-center justify-center text-[9px] font-mono font-semibold text-[var(--t3)] flex-shrink-0">
                   {c.anonymous || !c.authorName ? 'AN' : c.authorName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                 </div>
                 <span className="text-[12px] font-medium text-[var(--t1)]">
                   {c.anonymous || !c.authorName ? 'Anonymous' : c.authorName}
                 </span>
-                <span className="text-[10px] text-[var(--t4)]">{formatTimeAgo(new Date(c.createdAt))}</span>
+                <span className="text-[10px] font-mono text-[var(--t4)]">{formatTimeAgo(new Date(c.createdAt))}</span>
                 {c.pinned && (
-                  <span className="text-[9px] px-1.5 py-0.5 bg-accent/10 text-accent border border-accent/25 rounded">Pinned</span>
+                  <span className="text-[9px] font-mono px-1.5 py-0.5 border border-[var(--b1)] text-[var(--t4)]">Pinned</span>
                 )}
               </div>
               <p className="text-[12px] text-[var(--t3)] leading-relaxed">{c.body}</p>

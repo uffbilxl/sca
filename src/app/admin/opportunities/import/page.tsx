@@ -57,7 +57,7 @@ export default function ImportPage() {
       </div>
 
       {/* Format guide */}
-      <div className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-5 mb-5">
+      <div className="bg-[var(--bg2)] border border-[var(--b1)] p-5 mb-5">
         <div className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest mb-3">Expected columns</div>
         <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
           {[
@@ -86,7 +86,7 @@ export default function ImportPage() {
       </div>
 
       {/* Upload form */}
-      <form onSubmit={handleSubmit} className="bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-5 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-[var(--bg2)] border border-[var(--b1)] p-5 space-y-4">
         <div>
           <label className="block text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest mb-2">CSV File</label>
           <input
@@ -94,7 +94,7 @@ export default function ImportPage() {
             type="file"
             accept=".csv,text/csv"
             onChange={e => setFile(e.target.files?.[0] ?? null)}
-            className="block w-full text-[12px] text-[var(--t2)] file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-[var(--b2)] file:bg-[var(--bg3)] file:text-[11px] file:font-semibold file:text-[var(--t2)] file:cursor-pointer hover:file:bg-[var(--bg4)] file:transition-colors"
+            className="block w-full text-[12px] text-[var(--t2)] file:mr-3 file:py-1.5 file:px-3 file:border file:border-[var(--b1)] file:bg-[var(--bg3)] file:text-[11px] file:font-mono file:font-medium file:text-[var(--t2)] file:cursor-pointer hover:file:bg-[var(--bg4)] file:transition-colors"
             required
           />
           {file && (
@@ -103,13 +103,13 @@ export default function ImportPage() {
         </div>
 
         {error && (
-          <div className="text-[12px] text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">{error}</div>
+          <div className="text-[12px] font-mono text-red-700 border border-red-700/30 bg-red-50 px-3 py-2">{error}</div>
         )}
 
         <button
           type="submit"
           disabled={!file || loading}
-          className="px-5 py-2.5 bg-accent text-white text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="px-5 py-2.5 bg-[var(--t1)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-80 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           {loading ? 'Processing...' : 'Import →'}
         </button>
@@ -117,16 +117,16 @@ export default function ImportPage() {
 
       {/* Results */}
       {result && (
-        <div className="mt-5 bg-[var(--bg2)] border border-[var(--b1)] rounded-xl p-5">
+        <div className="mt-5 bg-[var(--bg2)] border border-[var(--b1)] p-5">
           <div className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest mb-4">Import complete</div>
           <div className="grid grid-cols-4 gap-3 mb-4">
             {[
-              { n: result.added, label: 'Added', colour: 'text-green-400' },
+              { n: result.added, label: 'Added', colour: 'text-green-700' },
               { n: result.updated, label: 'Updated', colour: 'text-[var(--t2)]' },
-              { n: result.closed, label: 'Closed', colour: 'text-amber-400' },
+              { n: result.closed, label: 'Closed', colour: 'text-amber-700' },
               { n: result.skipped, label: 'Skipped', colour: 'text-[var(--t4)]' },
             ].map(s => (
-              <div key={s.label} className="text-center bg-[var(--bg3)] rounded-lg py-3">
+              <div key={s.label} className="text-center bg-[var(--bg3)] border border-[var(--b1)] py-3">
                 <div className={`text-[22px] font-bold ${s.colour}`}>{s.n}</div>
                 <div className="text-[9px] text-[var(--t4)] uppercase tracking-widest mt-0.5">{s.label}</div>
               </div>
@@ -138,7 +138,7 @@ export default function ImportPage() {
               <div className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest mb-2">Warnings ({result.errors.length})</div>
               <div className="space-y-1 max-h-40 overflow-y-auto">
                 {result.errors.map((e, i) => (
-                  <div key={i} className="text-[11px] text-amber-400 bg-amber-500/8 rounded px-2 py-1">{e}</div>
+                  <div key={i} className="text-[11px] font-mono text-amber-700 border border-amber-700/20 bg-amber-50 px-2 py-1">{e}</div>
                 ))}
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function ImportPage() {
 
           <a
             href="/admin/opportunities"
-            className="inline-block mt-4 text-[12px] text-accent hover:underline"
+            className="inline-block mt-4 text-[12px] font-mono text-[var(--t1)] hover:underline"
           >
             View all opportunities →
           </a>
