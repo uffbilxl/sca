@@ -1,6 +1,13 @@
 import Link from 'next/link'
+import { MapPin, ArrowRight } from 'lucide-react'
 import { Opportunity } from '@/types'
-import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel } from '@/lib/utils'
+import {
+  formatDeadline,
+  deadlineStatus,
+  opportunityTypeLabel,
+  opportunityTypeBadgeClass,
+  workModeLabel,
+} from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface OpportunityCardProps {
@@ -9,50 +16,84 @@ interface OpportunityCardProps {
 }
 
 export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: OpportunityCardProps) {
-  const ds = deadlineStatus(opp.deadline)
+  const ds    = deadlineStatus(opp.deadline)
+  const isNew = opp.createdAt > new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
 
   return (
     <Link
       href={`/opportunities/${opp.slug}`}
-      className="bg-[var(--bg)] p-5 hover:bg-[var(--bg2)] transition-colors group block relative"
+      className="group relative flex flex-col rounded-2xl p-5 border border-[rgba(255,255,255,0.07)] hover:border-[rgba(99,102,241,0.3)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] transition-all duration-300 focus-ring"
+      style={{
+        background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+        transitionTimingFunction: 'cubic-bezier(0.25,0.46,0.45,0.94)',
+      }}
     >
-      {/* Featured ribbon */}
+      {/* Featured badge */}
       {showFeaturedBadge && (
-        <div className="absolute top-0 right-0 flex items-center gap-1 px-2.5 py-1 bg-[var(--bg3)] border-b border-l border-[var(--b1)] text-[10px] font-mono font-medium text-[var(--t3)] tracking-wide">
+        <div
+          className="absolute top-4 right-4 px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-widest"
+          style={{
+            background: 'rgba(99,102,241,0.12)',
+            border: '1px solid rgba(99,102,241,0.2)',
+            color: 'var(--color-accent)',
+          }}
+        >
           Featured
         </div>
       )}
 
-      {/* Top row */}
-      <div className={`flex items-start justify-between mb-3 ${showFeaturedBadge ? 'mt-5' : ''}`}>
+      {/* Logo + status */}
+      <div className={`flex items-start justify-between mb-4 ${showFeaturedBadge ? 'mt-1' : ''}`}>
         <CompanyLogo name={opp.company.name} logoUrl={opp.company.logo} size={36} />
         {!showFeaturedBadge && (
           <div className="flex gap-1.5 flex-wrap justify-end">
-            {opp.createdAt > new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) && (
-              <span className="badge-blue">New</span>
-            )}
-            {ds === 'open' && <span className="badge-green">Open</span>}
+            {isNew && <span className="badge-blue">New</span>}
+            {ds === 'open'    && <span className="badge-green">Open</span>}
             {ds === 'closing' && <span className="badge-amber">Closing soon</span>}
-            {ds === 'closed' && <span className="badge-red">Closed</span>}
+            {ds === 'closed'  && <span className="badge-red">Closed</span>}
           </div>
         )}
       </div>
 
-      <div className="text-[11px] font-mono text-[var(--t4)] mb-1">{opp.company.name}</div>
-      <div className="text-[14px] font-medium text-[var(--t1)] leading-snug mb-2 group-hover:underline group-hover:decoration-[var(--t1)] transition-all">
+      {/* Company */}
+      <div
+        className="mb-1"
+        style={{ fontSize: '0.6875rem', color: 'var(--color-muted-2)', letterSpacing: '0.03em' }}
+      >
+        {opp.company.name}
+      </div>
+
+      {/* Title */}
+      <div
+        className="font-semibold leading-snug mb-3 flex-1"
+        style={{
+          fontSize: '0.9375rem',
+          color: 'var(--color-text)',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+        }}
+      >
         {opp.title}
       </div>
 
-      <div className="flex gap-2.5 mb-2.5">
-        <span className="text-[11px] text-[var(--t4)] flex items-center gap-1">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="4" r="2.5" stroke="currentColor" strokeWidth="1"/><path d="M5 10C5 10 1.5 6.8 1.5 4a3.5 3.5 0 117 0C8.5 6.8 5 10 5 10z" stroke="currentColor" strokeWidth="1"/></svg>
+      {/* Location + work mode */}
+      <div className="flex items-center gap-3 mb-3">
+        <span
+          className="flex items-center gap-1"
+          style={{ fontSize: '0.6875rem', color: 'var(--color-muted)' }}
+        >
+          <MapPin size={10} aria-hidden="true" />
           {opp.location}
         </span>
-        <span className="text-[11px] text-[var(--t4)]">{workModeLabel(opp.workMode)}</span>
+        <span style={{ fontSize: '0.6875rem', color: 'var(--color-muted)' }}>
+          {workModeLabel(opp.workMode)}
+        </span>
       </div>
 
-      <div className="flex gap-1 flex-wrap mb-3">
-        <span className={opportunityTypeBadgeClass(opp.type)}>{opportunityTypeLabel(opp.type)}</span>
+      {/* Tags */}
+      <div className="flex gap-1.5 flex-wrap mb-4">
+        <span className={opportunityTypeBadgeClass(opp.type)}>
+          {opportunityTypeLabel(opp.type)}
+        </span>
         {opp.tags.slice(0, 3).map(({ tag }) => (
           <span key={tag.id} className="tag">{tag.name}</span>
         ))}
@@ -61,14 +102,21 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
         )}
       </div>
 
-      <div className="flex items-center justify-between pt-2.5 border-t border-[var(--b1)]">
-        <div className="text-[11px] text-[var(--t4)]">
+      {/* Footer */}
+      <div
+        className="flex items-center justify-between pt-3 mt-auto"
+        style={{ borderTop: '1px solid var(--color-border-subtle)' }}
+      >
+        <div style={{ fontSize: '0.6875rem', color: 'var(--color-muted)' }}>
           {opp.deadline
-            ? <>Closes <span className="text-amber-700">{formatDeadline(opp.deadline)}</span></>
+            ? <>Closes <span style={{ color: '#f59e0b' }}>{formatDeadline(opp.deadline)}</span></>
             : 'Rolling deadline'}
         </div>
-        <span className="px-3 py-1 bg-transparent border border-[var(--b1)] text-[11px] font-medium text-[var(--t3)] group-hover:bg-[var(--t1)] group-hover:border-[var(--t1)] group-hover:text-[var(--bg)] transition-all">
-          Apply
+        <span
+          className="flex items-center gap-1 font-medium group-hover:gap-1.5 transition-all duration-200"
+          style={{ fontSize: '0.6875rem', color: 'var(--color-accent)' }}
+        >
+          Apply <ArrowRight size={11} aria-hidden="true" />
         </span>
       </div>
     </Link>

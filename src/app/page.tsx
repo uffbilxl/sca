@@ -3,186 +3,346 @@ export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard'
-import { SCALogo } from '@/components/ui/SCALogo'
 import { TickerBanner } from '@/components/home/TickerBanner'
 import { HeroContent } from '@/components/home/HeroContent'
+import { StatsStrip } from '@/components/home/StatsStrip'
 import { FadeIn } from '@/components/ui/FadeIn'
+import {
+  Briefcase,
+  Calendar,
+  BookOpen,
+  GraduationCap,
+  Zap,
+  Users,
+  ArrowRight,
+  FileText,
+} from 'lucide-react'
 
 async function getHomeData() {
-  const types = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK'] as const
-  const allFeatured = await prisma.opportunity.findMany({
+  const all = await prisma.opportunity.findMany({
     where: { featured: true, status: { not: 'CLOSED' } },
-    include: { company: true, tags: { include: { tag: true } }, _count: { select: { comments: true } } },
+    include: {
+      company: true,
+      tags: { include: { tag: true } },
+      _count: { select: { comments: true } },
+    },
     orderBy: { createdAt: 'desc' },
   })
-  const perType = types.map(t => allFeatured.filter(o => o.type === t).slice(0, 2))
-  const first = perType.map(arr => arr[0]).filter(Boolean)
-  const second = perType.map(arr => arr[1]).filter(Boolean)
-  const featured = [...first, ...second].slice(0, 6)
+
+  // Round-robin across types for variety, fill until we have 6
+  const typeOrder = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK']
+  const byType = typeOrder.map(t => all.filter(o => o.type === t))
+  const featured: typeof all = []
+  let round = 0
+  while (featured.length < 6 && byType.some(arr => arr[round] !== undefined)) {
+    for (const arr of byType) {
+      if (arr[round] && featured.length < 6) featured.push(arr[round])
+    }
+    round++
+  }
+
   return { featured }
 }
 
+/* ── Section utilities ────────────────────────────────────────── */
+const SECTION_PAD = 'py-24 sm:py-32'
+const INNER       = 'max-w-[1080px] mx-auto px-6 sm:px-10'
+
+/* ── Data ─────────────────────────────────────────────────────── */
 const strands = [
-  { label: 'Opportunities', desc: 'Internships, placements & graduate roles', href: '/opportunities' },
-  { label: 'Events', desc: 'Workshops, panels & networking nights', href: '/events' },
-  { label: 'Resources', desc: 'CV templates, cover letters & guides', href: '/resources' },
-  { label: 'Graduate Roles', desc: 'Life after university starts here', href: '/opportunities?type=GRADUATE' },
-  { label: 'Spring Weeks', desc: 'First & second year programmes', href: '/opportunities?type=SPRING_WEEK' },
-  { label: 'Meet the Committee', desc: 'The people behind the SCA', href: '/committee' },
+  { label: 'Opportunities',      desc: 'Internships, placements & graduate roles',   href: '/opportunities',              Icon: Briefcase },
+  { label: 'Events',             desc: 'Workshops, panels & networking nights',       href: '/events',                     Icon: Calendar },
+  { label: 'Resources',          desc: 'CV templates, cover letters & guides',        href: '/resources',                  Icon: BookOpen },
+  { label: 'Graduate Roles',     desc: 'Life after university starts here',           href: '/opportunities?type=GRADUATE',    Icon: GraduationCap },
+  { label: 'Spring Weeks',       desc: 'First & second year programmes',              href: '/opportunities?type=SPRING_WEEK', Icon: Zap },
+  { label: 'Meet the Committee', desc: 'The people behind the SCA',                  href: '/committee',                  Icon: Users },
 ]
 
-const whyItems = [
+const pillars = [
   {
-    title: 'Opportunities curated for you',
-    text: 'Internships, placements, grad schemes and spring weeks - filtered for BCU computing students. No noise, no irrelevant listings.',
+    num: '01',
+    title: 'Opportunities',
+    body: 'Internships, placements, grad schemes and spring weeks — filtered for BCU computing students. No noise, no irrelevant listings.',
+    Icon: Briefcase,
   },
   {
-    title: 'Events & community',
-    text: 'Industry panels, workshops, hackathons and networking events. Build connections and skills alongside your degree.',
+    num: '02',
+    title: 'Events & Community',
+    body: 'Industry panels, workshops, hackathons and networking events. Build real connections alongside your degree.',
+    Icon: Calendar,
   },
   {
-    title: 'Career support from day one',
-    text: 'CV templates, cover letter guides, and peer insights from BCU students who have already landed the role.',
+    num: '03',
+    title: 'Career Support',
+    body: 'CV templates, cover letter guides, and peer insights from BCU students who have already landed the role.',
+    Icon: FileText,
   },
 ]
 
+/* ── Page ─────────────────────────────────────────────────────── */
 export default async function HomePage() {
   const { featured } = await getHomeData()
 
   return (
-    <div className="min-h-screen">
-      <TickerBanner />
+    <div style={{ background: 'var(--color-bg)' }}>
 
+      {/* ── Hero ──────────────────────────────────────────────── */}
       <HeroContent />
 
-      {/* Featured */}
-      <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
-        <FadeIn>
-          <div className="flex items-baseline justify-between mb-8">
-            <div>
-              <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-1">// handpicked</p>
-              <h2 className="font-display text-[16px] font-semibold text-[var(--t1)]">Featured opportunities</h2>
-            </div>
-            <Link href="/opportunities" className="text-[12px] text-[var(--t3)] hover:text-[var(--t1)] hover:underline transition-colors flex items-center gap-1">
-              View all <span>→</span>
-            </Link>
-          </div>
-        </FadeIn>
-        {featured.length > 0 ? (
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--b1)] border border-[var(--b1)] overflow-hidden">
-              {featured.map(opp => (
-                <OpportunityCard key={opp.id} opportunity={opp as any} showFeaturedBadge />
-              ))}
-            </div>
-          </FadeIn>
-        ) : (
-          <FadeIn delay={0.1}>
-            <div className="border border-[var(--b1)] bg-[var(--bg2)] py-16 text-center">
-              <p className="text-[13px] text-[var(--t4)]">No featured opportunities yet.</p>
-              <p className="text-[12px] text-[var(--t4)] mt-1">Add some from the admin panel.</p>
-            </div>
-          </FadeIn>
-        )}
-      </section>
+      {/* ── Stats strip ───────────────────────────────────────── */}
+      <StatsStrip />
 
-      {/* Strands */}
-      <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
-        <FadeIn>
-          <div className="mb-8">
-            <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-1">// explore</p>
-            <h2 className="font-display text-[16px] font-semibold text-[var(--t1)]">Where do you want to start?</h2>
-          </div>
-        </FadeIn>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {strands.map((s, i) => (
-            <FadeIn key={s.label} delay={i * 0.07}>
+      {/* ── Ticker ────────────────────────────────────────────── */}
+      <TickerBanner />
+
+      {/* ── Featured Opportunities ────────────────────────────── */}
+      <section
+        className={`${SECTION_PAD} section-divider`}
+        style={{
+          background: 'linear-gradient(180deg, #000000 0%, #08080f 60%, #0d0d18 100%)',
+        }}
+      >
+        <div className={INNER}>
+
+          {/* Section header */}
+          <FadeIn>
+            <div className="flex items-end justify-between mb-14">
+              <div>
+                <span className="eyebrow block mb-4">Handpicked</span>
+                <h2
+                  className="display-headline"
+                  style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)' }}
+                >
+                  Featured Opportunities
+                </h2>
+              </div>
               <Link
-                href={s.href}
-                className="group bg-[var(--bg)] border border-[var(--b1)] px-5 py-5 flex items-center justify-between hover:border-[var(--t1)] hover:bg-[var(--bg2)] transition-colors"
+                href="/opportunities"
+                className="hidden sm:flex items-center gap-1.5 text-[var(--color-accent)] font-medium transition-opacity hover:opacity-70 focus-ring rounded-md"
+                style={{ fontSize: '0.9375rem' }}
               >
-                <div>
-                  <div className="text-[13px] font-semibold text-[var(--t1)] mb-1">{s.label}</div>
-                  <div className="text-[11px] text-[var(--t4)]">{s.desc}</div>
-                </div>
-                <span className="text-[var(--t4)] group-hover:text-[var(--t1)] transition-colors text-[16px] flex-shrink-0 ml-4">→</span>
+                View all
+                <ArrowRight size={15} aria-hidden="true" />
               </Link>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
+            </div>
+          </FadeIn>
 
-      {/* Why */}
-      <section className="px-5 sm:px-10 py-10 sm:py-14 border-b border-[var(--b1)]">
-        <FadeIn>
-          <div className="mb-8">
-            <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-1">// about</p>
-            <h2 className="font-display text-[16px] font-semibold text-[var(--t1)]">What the SCA offers</h2>
-          </div>
-        </FadeIn>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {whyItems.map((v, i) => (
-            <FadeIn key={v.title} delay={i * 0.1}>
-              <div className="bg-[var(--bg)] border border-[var(--b1)] border-t-2 border-t-[var(--t1)] p-6 sm:p-7">
-                <div className="text-[10px] font-mono text-[var(--t4)] tracking-[0.14em] mb-3">0{i + 1}</div>
-                <div className="font-display text-[14px] font-semibold text-[var(--t1)] mb-3 leading-snug">{v.title}</div>
-                <div className="text-[12px] text-[var(--t3)] leading-relaxed">{v.text}</div>
+          {featured.length > 0 ? (
+            <FadeIn delay={0.08}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {featured.map(opp => (
+                  <OpportunityCard key={opp.id} opportunity={opp as any} showFeaturedBadge />
+                ))}
               </div>
             </FadeIn>
-          ))}
+          ) : (
+            <FadeIn delay={0.08}>
+              <div
+                className="rounded-2xl py-20 text-center section-divider"
+                style={{ background: 'var(--color-surface)' }}
+              >
+                <p className="text-sm text-[var(--color-muted)]">No featured opportunities yet.</p>
+              </div>
+            </FadeIn>
+          )}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-5 sm:px-10 py-14 sm:py-20 text-center border-b border-[var(--b1)]">
-        <FadeIn>
-          <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-4">// join</p>
-          <h2 className="font-display text-[28px] font-black tracking-[-0.8px] text-[var(--t1)] mb-3 leading-tight">
-            You belong here.
-          </h2>
-          <p className="text-[14px] text-[var(--t3)] mb-8 max-w-sm mx-auto leading-relaxed">
-            Whether you&apos;re in your first year or finishing your degree, the SCA is here to support every step of your journey.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              href="/opportunities"
-              className="inline-flex items-center gap-2 px-7 py-3 bg-[var(--t1)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-80 transition-opacity"
-            >
-              Browse opportunities →
-            </Link>
-            <Link
-              href="/events"
-              className="inline-flex items-center gap-2 px-7 py-3 border border-[var(--b1)] text-[var(--t3)] text-[13px] font-medium hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
-            >
-              See upcoming events
-            </Link>
-          </div>
-        </FadeIn>
-      </section>
+      {/* ── Three pillars ─────────────────────────────────────── */}
+      <section
+        className={`${SECTION_PAD} section-divider`}
+        style={{
+          background: 'linear-gradient(160deg, #0d0d18 0%, #111118 40%, #0f0f1a 100%)',
+        }}
+      >
+        <div className={INNER}>
+          <FadeIn>
+            <div className="mb-16">
+              <span className="eyebrow block mb-4">What we offer</span>
+              <h2
+                className="display-headline max-w-lg"
+                style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)' }}
+              >
+                Everything a BCU computing student needs.
+              </h2>
+            </div>
+          </FadeIn>
 
-      {/* Footer */}
-      <footer className="px-5 sm:px-10 py-5 bg-[var(--bg2)] border-t border-[var(--b1)]">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2">
-            <SCALogo size={18} />
-            <span className="text-[11px] font-mono text-[var(--t4)]">Student Computing Association · Birmingham City University</span>
-          </div>
-          <span className="text-[11px] font-mono text-[var(--t4)]">© 2026 SCA BCU</span>
-        </div>
-        <div className="border-t border-[var(--b1)] pt-3 flex flex-col sm:flex-row items-center justify-between gap-1.5">
-          <span className="text-[10px] font-mono text-[var(--t4)]">Found a bug or want to report something?</span>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-            {[
-              { name: 'Tayyeb', email: 'tayyeb.nadeemsomro@mail.bcu.ac.uk' },
-              { name: 'Bilal', email: 'bilal.arshad2@mail.bcu.ac.uk' },
-            ].map(c => (
-              <a key={c.email} href={`mailto:${c.email}`} className="text-[10px] font-mono text-[var(--t3)] hover:text-[var(--t1)] hover:underline transition-colors">
-                {c.name} — {c.email}
-              </a>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px"
+            style={{ background: 'rgba(255,255,255,0.06)' }}>
+            {pillars.map(({ num, title, body, Icon }, i) => (
+              <FadeIn key={title} delay={i * 0.1}>
+                <div
+                  className="flex flex-col gap-5 p-8 sm:p-10"
+                  style={{ background: 'linear-gradient(145deg, #111118 0%, #0d0d16 100%)' }}
+                >
+                  {/* Muted number */}
+                  <span
+                    className="font-bold tabular-nums leading-none"
+                    style={{
+                      fontSize: '3.5rem',
+                      color: 'var(--color-border)',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+                      letterSpacing: '-0.04em',
+                    }}
+                  >
+                    {num}
+                  </span>
+
+                  {/* Icon */}
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{
+                      background: 'var(--color-accent-dim)',
+                      color: 'var(--color-accent)',
+                    }}
+                  >
+                    <Icon size={18} aria-hidden="true" />
+                  </div>
+
+                  <div>
+                    <h3
+                      className="font-semibold text-[var(--color-text)] mb-2"
+                      style={{ fontSize: '1.125rem' }}
+                    >
+                      {title}
+                    </h3>
+                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">{body}</p>
+                  </div>
+                </div>
+              </FadeIn>
             ))}
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* ── Where to start — navigation grid ─────────────────── */}
+      <section
+        className={`${SECTION_PAD} section-divider`}
+        style={{
+          background: 'linear-gradient(180deg, #08080f 0%, #000000 100%)',
+        }}
+      >
+        <div className={INNER}>
+          <FadeIn>
+            <div className="mb-14">
+              <span className="eyebrow block mb-4">Explore</span>
+              <h2
+                className="display-headline"
+                style={{ fontSize: 'clamp(2rem, 5vw, 3.25rem)' }}
+              >
+                Where do you want to start?
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {strands.map(({ label, desc, href, Icon }, i) => (
+              <FadeIn key={label} delay={i * 0.05}>
+                <Link
+                  href={href}
+                  className="group flex items-start justify-between p-6 rounded-2xl border border-[rgba(255,255,255,0.07)] hover:border-[rgba(99,102,241,0.3)] transition-all duration-300 focus-ring"
+                  style={{
+                    background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+                    transitionTimingFunction: 'cubic-bezier(0.25,0.46,0.45,0.94)',
+                  }}
+                >
+                  <div className="flex-1">
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center mb-4 transition-colors"
+                      style={{
+                        background: 'var(--color-surface-2)',
+                        color: 'var(--color-muted)',
+                      }}
+                    >
+                      <Icon size={16} aria-hidden="true" />
+                    </div>
+                    <div
+                      className="font-semibold text-[var(--color-text)] mb-1.5 group-hover:text-white transition-colors"
+                      style={{ fontSize: '0.9375rem' }}
+                    >
+                      {label}
+                    </div>
+                    <div className="text-xs text-[var(--color-muted)] leading-relaxed">{desc}</div>
+                  </div>
+                  <ArrowRight
+                    size={15}
+                    className="text-[var(--color-muted-2)] group-hover:text-[var(--color-muted)] group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0 ml-4 mt-0.5"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Join CTA ──────────────────────────────────────────── */}
+      <section
+        className="section-divider relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(160deg, #0a0a16 0%, #0d0d1e 50%, #080812 100%)',
+        }}
+      >
+        {/* Strong indigo glow from bottom-center */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 60% at 50% 110%, rgba(99,102,241,0.2) 0%, rgba(99,102,241,0.05) 50%, transparent 70%)',
+          }}
+        />
+        {/* Purple accent — top-right corner */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{
+            background:
+              'radial-gradient(ellipse 40% 40% at 95% 0%, rgba(168,85,247,0.12) 0%, transparent 60%)',
+          }}
+        />
+
+        <div className={`${SECTION_PAD} ${INNER} relative z-10 text-center`}>
+          <FadeIn>
+            <span className="eyebrow block mb-6">Join the community</span>
+            <h2
+              className="display-headline mx-auto mb-5"
+              style={{
+                fontSize: 'clamp(2.5rem, 7vw, 4.5rem)',
+                maxWidth: '640px',
+              }}
+            >
+              You belong here.
+            </h2>
+            <p
+              className="text-[var(--color-muted)] mx-auto mb-10 leading-relaxed"
+              style={{ fontSize: '1.125rem', maxWidth: '460px' }}
+            >
+              Whether you're in your first year or finishing your degree, the
+              SCA is built to support every step of your journey.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href="/opportunities"
+                className="btn-gradient inline-flex items-center gap-2 px-8 py-3.5 rounded-full focus-ring"
+                style={{ fontSize: '0.9375rem' }}
+              >
+                Browse opportunities
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+              <Link
+                href="/events"
+                className="inline-flex items-center gap-2 px-8 py-3.5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--b2)] hover:bg-[var(--color-surface)] transition-all duration-200 focus-ring"
+                style={{ fontSize: '0.9375rem' }}
+              >
+                See events
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
     </div>
   )
 }

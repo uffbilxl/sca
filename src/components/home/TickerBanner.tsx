@@ -1,31 +1,54 @@
 'use client'
 
-const items = [
-  'Google', 'Open to all BCU Computing students', 'Amazon', 'Internships & Placements',
-  'Apple', 'Graduate Schemes', 'Cloudflare', 'Spring Weeks & Insight Programmes',
-  'Microsoft', 'Career Events & Workshops', 'Quantinuum', 'CV & Cover Letter Templates',
-  'Arm', 'Networking Opportunities', 'DRW', 'Peer Mentorship',
-  'IBM', 'Built by BCU students, for BCU students', 'Accenture', 'Community first',
-  'Mastercard', 'For every computing student', 'Visa', 'Start your tech career here',
-  'TPP', 'BCU Student Computing Association', 'G-Research', 'From first year to first job',
+const companies = [
+  'Google', 'Amazon', 'Apple', 'Cloudflare', 'Microsoft',
+  'Quantinuum', 'Arm', 'DRW', 'IBM', 'Accenture',
+  'Mastercard', 'Visa', 'TPP', 'G-Research',
 ]
+
+const phrases = [
+  'Internships & Placements',
+  'Graduate Schemes',
+  'Spring Weeks',
+  'Career Events',
+  'CV Templates',
+  'From first year to first job',
+  'Built by BCU students',
+  'Community first',
+]
+
+const items: { text: string; isCompany: boolean }[] = companies.flatMap((c, i) => [
+  { text: c, isCompany: true },
+  { text: phrases[i % phrases.length], isCompany: false },
+])
 
 export function TickerBanner() {
   const doubled = [...items, ...items]
 
   return (
-    <div className="border-b border-[var(--b1)] bg-[var(--bg2)] overflow-hidden py-2 select-none">
-      <div className="ticker-track flex gap-8 whitespace-nowrap w-max">
+    <div
+      className="overflow-hidden py-3 select-none border-b border-[var(--color-border)]"
+      style={{ background: 'var(--color-surface)' }}
+      aria-hidden="true"
+    >
+      <div className="ticker-track flex whitespace-nowrap w-max">
         {doubled.map((item, i) => (
-          <span key={i} className="flex items-center gap-8">
-            <span className={`text-[11px] font-mono tracking-wide ${
-              i % 2 === 0
-                ? 'text-[var(--t1)] font-medium'
-                : 'text-[var(--t4)] font-normal'
-            }`}>
-              {item}
+          <span key={i} className="flex items-center">
+            <span
+              className={`text-[12px] px-5 ${
+                item.isCompany
+                  ? 'text-[var(--color-text)] font-semibold'
+                  : 'text-[var(--color-muted)] font-normal'
+              }`}
+              style={
+                item.isCompany
+                  ? { fontFamily: 'var(--font-geist-mono)', letterSpacing: '0.02em' }
+                  : undefined
+              }
+            >
+              {item.text}
             </span>
-            <span className="text-[var(--b2)] text-[10px]">·</span>
+            <span className="text-[var(--color-border)] select-none">·</span>
           </span>
         ))}
       </div>

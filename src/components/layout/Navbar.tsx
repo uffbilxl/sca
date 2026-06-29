@@ -6,140 +6,222 @@ import { CommitteeModal } from '@/components/layout/CommitteeModal'
 import { ReportIssueModal } from '@/components/layout/ReportIssueModal'
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/opportunities', label: 'Opportunities' },
-  { href: '/sca-opportunities', label: 'SCA Opportunities' },
-  { href: '/events', label: 'Events' },
-  { href: '/committee', label: 'Committee' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/about', label: 'About' },
+  { href: '/',                label: 'Home' },
+  { href: '/opportunities',   label: 'Opportunities' },
+  { href: '/sca-opportunities', label: 'SCA' },
+  { href: '/events',          label: 'Events' },
+  { href: '/committee',       label: 'Committee' },
+  { href: '/resources',       label: 'Resources' },
+  { href: '/about',           label: 'About' },
 ]
 
 export function Navbar() {
   const pathname = usePathname()
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal]           = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen]         = useState(false)
+  const [scrolled, setScrolled]             = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 8)
+    const handler = () => setScrolled(window.scrollY > 1)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  useEffect(() => { setMobileOpen(false) }, [pathname])
+
+  const glassStyle = scrolled
+    ? {
+        /* Apple's exact nav glass formula */
+        background: 'rgba(0, 0, 0, 0.72)',
+        backdropFilter: 'saturate(180%) blur(20px)',
+        WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+      }
+    : {
+        background: 'rgba(0, 0, 0, 0)',
+        backdropFilter: 'saturate(180%) blur(0px)',
+        WebkitBackdropFilter: 'saturate(180%) blur(0px)',
+        borderBottom: '1px solid transparent',
+      }
+
   return (
     <>
-      <header className={`sticky top-0 z-50 border-b transition-all duration-300 backdrop-blur-md ${scrolled ? 'bg-[var(--bg)]/80 border-[var(--b2)]' : 'bg-[var(--bg)]/60 border-[var(--b1)]'}`}>
-        <nav className="flex items-center h-[52px] px-5 gap-0">
+      <header
+        className="sticky top-0 z-50 transition-all duration-500"
+        style={glassStyle}
+      >
+        <nav
+          className="max-w-[1080px] mx-auto flex items-center h-12 px-6 sm:px-10"
+          aria-label="Main navigation"
+        >
           {/* Logo */}
-          <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-4 flex-shrink-0 mr-2">
-            <div className="flex flex-col leading-none">
-              <span className="text-[18px] font-black font-display text-[var(--t1)] tracking-tight">SCA</span>
-              <span className="text-[8.5px] font-mono font-normal text-[var(--t4)] tracking-wide mt-[2px]">Birmingham City University</span>
-            </div>
-            <div className="w-px h-7 bg-[var(--b1)]" />
+          <Link
+            href="/"
+            className="flex flex-col leading-none flex-shrink-0 mr-10 focus-ring rounded-sm"
+          >
+            <span
+              className="font-bold tracking-tight text-[var(--color-text)]"
+              style={{
+                fontSize: '1rem',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              SCA
+            </span>
+            <span
+              className="text-[var(--color-muted)]"
+              style={{ fontSize: '0.5625rem', letterSpacing: '0.03em', marginTop: '1px' }}
+            >
+              Birmingham City University
+            </span>
           </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-0.5 flex-1">
+          {/* Desktop links — centered */}
+          <div className="hidden md:flex items-center gap-0 flex-1 justify-center">
             {navLinks.map(link => {
-              const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(link.href))
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-1.5 text-[13px] transition-all duration-150 ${
+                  className={`relative px-3 py-2 rounded-md transition-colors duration-150 focus-ring group ${
                     active
-                      ? 'text-[var(--t1)] underline decoration-[var(--t1)] underline-offset-4'
-                      : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                      ? 'text-[var(--color-text)]'
+                      : 'text-[var(--color-muted)] hover:text-[var(--color-text)]'
                   }`}
+                  style={{ fontSize: '0.8125rem', fontWeight: active ? 500 : 400 }}
                 >
                   {link.label}
+                  {/* Underline slides from center */}
+                  {active && (
+                    <span
+                      className="absolute bottom-[4px] left-3 right-3 h-px bg-[var(--color-text)] origin-center"
+                      style={{ transform: 'scaleX(1)' }}
+                    />
+                  )}
+                  {!active && (
+                    <span
+                      className="absolute bottom-[4px] left-3 right-3 h-px bg-[var(--color-muted)] origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
+                    />
+                  )}
                 </Link>
               )
             })}
           </div>
 
-          {/* Desktop right side */}
+          {/* Desktop right actions */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
             <button
               onClick={() => setShowReportModal(true)}
-              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
+              className="px-3 py-1.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors focus-ring rounded-md"
+              style={{ fontSize: '0.8125rem' }}
             >
-              Report an Issue
+              Report Issue
             </button>
             <button
               onClick={() => setShowModal(true)}
-              className="px-3 py-1.5 text-[12px] font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
+              className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
+              style={{ fontSize: '0.8125rem' }}
             >
-              Join the Committee
+              Join Committee
             </button>
             <Link
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 text-[12px] font-medium text-[var(--bg)] bg-[var(--t1)] hover:opacity-80 transition-opacity"
+              className="btn-gradient px-4 py-1.5 rounded-full focus-ring"
+              style={{ fontSize: '0.8125rem' }}
             >
               Join SCA
             </Link>
           </div>
 
-          {/* Mobile right side */}
+          {/* Mobile: Join + hamburger */}
           <div className="flex md:hidden items-center gap-2 ml-auto">
             <Link
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1 text-[11px] font-medium text-[var(--bg)] bg-[var(--t1)] hover:opacity-80 transition-opacity"
+              className="btn-gradient px-3 py-1.5 rounded-full focus-ring"
+              style={{ fontSize: '0.75rem' }}
             >
               Join SCA
             </Link>
             <button
               onClick={() => setMobileOpen(o => !o)}
-              className="w-8 h-8 flex flex-col items-center justify-center gap-1.5 hover:bg-[var(--bg3)] transition-colors flex-shrink-0"
-              aria-label="Toggle menu"
+              className="w-8 h-8 flex flex-col items-center justify-center gap-[5px] rounded-lg hover:bg-white/5 transition-colors focus-ring"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
             >
-              <span className={`w-5 h-0.5 bg-[var(--t2)] transition-all duration-200 origin-center ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`w-5 h-0.5 bg-[var(--t2)] transition-all duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
-              <span className={`w-5 h-0.5 bg-[var(--t2)] transition-all duration-200 origin-center ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              <span
+                className={`w-5 h-px bg-[var(--color-muted)] transition-all duration-200 origin-center ${
+                  mobileOpen ? 'rotate-45 translate-y-[3px]' : ''
+                }`}
+              />
+              <span
+                className={`w-5 h-px bg-[var(--color-muted)] transition-all duration-200 ${
+                  mobileOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`w-5 h-px bg-[var(--color-muted)] transition-all duration-200 origin-center ${
+                  mobileOpen ? '-rotate-45 -translate-y-[3px]' : ''
+                }`}
+              />
             </button>
           </div>
         </nav>
-
       </header>
 
-      {/* Mobile menu - full screen overlay below header */}
+      {/* Mobile fullscreen overlay */}
       {mobileOpen && (
-        <div className="fixed top-[52px] inset-x-0 bottom-0 z-40 md:hidden bg-[var(--bg)] flex flex-col border-t border-[var(--b1)] overflow-y-auto">
-          <div className="px-4 py-3 flex flex-col gap-0.5">
+        <div
+          className="fixed top-12 inset-x-0 bottom-0 z-40 md:hidden flex flex-col overflow-y-auto"
+          style={{
+            background: 'rgba(0,0,0,0.96)',
+            backdropFilter: 'saturate(180%) blur(20px)',
+            WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+          }}
+        >
+          <div className="px-6 py-6 flex flex-col gap-1">
             {navLinks.map(link => {
-              const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(link.href))
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-3 text-[15px] transition-colors ${
+                  className={`px-4 py-4 rounded-xl transition-colors text-[15px] font-medium ${
                     active
-                      ? 'text-[var(--t1)] bg-[var(--bg2)] border-l-2 border-[var(--t1)]'
-                      : 'text-[var(--t3)] hover:text-[var(--t1)] hover:bg-[var(--bg2)]'
+                      ? 'text-[var(--color-text)] bg-white/5'
+                      : 'text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-white/5'
                   }`}
                 >
                   {link.label}
                 </Link>
               )
             })}
-            <div className="h-px bg-[var(--b1)] my-3" />
+
+            <div
+              className="my-4"
+              style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }}
+            />
+
             <button
               onClick={() => { setShowReportModal(true); setMobileOpen(false) }}
-              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors mb-2"
+              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
             >
               Report an Issue
             </button>
             <button
               onClick={() => { setShowModal(true); setMobileOpen(false) }}
-              className="px-4 py-3 text-[15px] text-left font-medium text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
+              className="mt-2 px-4 py-4 text-[15px] font-medium text-left text-[var(--color-accent)] border border-[var(--color-accent)]/30 rounded-xl hover:border-[var(--color-accent)]/60 transition-colors focus-ring"
             >
               Join the Committee
             </button>

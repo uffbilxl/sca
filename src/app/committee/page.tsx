@@ -1,380 +1,452 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Linkedin, Globe, ChevronDown } from 'lucide-react'
 
-interface Member {
+/* ── Types ─────────────────────────────────────────────────── */
+interface Person {
   name: string
   role: string
   linkedin?: string
   website?: string
 }
 
-interface Division {
+interface Section {
   name: string
   color: string
-  members: Member[]
+  head?: Person
+  members: Person[]
 }
 
-const LEADERSHIP: Member[] = [
+/* ── Data ──────────────────────────────────────────────────── */
+const LEADERSHIP: Person[] = [
   {
     name: 'Tayyeb Nadeem Somro',
     role: 'President',
     linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/',
     website: 'http://tayyebns.com',
   },
+  {
+    name: 'Bilal Arshad',
+    role: 'Vice President',
+    linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/',
+    website: 'https://bilalarshad.co.uk',
+  },
+  {
+    name: 'Michael Martinak',
+    role: 'Head of Research',
+    linkedin: 'https://www.linkedin.com/in/profile-mmartinak/',
+  },
+  {
+    name: 'Asim Raza',
+    role: 'Technical Operations Manager',
+    linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/',
+  },
 ]
 
-const DIVISIONS: Division[] = [
-  {
-    name: 'Cyber Security',
-    color: '#ef4444',
-    members: [
-      { name: 'Bilal Arshad', role: 'VP Cyber Security', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
-      { name: 'Prem Lodhia', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/', website: 'https://premlodhia.com' },
-      { name: 'Daeron Wallace', role: 'Cyber Security Project Supervisor', linkedin: 'https://www.linkedin.com/in/daeron-wallace/' },
-    ],
-  },
+const DEPARTMENTS: Section[] = [
   {
     name: 'Software Engineering',
     color: '#22c55e',
+    head: {
+      name: 'Yasamin Zaid',
+      role: 'Head of Software Engineering',
+      linkedin: 'https://www.linkedin.com/in/yasaminzaid/',
+      website: 'https://yasaminzaid.com',
+    },
     members: [
-      { name: 'Yasamin Zaid', role: 'VP Software Engineering', linkedin: 'https://www.linkedin.com/in/yasaminzaid/', website: 'https://yasaminzaid.com' },
-      { name: 'Asim Raza', role: 'Software Engineering Project Supervisor', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
-      { name: 'Hamzah Abdur Rahman', role: 'Software Engineering Project Supervisor', linkedin: 'https://www.linkedin.com/in/hamzah-abdur-rahman-5553ab2b8/' },
-      { name: 'Prem Lodhia', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/', website: 'https://premlodhia.com' },
-      { name: 'Baber Khan', role: 'Technical Assistant', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
+      { name: 'Hamzah Abdur Rahman', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/hamzah-abdur-rahman-5553ab2b8/' },
+      { name: 'Asim Raza',           role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
+      { name: 'Prem Lodhia',         role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/', website: 'https://premlodhia.com' },
+    ],
+  },
+  {
+    name: 'Cyber Security',
+    color: '#ef4444',
+    head: {
+      name: 'Prem Lodhia',
+      role: 'Head of Cyber Security',
+      linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/',
+      website: 'https://premlodhia.com',
+    },
+    members: [
+      { name: 'Daeron Wallace', role: 'Content Creator', linkedin: 'https://www.linkedin.com/in/daeron-wallace/' },
     ],
   },
   {
     name: 'Artificial Intelligence',
     color: '#a855f7',
+    head: {
+      name: 'Orlando Igwe',
+      role: 'Head of AI',
+      linkedin: 'https://www.linkedin.com/in/orlando-igwe/',
+    },
     members: [
-      { name: 'Orlando Igwe', role: 'VP Artificial Intelligence', linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
-      { name: 'Mohamed Dahir', role: 'Analytics Lead', linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
-      { name: 'Ali Bhuiyan', role: 'AI Project Supervisor', linkedin: 'https://www.linkedin.com/in/shakayat-ali-bhuiyan-b93179309/' },
-      { name: 'Zakaria Miah', role: 'AI Project Supervisor', linkedin: 'https://www.linkedin.com/in/zakaria-miah/' },
-      { name: 'Al Tahsin Rafi', role: 'AI Project Supervisor', linkedin: 'https://www.linkedin.com/in/al-tahsin-rafi-18b75631b/' },
-    ],
-  },
-  {
-    name: 'Computer Science',
-    color: '#f59e0b',
-    members: [
-      { name: 'Alaa Aljasem', role: 'VP Computer Science', linkedin: 'https://www.linkedin.com/in/alaa-aljasem-b816b83aa/' },
-      { name: 'Jasleen Kaur', role: 'Events Assistant', linkedin: 'https://www.linkedin.com/in/jasleen-kaur-269367387/' },
-      { name: 'Ayaan Ahmed', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/ayaan-ahmed-477289330/' },
+      { name: 'Mohamed Dahir',  role: 'Sports Analytics Lead',  linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
+      { name: 'Zakaria Miah',   role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/zakaria-miah/' },
+      { name: 'Ali Bhuiyan',    role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/shakayat-ali-bhuiyan-b93179309/' },
+      { name: 'Al Tahsin Rafi', role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/al-tahsin-rafi-18b75631b/' },
     ],
   },
   {
     name: 'Digital Transformation',
     color: '#06b6d4',
+    head: {
+      name: 'Hodane Gouled',
+      role: 'Head of Digital Transformation',
+      linkedin: 'https://www.linkedin.com/in/hodane-gouled-b32534230/',
+    },
     members: [
-      { name: 'Hodane Gouled', role: 'VP Digital Transformation', linkedin: 'https://www.linkedin.com/in/hodane-gouled-b32534230/' },
-      { name: 'Joe Paddock', role: 'Strategic Advisor', linkedin: 'https://www.linkedin.com/in/joepaddock-uk/' },
+      { name: 'Joe Paddock', role: 'Strategy',    linkedin: 'https://www.linkedin.com/in/joepaddock-uk/' },
+      { name: 'Tamara',      role: 'Coordinator' },
     ],
   },
   {
-    name: 'Research & Development',
-    color: '#f97316',
+    name: 'Computer Science',
+    color: '#f59e0b',
+    head: {
+      name: 'Alaa Aljasem',
+      role: 'Head of Computer Science',
+      linkedin: 'https://www.linkedin.com/in/alaa-aljasem-b816b83aa/',
+    },
     members: [
-      { name: 'Michael Martinak', role: 'Head of R&D', linkedin: 'https://www.linkedin.com/in/profile-mmartinak/' },
-      { name: 'George James', role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
-      { name: 'Baber Khan', role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
-    ],
-  },
-  {
-    name: 'Web Platform',
-    color: '#ec4899',
-    members: [
-      { name: 'Muhammad Asim Raza', role: 'Web Platform Engineer', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
-      { name: 'Bilal Arshad', role: 'Website Administrator', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
-    ],
-  },
-  {
-    name: 'Engagement & Marketing',
-    color: '#2dd4bf',
-    members: [
-      { name: 'Maryam Ahmad', role: 'Head of Engagement', linkedin: 'https://www.linkedin.com/in/maryam-a-259297235' },
-      { name: 'Samyaan Khan', role: 'Graphic Designer', linkedin: 'https://www.linkedin.com/in/samyaan-khan-036977250/' },
-      { name: 'Mohammad Hamza', role: 'Social Media Manager', linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/' },
-      { name: 'Abrar Alam', role: 'Content Creator / Photographer', linkedin: 'https://www.linkedin.com/in/abrartalam/' },
+      { name: 'Ayaan Ahmed',  role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/ayaan-ahmed-477289330/' },
+      { name: 'Jasleen Kaur', role: 'Events Coordinator',    linkedin: 'https://www.linkedin.com/in/jasleen-kaur-269367387/' },
+      { name: 'Abigail',      role: 'Events Coordinator' },
     ],
   },
 ]
 
-function LinkedInIcon() {
+const TEAMS: Section[] = [
+  {
+    name: 'Marketing',
+    color: '#ec4899',
+    members: [
+      { name: 'Mohammad Hamza', role: 'Marketing',                   linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/' },
+      { name: 'Abrar Alam',     role: 'Content Creator / Photographer', linkedin: 'https://www.linkedin.com/in/abrartalam/' },
+      { name: 'Samyaan Khan',   role: 'Graphic Designer',            linkedin: 'https://www.linkedin.com/in/samyaan-khan-036977250/' },
+    ],
+  },
+  {
+    name: 'Community Engagement',
+    color: '#2dd4bf',
+    members: [
+      { name: 'Maryam Ahmad', role: 'Community Engagement', linkedin: 'https://www.linkedin.com/in/maryam-a-259297235' },
+    ],
+  },
+  {
+    name: 'Web Team',
+    color: '#f97316',
+    members: [
+      { name: 'Bilal Arshad',         role: 'Web', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'Asim Raza',            role: 'Web', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
+      { name: 'Tayyeb Nadeem Somro',  role: 'Web', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
+    ],
+  },
+  {
+    name: 'App Team',
+    color: '#3b82f6',
+    members: [
+      { name: 'Bilal Arshad',         role: 'App Dev', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'Asim Raza',            role: 'App Dev', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
+      { name: 'Tayyeb Nadeem Somro',  role: 'App Dev', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
+    ],
+  },
+  {
+    name: 'Research & Development',
+    color: '#8b5cf6',
+    members: [
+      { name: 'Bilal Arshad',         role: 'Researcher', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'George James',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
+      { name: 'Baber Khan',            role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
+      { name: 'Orlando Igwe',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
+      { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
+    ],
+  },
+]
+
+/* ── Helper ────────────────────────────────────────────────── */
+function initials(name: string) {
+  return name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
+}
+
+/* ── Social icon buttons ───────────────────────────────────── */
+function SocialLinks({ person }: { person: Person }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-    </svg>
+    <div className="flex items-center gap-1.5">
+      {person.linkedin ? (
+        <Link
+          href={person.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
+          className="flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-150 focus-ring"
+          style={{ background: 'rgba(10,102,194,0.12)', border: '1px solid rgba(10,102,194,0.28)', color: '#0A66C2' }}
+          onMouseEnter={e => {
+            const el = e.currentTarget as HTMLAnchorElement
+            el.style.background = 'rgba(10,102,194,0.22)'
+            el.style.borderColor = 'rgba(10,102,194,0.5)'
+          }}
+          onMouseLeave={e => {
+            const el = e.currentTarget as HTMLAnchorElement
+            el.style.background = 'rgba(10,102,194,0.12)'
+            el.style.borderColor = 'rgba(10,102,194,0.28)'
+          }}
+          aria-label={`${person.name} on LinkedIn`}
+        >
+          {/* LinkedIn "in" wordmark SVG */}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </Link>
+      ) : (
+        <span
+          className="flex items-center justify-center w-7 h-7 rounded-lg"
+          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+          aria-hidden="true"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#2d2d2d">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </span>
+      )}
+      {person.website && (
+        <Link
+          href={person.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
+          className="flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-150 focus-ring"
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#86868b' }}
+          onMouseEnter={e => {
+            const el = e.currentTarget as HTMLAnchorElement
+            el.style.background = 'rgba(255,255,255,0.1)'
+            el.style.borderColor = 'rgba(255,255,255,0.18)'
+            el.style.color = '#f5f5f7'
+          }}
+          onMouseLeave={e => {
+            const el = e.currentTarget as HTMLAnchorElement
+            el.style.background = 'rgba(255,255,255,0.05)'
+            el.style.borderColor = 'rgba(255,255,255,0.08)'
+            el.style.color = '#86868b'
+          }}
+          aria-label={`${person.name}'s website`}
+        >
+          <Globe size={12} />
+        </Link>
+      )}
+    </div>
   )
 }
 
-function PaperclipIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
-      <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-    </svg>
-  )
-}
-
-function LinkedInButton({ member }: { member: Member }) {
-  if (member.linkedin) {
-    return (
-      <Link href={member.linkedin} target="_blank" rel="noopener noreferrer"
-        onClick={e => e.stopPropagation()}
-        className="flex items-center justify-center w-7 h-7 text-[#0077b5] border border-[var(--b1)] hover:border-[var(--t1)] transition-colors"
-        title={`${member.name} on LinkedIn`}>
-        <LinkedInIcon />
-      </Link>
-    )
-  }
-  return (
-    <span className="flex items-center justify-center w-7 h-7 text-[var(--t4)] border border-[var(--b1)]" title="LinkedIn coming soon">
-      <LinkedInIcon />
-    </span>
-  )
-}
-
-function WebsiteButton({ member }: { member: Member }) {
-  if (!('website' in member)) return null
-  if (member.website) {
-    return (
-      <Link href={member.website} target="_blank" rel="noopener noreferrer"
-        onClick={e => e.stopPropagation()}
-        className="flex items-center justify-center w-7 h-7 text-[var(--t3)] border border-[var(--b1)] hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
-        title={`${member.name}'s website`}>
-        <PaperclipIcon />
-      </Link>
-    )
-  }
-  return (
-    <span className="flex items-center justify-center w-7 h-7 text-[var(--t4)] border border-[var(--b1)]" title="Website coming soon">
-      <PaperclipIcon />
-    </span>
-  )
-}
-
-function MemberCard({ member, accentColor, isVP, index }: { member: Member; accentColor: string; isVP: boolean; index: number }) {
-  const initials = member.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
+/* ── Member row ────────────────────────────────────────────── */
+function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentColor: string; index?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.32, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col gap-3 p-4 border border-[var(--b1)] bg-[var(--bg)] hover:bg-[var(--bg2)] transition-colors"
-      style={isVP ? { borderTopColor: accentColor, borderTopWidth: '2px' } : {}}
+      transition={{ duration: 0.25, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      className="flex items-center gap-3 px-4 py-3 rounded-xl border transition-colors"
+      style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.05)' }}
     >
-      <div className="flex items-center gap-3">
-        <div
-          className="w-10 h-10 flex items-center justify-center text-[13px] font-mono font-bold flex-shrink-0 border border-[var(--b1)]"
-          style={{ color: accentColor }}
-        >
-          {initials}
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-[13px] font-semibold text-[var(--t1)] leading-tight">{member.name}</p>
-          <p className="text-[11px] font-mono text-[var(--t3)] leading-tight mt-0.5">{member.role}</p>
-          {isVP && (
-            <span className="inline-block mt-1 text-[9px] font-mono font-medium uppercase tracking-wider px-1.5 py-0.5 border border-[var(--b1)] text-[var(--t4)]">
-              Lead
-            </span>
-          )}
-        </div>
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <LinkedInButton member={member} />
-          <WebsiteButton member={member} />
-        </div>
+      <div
+        className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+        style={{ background: `${accentColor}18`, color: accentColor, border: `1px solid ${accentColor}30` }}
+      >
+        {initials(person.name)}
       </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-[13px] font-semibold text-[var(--color-text)] leading-tight truncate">{person.name}</p>
+        <p className="text-[11px] text-[var(--color-muted)] leading-tight mt-0.5">{person.role}</p>
+      </div>
+      <SocialLinks person={person} />
     </motion.div>
   )
 }
 
-export default function CommitteePage() {
-  const [selected, setSelected] = useState<string | null>(null)
-  const divisionsRef = useRef<HTMLElement>(null)
-
-  const activeDivision = DIVISIONS.find(d => d.name === selected) ?? null
-
-  function openDivision(name: string) {
-    setSelected(name)
-    setTimeout(() => {
-      divisionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 50)
-  }
+/* ── Section tile (departments + teams) ────────────────────── */
+function SectionTile({ section, isOpen, onToggle }: { section: Section; isOpen: boolean; onToggle: () => void }) {
+  const { name, color, head, members } = section
+  const memberCount = (head ? 1 : 0) + members.length
 
   return (
-    <div className="max-w-[1000px] mx-auto px-4 sm:px-8 py-7 sm:py-10">
+    <div className="rounded-2xl border overflow-hidden transition-all duration-300"
+      style={{
+        borderColor: isOpen ? `${color}50` : 'rgba(255,255,255,0.07)',
+        background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+        boxShadow: isOpen ? `0 0 32px ${color}18` : 'none',
+      }}
+    >
+      {/* Tile header — always visible */}
+      <button
+        onClick={onToggle}
+        className="w-full text-left flex items-center gap-4 p-5 transition-colors focus-ring"
+        style={{ background: isOpen ? `${color}08` : 'transparent' }}
+      >
+        <span
+          className="w-3 h-3 rounded-full flex-shrink-0 transition-shadow duration-300"
+          style={{ background: color, boxShadow: isOpen ? `0 0 10px ${color}` : 'none' }}
+        />
+        <div className="flex-1 min-w-0">
+          <p className="text-[14px] font-bold text-[var(--color-text)] leading-tight">{name}</p>
+          <p className="text-[11px] mt-0.5" style={{ color: 'var(--color-muted)' }}>
+            {head ? 'Click to meet the team' : `${members.length} members`}
+          </p>
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className="text-[10px] text-[var(--color-muted)]">
+            {memberCount} {memberCount === 1 ? 'member' : 'members'}
+          </span>
+          <ChevronDown
+            size={14}
+            className="text-[var(--color-muted)] transition-transform duration-300"
+            style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          />
+        </div>
+      </button>
+
+      {/* Expanded panel */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ overflow: 'hidden', borderTop: `1px solid ${color}20` }}
+          >
+            <div className="p-4 flex flex-col gap-2">
+              {/* Head first */}
+              {head && (
+                <MemberRow person={head} accentColor={color} index={0} />
+              )}
+              {/* Members */}
+              {members.map((m, i) => (
+                <MemberRow key={m.name + i} person={m} accentColor={color} index={(head ? 1 : 0) + i} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/* ── Page ──────────────────────────────────────────────────── */
+export default function CommitteePage() {
+  const [openDept, setOpenDept] = useState<string | null>(null)
+  const [openTeam, setOpenTeam] = useState<string | null>(null)
+
+  return (
+    <div className="max-w-[900px] mx-auto px-5 sm:px-8 py-10 sm:py-14" style={{ position: 'relative', zIndex: 1 }}>
 
       {/* Header */}
-      <div className="mb-10">
-        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-2">// Student Computing Association</p>
-        <h1 className="font-display text-[26px] font-black tracking-[-0.6px] text-[var(--t1)] mb-2">Meet the Committee</h1>
-        <p className="text-[13px] text-[var(--t3)] max-w-lg leading-relaxed">
-          The people behind the SCA, organising events, driving projects, and building the BCU computing community.
+      <div className="mb-14">
+        <span className="eyebrow mb-3 block">Student Computing Association</span>
+        <h1
+          className="display-headline mb-3"
+          style={{ fontSize: 'clamp(1.75rem, 5vw, 2.75rem)' }}
+        >
+          Meet the Committee
+        </h1>
+        <p className="text-sm text-[var(--color-muted)] max-w-lg leading-relaxed">
+          The people behind the SCA — organising events, driving projects, and building the BCU computing community.
         </p>
       </div>
 
-      {/* Leadership */}
-      <section className="mb-10">
-        <div className="flex items-center gap-3 mb-5">
-          <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">// leadership</span>
-          <div className="flex-1 h-px bg-[var(--b1)]" />
+      {/* ── Leadership ──────────────────────────────────────── */}
+      <section className="mb-14">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="section-title">Leadership</span>
+          <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
         </div>
 
-        {/* President */}
-        <div className="flex justify-center mb-4">
-          <div className="p-5 border border-[var(--b1)] border-t-2 border-t-[var(--t1)] bg-[var(--bg2)] w-full max-w-[300px]">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-11 h-11 flex items-center justify-center text-[13px] font-mono font-bold flex-shrink-0 text-[var(--t1)] border border-[var(--b1)]">
-                TNS
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <p className="text-[14px] font-bold text-[var(--t1)]">{LEADERSHIP[0].name}</p>
-                  <span className="px-2 py-0.5 text-[9px] font-mono font-medium tracking-wide text-[var(--t4)] border border-[var(--b1)] uppercase flex-shrink-0">
-                    President
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <LinkedInButton member={LEADERSHIP[0]} />
-              <WebsiteButton member={LEADERSHIP[0]} />
-            </div>
-          </div>
-        </div>
-
-        {/* Connector */}
-        <div className="flex justify-center mb-4">
-          <div className="w-px h-5 bg-[var(--b1)]" />
-        </div>
-
-        {/* Vice Presidents */}
-        <div className="flex flex-wrap justify-center gap-3">
-          {DIVISIONS.map(div => {
-            const vp = div.members[0]
-            const initials = vp.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
-            return (
-              <button
-                key={div.name}
-                onClick={() => openDivision(div.name)}
-                className="w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] lg:w-[calc(25%-9px)] text-left flex flex-col gap-3 p-4 border border-[var(--b1)] bg-[var(--bg)] hover:bg-[var(--bg2)] hover:border-[var(--b2)] transition-colors group"
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {LEADERSHIP.map((person, i) => (
+            <motion.div
+              key={person.name}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="flex items-start gap-4 p-6 rounded-2xl"
+              style={{
+                background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+                border: '1px solid rgba(99,102,241,0.2)',
+                boxShadow: '0 0 32px rgba(99,102,241,0.06)',
+              }}
+            >
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-[14px] font-bold flex-shrink-0"
+                style={{ background: 'rgba(99,102,241,0.15)', color: '#818cf8', border: '1.5px solid rgba(99,102,241,0.3)' }}
               >
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 flex items-center justify-center text-[12px] font-mono font-bold flex-shrink-0 border border-[var(--b1)]"
-                    style={{ color: div.color }}
-                  >
-                    {initials}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-[13px] font-semibold text-[var(--t1)] leading-tight">{vp.name}</p>
-                    <p className="text-[11px] font-mono leading-tight mt-0.5" style={{ color: div.color }}>{div.name}</p>
-                  </div>
-                </div>
-                <p className="text-[11px] text-[var(--t3)] leading-tight">{vp.role}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
-                    <LinkedInButton member={vp} />
-                    <WebsiteButton member={vp} />
-                  </div>
-                  <span className="text-[10px] font-mono text-[var(--t4)] group-hover:text-[var(--t1)] transition-colors">
-                    View team →
-                  </span>
-                </div>
-              </button>
-            )
-          })}
+                {initials(person.name)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-[var(--color-text)] leading-tight mb-0.5" style={{ fontSize: '1rem' }}>
+                  {person.name}
+                </p>
+                <span
+                  className="inline-block mb-3 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest"
+                  style={{ background: 'rgba(99,102,241,0.12)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.2)' }}
+                >
+                  {person.role}
+                </span>
+                <SocialLinks person={person} />
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Division selector */}
-      <section ref={divisionsRef}>
-        <div className="flex items-center gap-3 mb-5">
-          <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">// divisions</span>
-          <div className="flex-1 h-px bg-[var(--b1)]" />
-          {selected && (
-            <button onClick={() => setSelected(null)}
-              className="text-[11px] font-mono text-[var(--t4)] hover:text-[var(--t1)] transition-colors">
-              ✕ close
-            </button>
-          )}
+      {/* ── Departments ─────────────────────────────────────── */}
+      <section className="mb-14">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="section-title">Departments</span>
+          <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
         </div>
 
-        {/* Tile grid */}
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
-          {DIVISIONS.map(div => {
-            const isActive = selected === div.name
-            return (
-              <button
-                key={div.name}
-                onClick={() => setSelected(isActive ? null : div.name)}
-                className="relative text-left p-4 border transition-colors overflow-hidden group w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] lg:w-[calc(25%-9px)]"
-                style={{
-                  borderColor: isActive ? div.color : 'var(--b1)',
-                  background: isActive ? 'var(--bg2)' : 'var(--bg)',
-                }}
-              >
-                <span
-                  className="w-2.5 h-2.5 rounded-full block mb-3 flex-shrink-0"
-                  style={{ background: div.color }}
-                />
-                <p className="text-[12px] font-display font-bold text-[var(--t1)] leading-snug mb-1">{div.name}</p>
-                <p className="text-[10px] font-mono text-[var(--t4)]">{div.members.length - 1} member{div.members.length - 1 !== 1 ? 's' : ''}</p>
+        <div className="flex flex-col gap-3">
+          {DEPARTMENTS.map(dept => (
+            <SectionTile
+              key={dept.name}
+              section={dept}
+              isOpen={openDept === dept.name}
+              onToggle={() => setOpenDept(openDept === dept.name ? null : dept.name)}
+            />
+          ))}
+        </div>
+      </section>
 
-                {isActive && (
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-0.5"
-                    style={{ background: div.color }}
-                  />
-                )}
-              </button>
-            )
-          })}
+      {/* ── Teams ───────────────────────────────────────────── */}
+      <section className="mb-14">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="section-title">Teams</span>
+          <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
         </div>
 
-        {/* Animated members panel */}
-        <AnimatePresence mode="wait">
-          {activeDivision && (
-            <motion.div
-              key={activeDivision.name}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="border border-[var(--b1)] overflow-hidden"
-            >
-              {/* Panel header */}
-              <div className="px-5 py-3.5 flex items-center gap-3 bg-[var(--bg2)] border-b border-[var(--b1)]">
-                <span className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                  style={{ background: activeDivision.color }} />
-                <span className="font-display text-[13px] font-bold text-[var(--t1)]">{activeDivision.name}</span>
-                <span className="text-[11px] font-mono text-[var(--t4)] ml-auto">{activeDivision.members.length} members</span>
-              </div>
-
-              <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 bg-[var(--bg)]">
-                {activeDivision.members.slice(1).map((member, i) => (
-                  <MemberCard
-                    key={member.name}
-                    member={member}
-                    accentColor={activeDivision.color}
-                    isVP={false}
-                    index={i}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="flex flex-col gap-3">
+          {TEAMS.map(team => (
+            <SectionTile
+              key={team.name}
+              section={team}
+              isOpen={openTeam === team.name}
+              onToggle={() => setOpenTeam(openTeam === team.name ? null : team.name)}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Footer */}
-      <div className="mt-12 pt-6 border-t border-[var(--b1)] text-center">
-        <p className="text-[12px] text-[var(--t4)]">
+      <div className="pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+        <p className="text-[12px] text-[var(--color-muted)] text-center">
           Interested in joining the committee?{' '}
-          <Link href="https://tally.so/r/681g7e" target="_blank" rel="noopener noreferrer" className="text-[var(--t1)] hover:underline">
+          <Link
+            href="https://tally.so/r/681g7e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-accent)] hover:underline focus-ring rounded"
+          >
             Apply here →
           </Link>
         </p>

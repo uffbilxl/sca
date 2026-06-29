@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { FileText, Download, FileCode, Zap, BookOpen, type LucideIcon } from 'lucide-react'
 
 interface Resource {
   title: string
@@ -10,6 +11,8 @@ interface Resource {
 interface Category {
   id: string
   label: string
+  color: string
+  Icon: LucideIcon
   resources: Resource[]
 }
 
@@ -17,10 +20,12 @@ const CATEGORIES: Category[] = [
   {
     id: 'cv',
     label: 'CV Templates',
+    color: '#6366f1',
+    Icon: FileText,
     resources: [
       {
         title: '1-Page CV Template',
-        description: 'Clean, concise single-page CV - ideal for internships and graduate roles.',
+        description: 'Clean, concise single-page CV — ideal for internships and graduate roles.',
         pages: '1 page',
         fileUrl: '/cv-1page.docx',
       },
@@ -35,6 +40,8 @@ const CATEGORIES: Category[] = [
   {
     id: 'cover-letter',
     label: 'Cover Letters',
+    color: '#22c55e',
+    Icon: FileText,
     resources: [
       {
         title: 'Cover Letter Template',
@@ -46,6 +53,8 @@ const CATEGORIES: Category[] = [
   {
     id: 'cheat-sheets',
     label: 'Cheat Sheets',
+    color: '#f59e0b',
+    Icon: Zap,
     resources: [
       {
         title: 'C++ Cheat Sheet',
@@ -54,7 +63,7 @@ const CATEGORIES: Category[] = [
       },
       {
         title: 'Python Cheat Sheet',
-        description: 'Essential Python concepts - variables, lists, functions, classes, and more.',
+        description: 'Essential Python concepts — variables, lists, functions, classes, and more.',
         fileUrl: '/sca_python_cheatsheet.pdf',
       },
       {
@@ -64,7 +73,7 @@ const CATEGORIES: Category[] = [
       },
       {
         title: 'JavaScript Cheat Sheet',
-        description: 'Core JS features - variables, loops, conditionals, strings, and arrays.',
+        description: 'Core JS features — variables, loops, conditionals, strings, and arrays.',
         fileUrl: '/sca_js_cheatsheet.pdf',
       },
       {
@@ -87,6 +96,8 @@ const CATEGORIES: Category[] = [
   {
     id: 'guides',
     label: 'Guides',
+    color: '#a855f7',
+    Icon: BookOpen,
     resources: [
       {
         title: 'More guides coming soon',
@@ -96,104 +107,132 @@ const CATEGORIES: Category[] = [
   },
 ]
 
-function PDFIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14,2 14,8 20,8" />
-      <line x1="16" y1="13" x2="8" y2="13" />
-      <line x1="16" y1="17" x2="8" y2="17" />
-      <polyline points="10,9 9,9 8,9" />
-    </svg>
-  )
-}
-
-function DownloadIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7,10 12,15 17,10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
-    </svg>
-  )
+function fileType(url: string): string {
+  if (url.endsWith('.pdf')) return 'PDF'
+  if (url.endsWith('.docx')) return 'DOCX'
+  return 'File'
 }
 
 export default function ResourcesPage() {
   return (
-    <div className="max-w-[900px] mx-auto px-4 sm:px-8 py-7 sm:py-10">
+    <div className="max-w-[900px] mx-auto px-5 sm:px-8 py-10 sm:py-14" style={{ position: 'relative', zIndex: 1 }}>
+
       {/* Header */}
-      <div className="mb-10">
-        <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-2">// resources</p>
-        <h1 className="font-display text-[26px] font-black tracking-[-0.6px] text-[var(--t1)] mb-2">Resources</h1>
-        <p className="text-[13px] text-[var(--t3)] max-w-lg leading-relaxed">
-          Templates and guides to help you land your next opportunity - CVs, cover letters, and more.
+      <div className="mb-12">
+        <span className="eyebrow mb-3">Student Computing Association</span>
+        <h1
+          className="text-[clamp(1.75rem,5vw,2.75rem)] font-bold tracking-tight text-[var(--color-text)] mb-3"
+          style={{ fontFamily: 'var(--font-geist-sans)' }}
+        >
+          Resources
+        </h1>
+        <p className="text-sm text-[var(--color-muted)] max-w-lg leading-relaxed">
+          Templates and guides to help you land your next opportunity — CVs, cover letters, cheat sheets, and more.
         </p>
       </div>
 
       {/* Categories */}
-      <div className="flex flex-col gap-10">
-        {CATEGORIES.map(cat => (
-          <section key={cat.id}>
-            {/* Section header */}
-            <div className="flex items-center gap-3 mb-5">
-              <span className="text-[10px] font-mono font-medium text-[var(--t4)] uppercase tracking-widest">{cat.label}</span>
-              <div className="flex-1 h-px bg-[var(--b1)]" />
-              <span className="text-[10px] font-mono text-[var(--t4)]">{cat.resources.length} {cat.resources.length === 1 ? 'item' : 'items'}</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {cat.resources.map(resource => (
+      <div className="flex flex-col gap-14">
+        {CATEGORIES.map(cat => {
+          const CatIcon = cat.Icon
+          return (
+            <section key={cat.id}>
+              {/* Section header */}
+              <div className="flex items-center gap-3 mb-6">
                 <div
-                  key={resource.title}
-                  className="flex flex-col gap-3 p-4 border border-[var(--b1)] bg-[var(--bg)]"
+                  className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${cat.color}18`, color: cat.color }}
                 >
-                  {/* Top row */}
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 border border-[var(--b1)] flex items-center justify-center flex-shrink-0 text-[var(--t3)]">
-                      <PDFIcon />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                        <p className="text-[13px] font-semibold text-[var(--t1)] leading-tight">{resource.title}</p>
-                        {resource.pages && (
-                          <span className="badge-gray">{resource.pages}</span>
-                        )}
-                      </div>
-                      <p className="text-[11px] text-[var(--t3)] leading-relaxed">{resource.description}</p>
-                    </div>
-                  </div>
-
-                  {/* Action */}
-                  {resource.fileUrl ? (
-                    <a
-                      href={resource.fileUrl}
-                      download
-                      className="inline-flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium bg-[var(--t1)] text-[var(--bg)] w-fit hover:opacity-80 transition-opacity"
-                    >
-                      <DownloadIcon />
-                      Download {resource.fileUrl.endsWith('.pdf') ? 'PDF' : 'DOCX'}
-                    </a>
-                  ) : (
-                    <button
-                      disabled
-                      className="inline-flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium bg-[var(--bg3)] text-[var(--t4)] w-fit opacity-60 cursor-not-allowed"
-                    >
-                      <DownloadIcon />
-                      Coming Soon
-                    </button>
-                  )}
+                  <CatIcon size={14} aria-hidden="true" />
                 </div>
-              ))}
-            </div>
-          </section>
-        ))}
+                <span
+                  className="text-[13px] font-semibold text-[var(--color-text)]"
+                  style={{ fontFamily: 'var(--font-geist-sans)' }}
+                >
+                  {cat.label}
+                </span>
+                <div className="flex-1 h-px bg-[var(--color-border)]" />
+                <span className="text-[10px] text-[var(--color-muted)]">
+                  {cat.resources.length} {cat.resources.length === 1 ? 'item' : 'items'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {cat.resources.map(resource => (
+                  <div
+                    key={resource.title}
+                    className="flex flex-col gap-4 p-5 rounded-2xl border transition-all duration-200 hover:border-[rgba(255,255,255,0.14)]"
+                    style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+                  >
+                    {/* Top */}
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style={{
+                          background: `${cat.color}15`,
+                          color: cat.color,
+                          border: `1px solid ${cat.color}30`,
+                        }}
+                      >
+                        <FileCode size={16} aria-hidden="true" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <p
+                            className="text-[13px] font-semibold text-[var(--color-text)] leading-tight"
+                            style={{ fontFamily: 'var(--font-geist-sans)' }}
+                          >
+                            {resource.title}
+                          </p>
+                          {resource.pages && (
+                            <span className="badge-gray">{resource.pages}</span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-[var(--color-muted)] leading-relaxed">
+                          {resource.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Action */}
+                    {resource.fileUrl ? (
+                      <a
+                        href={resource.fileUrl}
+                        download
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-semibold text-white w-fit transition-opacity hover:opacity-85 focus-ring"
+                        style={{ background: cat.color }}
+                      >
+                        <Download size={12} aria-hidden="true" />
+                        Download {fileType(resource.fileUrl)}
+                      </a>
+                    ) : (
+                      <button
+                        disabled
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-semibold text-white w-fit opacity-30 cursor-not-allowed"
+                        style={{ background: cat.color }}
+                      >
+                        <Download size={12} aria-hidden="true" />
+                        Coming Soon
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        })}
       </div>
 
       {/* Footer note */}
-      <div className="mt-12 pt-6 border-t border-[var(--b1)]">
-        <p className="text-[12px] text-[var(--t4)]">
+      <div className="mt-14 pt-6 border-t border-[var(--color-border)]">
+        <p className="text-[12px] text-[var(--color-muted)]">
           Have a resource to contribute?{' '}
-          <Link href="https://tally.so/r/681g7e" target="_blank" rel="noopener noreferrer" className="text-[var(--t1)] hover:underline">
+          <Link
+            href="https://tally.so/r/681g7e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-accent)] hover:underline focus-ring rounded"
+          >
             Get in touch →
           </Link>
         </p>

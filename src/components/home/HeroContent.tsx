@@ -1,94 +1,217 @@
 'use client'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
 import Link from 'next/link'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 32 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] },
+    transition: {
+      duration: 0.9,
+      delay: i * 0.12,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
   }),
 }
 
 export function HeroContent() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const bgY      = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+  const opacity  = useTransform(scrollYProgress, [0, 0.55], [1, 0])
+  const scale    = useTransform(scrollYProgress, [0, 0.55], [1, 0.97])
+
   return (
-    <section className="relative px-5 sm:px-10 pt-16 pb-14 sm:pt-24 sm:pb-20 text-center border-b border-[var(--b1)] overflow-hidden">
-      {/* Badge */}
+    <section
+      ref={containerRef}
+      className="relative min-h-screen overflow-hidden flex items-center justify-center"
+      style={{ background: '#000000' }}
+    >
+      {/* ── Layered gradient light sources — background layer (parallax) ── */}
       <motion.div
-        custom={0}
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        className="inline-flex items-center gap-2 px-3.5 py-1.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t4)] tracking-[0.12em] uppercase mb-7"
+        style={{ y: bgY }}
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-[var(--t3)] flex-shrink-0" />
-        <span className="hidden sm:inline">Birmingham City University · Student Computing Association</span>
-        <span className="sm:hidden">BCU · Student Computing Association</span>
+        {/* Primary: large indigo bloom from top-center */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 90% 70% at 50% -10%, rgba(99,102,241,0.38) 0%, rgba(99,102,241,0.1) 35%, transparent 60%)',
+          }}
+        />
+        {/* Secondary: purple glow — bottom-right */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 55% 50% at 90% 75%, rgba(168,85,247,0.18) 0%, transparent 55%)',
+          }}
+        />
+        {/* Tertiary: blue teal glow — bottom-left */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 50% 40% at 8% 80%, rgba(59,130,246,0.12) 0%, transparent 55%)',
+          }}
+        />
+        {/* Bottom-up fade to ensure content blends into page below */}
+        <div
+          className="absolute bottom-0 inset-x-0 h-48"
+          style={{
+            background: 'linear-gradient(to top, #000000, transparent)',
+          }}
+        />
+        {/* Subtle noise/grain overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+          }}
+        />
       </motion.div>
 
-      {/* Headline */}
-      <motion.h1
-        custom={1}
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        className="font-display text-[38px] sm:text-[52px] font-black tracking-[-2px] leading-[1.05] text-[var(--t1)] mb-4"
-      >
-        Your BCU Computing
-        <br />
-        <span className="font-light tracking-[-1px] text-[var(--t3)]">
-          Community & Career Hub
-        </span>
-      </motion.h1>
-
-      {/* Subtitle */}
-      <motion.p
-        custom={2}
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        className="text-[14px] sm:text-[15px] text-[var(--t3)] font-normal max-w-[480px] mx-auto mb-10 leading-[1.7]"
-      >
-        From your first year to landing your first role — events, resources, opportunities, and a{' '}
-        <span className="text-[var(--t1)] font-medium">community built for every BCU computing student.</span>
-      </motion.p>
-
-      {/* CTAs */}
+      {/* ── Content layer (moves faster = parallax depth) ── */}
       <motion.div
-        custom={3}
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        className="flex flex-col sm:flex-row items-center justify-center gap-3"
+        style={{ y: contentY, opacity, scale }}
+        className="relative z-10 flex flex-col items-center text-center px-6 sm:px-10 pt-24 pb-32 max-w-5xl mx-auto"
       >
-        <Link
-          href="/opportunities"
-          className="inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 bg-[var(--t1)] text-[var(--bg)] text-[14px] sm:text-[15px] font-semibold hover:opacity-80 transition-opacity"
+        {/* Eyebrow */}
+        <motion.span
+          custom={0}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="eyebrow mb-8 tracking-[0.18em]"
         >
-          Explore Opportunities
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </Link>
-        <Link
-          href="/events"
-          className="inline-flex items-center gap-2 px-7 py-3.5 border border-[var(--b1)] text-[var(--t3)] text-[14px] font-medium hover:border-[var(--t1)] hover:text-[var(--t1)] transition-colors"
+          BCU Student Computing Association
+        </motion.span>
+
+        {/* Display headline */}
+        <motion.h1
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          style={{
+            fontSize: 'clamp(3.2rem, 9vw, 6.5rem)',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.04,
+            fontWeight: 700,
+            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif',
+            marginBottom: '1.75rem',
+          }}
         >
-          Upcoming Events
-        </Link>
+          {/* "Your computing" — pure white */}
+          <span style={{ color: '#f5f5f7' }}>Your computing</span>
+          <br />
+          {/* "community." — white-to-lavender gradient for depth */}
+          <span
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 20%, #c7d2fe 65%, #818cf8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            community.
+          </span>
+        </motion.h1>
+
+        {/* Sub-headline */}
+        <motion.p
+          custom={2}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          style={{
+            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+            fontWeight: 400,
+            color: '#86868b',
+            maxWidth: '520px',
+            lineHeight: 1.7,
+            marginBottom: '2.5rem',
+          }}
+        >
+          From your first lecture to your first offer — internships, graduate
+          roles, events, and a community built around every BCU computing student.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          custom={3}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col sm:flex-row items-center gap-3"
+        >
+          <Link
+            href="/opportunities"
+            className="btn-gradient inline-flex items-center gap-2 px-7 py-3.5 rounded-full focus-ring"
+            style={{ fontSize: '0.9375rem', boxShadow: '0 0 32px rgba(99,102,241,0.3)' }}
+          >
+            Explore Opportunities
+            <ArrowRight size={15} aria-hidden="true" />
+          </Link>
+          <Link
+            href="/events"
+            className="inline-flex items-center gap-2 px-7 py-3.5 font-medium rounded-full border transition-all duration-200 focus-ring"
+            style={{
+              fontSize: '0.9375rem',
+              color: '#f5f5f7',
+              borderColor: 'rgba(255,255,255,0.15)',
+              background: 'rgba(255,255,255,0.05)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            Upcoming Events
+          </Link>
+        </motion.div>
+
+        {/* Disclaimer */}
+        <motion.p
+          custom={4}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          style={{
+            marginTop: '2.5rem',
+            fontSize: '11px',
+            color: '#48484a',
+            maxWidth: '360px',
+            lineHeight: 1.6,
+          }}
+        >
+          Not affiliated with BCUSU, BCU Computer Science Society, or BCU
+          Cyber Security Society.
+        </motion.p>
       </motion.div>
 
-      {/* Affiliation disclaimer */}
-      <motion.p
-        custom={4}
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        className="text-[10px] text-[var(--t4)] mt-7 leading-relaxed"
+      {/* ── Scroll indicator ── */}
+      <motion.div
+        style={{ opacity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        aria-hidden="true"
       >
-        Not linked or affiliated in any way, shape, or form with BCUSU, BCU Computer Science Society, or BCU Cyber Security Society.
-      </motion.p>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown size={18} style={{ color: '#48484a' }} />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

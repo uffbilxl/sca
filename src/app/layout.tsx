@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
 import './globals.css'
+import Link from 'next/link'
 import { Navbar } from '@/components/layout/Navbar'
 import { Toaster } from '@/components/ui/Toaster'
 import { AnimatedBackground } from '@/components/layout/AnimatedBackground'
@@ -17,14 +20,7 @@ export const metadata: Metadata = {
     title: 'BCUSCA - Student Computing Association: From your first lecture to your first offer.',
     description: 'From your first lecture to your first offer.',
     type: 'website',
-    images: [
-      {
-        url: '/sca-logo.png',
-        width: 1080,
-        height: 1080,
-        alt: 'BCU Student Computing Association',
-      },
-    ],
+    images: [{ url: '/sca-logo.png', width: 1080, height: 1080, alt: 'BCU Student Computing Association' }],
   },
   twitter: {
     card: 'summary',
@@ -34,24 +30,94 @@ export const metadata: Metadata = {
   },
 }
 
+const footerLinks = [
+  { href: '/opportunities', label: 'Opportunities' },
+  { href: '/events', label: 'Events' },
+  { href: '/committee', label: 'Committee' },
+  { href: '/resources', label: 'Resources' },
+  { href: '/about', label: 'About' },
+]
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-[var(--bg)] text-[var(--t1)] antialiased">
+    <html lang="en" className={`dark ${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className="min-h-screen text-[var(--color-text)] antialiased" style={{ background: 'transparent' }}>
         <AnimatedBackground />
         <Navbar />
-        <main><PageTransition>{children}</PageTransition></main>
-        <footer className="py-4 text-center border-t border-[var(--b1)]">
-          <span className="text-[11px] text-[var(--t4)]">Made by </span>
-          <a
-            href="https://www.keystonedigitalstrategy.co.uk"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[11px] text-[var(--t3)] hover:text-[var(--t1)] transition-colors"
-          >
-            Keystone
-          </a>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
+
+        <footer
+          className="border-t border-[var(--color-border-subtle)]"
+          style={{ background: 'linear-gradient(180deg, #0d0d18 0%, #080810 100%)' }}
+        >
+          <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-14">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
+
+              {/* Logo + tagline */}
+              <div>
+                <div className="mb-4">
+                  <span className="text-xl font-bold tracking-tight text-[var(--color-text)]">SCA</span>
+                  <p className="text-xs text-[var(--color-muted)] mt-0.5">Birmingham City University</p>
+                </div>
+                <p className="text-sm text-[var(--color-muted)] leading-relaxed max-w-[220px]">
+                  From your first lecture to your first offer.
+                </p>
+              </div>
+
+              {/* Navigation */}
+              <div>
+                <p className="text-[10px] font-semibold text-[var(--color-muted)] uppercase tracking-widest mb-5">Navigation</p>
+                <nav className="flex flex-col gap-3">
+                  {footerLinks.map(link => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="text-sm text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Contact */}
+              <div>
+                <p className="text-[10px] font-semibold text-[var(--color-muted)] uppercase tracking-widest mb-5">Contact</p>
+                <div className="flex flex-col gap-3">
+                  <a
+                    href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk"
+                    className="text-sm text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors break-all"
+                  >
+                    tayyeb.nadeemsomro@mail.bcu.ac.uk
+                  </a>
+                  <a
+                    href="mailto:bilal.arshad2@mail.bcu.ac.uk"
+                    className="text-sm text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors break-all"
+                  >
+                    bilal.arshad2@mail.bcu.ac.uk
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-[var(--color-border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-xs text-[var(--color-muted)] text-center sm:text-left">
+                © 2026 SCA BCU · Not affiliated with BCUSU, BCU CS Society, or BCU Cyber Security Society.
+              </span>
+              <a
+                href="https://www.keystonedigitalstrategy.co.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+              >
+                Made by Keystone
+              </a>
+            </div>
+          </div>
         </footer>
+
         <Toaster />
       </body>
     </html>
