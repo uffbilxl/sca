@@ -136,7 +136,7 @@ export default function EventsPage() {
             <div className="flex flex-wrap items-center gap-3">
               {!nextEvent.spots && !nextEvent.registrationUrl ? (
                 <span className="px-4 py-2 border border-[var(--color-border)] rounded-full text-[12px] text-[var(--color-muted)] font-medium">
-                  Open to all — no registration needed
+                  Open to all, no registration needed
                 </span>
               ) : (
                 <RegisterButton
@@ -194,7 +194,7 @@ export default function EventsPage() {
               <div className="text-[13px] text-[var(--color-muted)] max-w-xs mx-auto leading-relaxed">
                 The SCA is busy planning workshops, talks, and networking events.
                 <span className="block mt-2 text-[var(--color-text)] font-medium">
-                  Stay tuned — announcements dropping soon.
+                  Stay tuned, announcements dropping soon.
                 </span>
               </div>
               <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-border)] rounded-full text-[11px] text-[var(--color-muted)] tracking-wide">

@@ -57,7 +57,7 @@ export default function AboutPage() {
       <section className="mb-12 p-6 sm:p-8 border border-[var(--b1)] border-l-2 border-l-[var(--t1)]">
         <p className="text-[10px] font-mono text-[var(--t4)] uppercase tracking-[0.14em] mb-3">// our mission</p>
         <p className="font-display text-[16px] sm:text-[18px] font-semibold text-[var(--t1)] leading-relaxed">
-          To make the path from BCU student to tech professional as clear, supported, and accessible as possible — for everyone.
+          To make the path from BCU student to tech professional as clear, supported, and accessible as possible, for everyone.
         </p>
       </section>
 

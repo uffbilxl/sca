@@ -315,7 +315,7 @@ export default function SCAOpportunitiesPage() {
                 <div className="px-6 py-5 space-y-5">
                   <p className="text-[13px] text-[var(--t2)] leading-relaxed">
                     An opportunity promoted by the SCA to work with CivitasAccess, a real company building access control and visitor management software.
-                    3–4 students will collaborate to design and build a full stack application, working across the full development lifecycle — from planning and architecture through to deployment.
+                    3-4 students will collaborate to design and build a full stack application, working across the full development lifecycle, from planning and architecture through to deployment.
                     Ideal for students who want genuine industry experience and the chance to ship something used in a production environment.
                   </p>
 

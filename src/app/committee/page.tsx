@@ -351,7 +351,7 @@ export default function CommitteePage() {
           Meet the Committee
         </h1>
         <p className="text-sm text-[var(--color-muted)] max-w-lg leading-relaxed">
-          The people behind the SCA — organising events, driving projects, and building the BCU computing community.
+          The people behind the SCA: organising events, driving projects, and building the BCU computing community.
         </p>
       </div>
 

@@ -25,7 +25,7 @@ const CATEGORIES: Category[] = [
     resources: [
       {
         title: '1-Page CV Template',
-        description: 'Clean, concise single-page CV — ideal for internships and graduate roles.',
+        description: 'Clean, concise single-page CV, ideal for internships and graduate roles.',
         pages: '1 page',
         fileUrl: '/cv-1page.docx',
       },
@@ -63,7 +63,7 @@ const CATEGORIES: Category[] = [
       },
       {
         title: 'Python Cheat Sheet',
-        description: 'Essential Python concepts — variables, lists, functions, classes, and more.',
+        description: 'Essential Python concepts: variables, lists, functions, classes, and more.',
         fileUrl: '/sca_python_cheatsheet.pdf',
       },
       {
@@ -73,7 +73,7 @@ const CATEGORIES: Category[] = [
       },
       {
         title: 'JavaScript Cheat Sheet',
-        description: 'Core JS features — variables, loops, conditionals, strings, and arrays.',
+        description: 'Core JS features: variables, loops, conditionals, strings, and arrays.',
         fileUrl: '/sca_js_cheatsheet.pdf',
       },
       {
@@ -127,7 +127,7 @@ export default function ResourcesPage() {
           Resources
         </h1>
         <p className="text-sm text-[var(--color-muted)] max-w-lg leading-relaxed">
-          Templates and guides to help you land your next opportunity — CVs, cover letters, cheat sheets, and more.
+          Templates and guides to help you land your next opportunity. CVs, cover letters, cheat sheets, and more.
         </p>
       </div>
 

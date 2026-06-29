@@ -36,15 +36,18 @@ export function HeroContent() {
       className="relative min-h-screen overflow-hidden flex items-center justify-center"
       style={{ background: '#000000' }}
     >
-      {/* ── Layered gradient light sources — background layer (parallax) ── */}
+      {/* Layered gradient light sources — background layer (parallax) */}
       <motion.div
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
       >
-        {/* Primary: large indigo bloom from top-center */}
+        {/* Aurora sweep — slow horizontal colour shift */}
+        <div className="hero-aurora absolute inset-0" />
+
+        {/* Primary: indigo bloom from top-center */}
         <div
-          className="absolute inset-0"
+          className="hero-blob-1 absolute inset-0"
           style={{
             background:
               'radial-gradient(ellipse 90% 70% at 50% -10%, rgba(99,102,241,0.38) 0%, rgba(99,102,241,0.1) 35%, transparent 60%)',
@@ -52,28 +55,26 @@ export function HeroContent() {
         />
         {/* Secondary: purple glow — bottom-right */}
         <div
-          className="absolute inset-0"
+          className="hero-blob-2 absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 55% 50% at 90% 75%, rgba(168,85,247,0.18) 0%, transparent 55%)',
+              'radial-gradient(ellipse 65% 55% at 90% 75%, rgba(168,85,247,0.22) 0%, transparent 55%)',
           }}
         />
-        {/* Tertiary: blue teal glow — bottom-left */}
+        {/* Tertiary: blue glow — bottom-left */}
         <div
-          className="absolute inset-0"
+          className="hero-blob-3 absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 50% 40% at 8% 80%, rgba(59,130,246,0.12) 0%, transparent 55%)',
+              'radial-gradient(ellipse 55% 45% at 8% 80%, rgba(59,130,246,0.16) 0%, transparent 55%)',
           }}
         />
-        {/* Bottom-up fade to ensure content blends into page below */}
+        {/* Bottom-up fade */}
         <div
           className="absolute bottom-0 inset-x-0 h-48"
-          style={{
-            background: 'linear-gradient(to top, #000000, transparent)',
-          }}
+          style={{ background: 'linear-gradient(to top, #000000, transparent)' }}
         />
-        {/* Subtle noise/grain overlay */}
+        {/* Grain overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -145,7 +146,7 @@ export function HeroContent() {
             marginBottom: '2.5rem',
           }}
         >
-          From your first lecture to your first offer — internships, graduate
+          From your first lecture to your first offer: internships, graduate
           roles, events, and a community built around every BCU computing student.
         </motion.p>
 

@@ -62,7 +62,7 @@ const pillars = [
   {
     num: '01',
     title: 'Opportunities',
-    body: 'Internships, placements, grad schemes and spring weeks — filtered for BCU computing students. No noise, no irrelevant listings.',
+    body: 'Internships, placements, grad schemes and spring weeks, filtered for BCU computing students. No noise, no irrelevant listings.',
     Icon: Briefcase,
   },
   {

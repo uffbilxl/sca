@@ -89,7 +89,7 @@ export function CommitteeModal({ onClose }: Props) {
           </p>
           <p style={{ fontSize: '0.8125rem', color: '#86868b', lineHeight: 1.65, marginBottom: '1.5rem' }}>
             Whether you're interested in organising events, managing social media, building tech
-            projects, or leading sponsorship — there's a role for you.
+            projects, or leading sponsorship. There's a role for you.
           </p>
 
           {/* Perks list */}
