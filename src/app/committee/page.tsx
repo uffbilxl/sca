@@ -168,7 +168,7 @@ const TEAMS: Section[] = [
 
 /* ── Helper ────────────────────────────────────────────────── */
 function initials(name: string) {
-  return name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
+  return name.split(' ').map(p => p[0]).join('').slice(0, 3).toUpperCase()
 }
 
 /* ── Social icon buttons ───────────────────────────────────── */
