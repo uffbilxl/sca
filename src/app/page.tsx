@@ -171,9 +171,9 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-px"
             style={{ background: 'rgba(255,255,255,0.06)' }}>
             {pillars.map(({ num, title, body, Icon }, i) => (
-              <FadeIn key={title} delay={i * 0.1}>
+              <FadeIn key={title} delay={i * 0.1} className="h-full">
                 <div
-                  className="flex flex-col gap-5 p-8 sm:p-10"
+                  className="flex flex-col gap-5 p-8 sm:p-10 h-full"
                   style={{ background: 'linear-gradient(145deg, #111118 0%, #0d0d16 100%)' }}
                 >
                   {/* Muted number */}
