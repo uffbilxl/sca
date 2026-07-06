@@ -9,7 +9,7 @@ interface Props {
 const contacts = [
   { name: 'Muhammad Asim Raza',   role: 'Web Platform Engineer', email: 'Muhammad.raza6@mail.bcu.ac.uk' },
   { name: 'Tayyeb Nadeem Somro',  role: 'President',             email: 'tayyeb.nadeemsomro@mail.bcu.ac.uk' },
-  { name: 'Bilal Arshad',         role: 'VP Cyber Security',     email: 'bilal.arshad2@mail.bcu.ac.uk' },
+  { name: 'Bilal Arshad',         role: 'Vice President',        email: 'bilal.arshad2@mail.bcu.ac.uk' },
 ]
 
 export function ReportIssueModal({ onClose }: Props) {
