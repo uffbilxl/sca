@@ -115,8 +115,8 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
             <Link
               href="/cv-builder"
-              className="px-4 py-1.5 text-[var(--color-accent)] border border-[var(--color-accent)]/35 rounded-full hover:border-[var(--color-accent)]/70 hover:bg-[var(--color-accent-dim)] transition-all duration-200 focus-ring"
-              style={{ fontSize: '0.8125rem', fontWeight: 500 }}
+              className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
+              style={{ fontSize: '0.8125rem' }}
             >
               CV Builder
             </Link>
@@ -213,7 +213,7 @@ export function Navbar() {
 
             <Link
               href="/cv-builder"
-              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-accent)] border border-[var(--color-accent)]/30 rounded-xl hover:border-[var(--color-accent)]/60 transition-colors focus-ring"
+              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
             >
               CV Builder
             </Link>

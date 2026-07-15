@@ -260,4 +260,7 @@ body {
     min-height: 297mm;
     box-shadow: none !important;
   }
+  /* Suggestion overlays are screen-only UI */
+  .cv-sugg { display: none !important; }
+  .cv-flag { background: none !important; border-bottom: none !important; }
 }

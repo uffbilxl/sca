@@ -4,12 +4,11 @@ import {
 } from 'react'
 import {
   Download, RotateCcw, Plus, Trash2, ChevronUp, ChevronDown,
-  Check, X, ChevronRight, Sparkles,
+  Check, X, ChevronRight,
 } from 'lucide-react'
 import {
   CVData, CVEntry, SectionKey, DEFAULT_CV, STORAGE_KEY, SECTION_TITLES,
-  SUMMARY_MAX, BULLET_MAX, ACTION_VERBS,
-  startsWithActionVerb, findWeakPhrases, atsReport,
+  SUMMARY_MAX, BULLET_MAX, atsReport,
 } from '@/lib/cv'
 import { CVPreview, PAGE_W, PAGE_H, Density } from '@/components/cv/CVPreview'
 
@@ -84,23 +83,15 @@ function Card({
   )
 }
 
-/* ── Bullet editor with counters + verb suggestions ──────────── */
+/* ── Bullet editor (suggestions live on the CV preview) ─────── */
 
 function BulletEditor({
-  bullet, seed, suggestVerbs, onChange, onRemove,
+  bullet, onChange, onRemove,
 }: {
   bullet: string
-  seed: number
-  suggestVerbs: boolean
   onChange: (v: string) => void
   onRemove: () => void
 }) {
-  const weak = findWeakPhrases(bullet)
-  const needsVerb = suggestVerbs && bullet.trim().length > 0 && !startsWithActionVerb(bullet)
-  const verbs = useMemo(
-    () => [0, 1, 2].map(i => ACTION_VERBS[(seed * 3 + i * 7) % ACTION_VERBS.length]),
-    [seed]
-  )
   return (
     <div>
       <div className="flex items-start gap-2">
@@ -120,34 +111,11 @@ function BulletEditor({
           <Trash2 size={13} />
         </button>
       </div>
-      <div className="flex items-center gap-2 flex-wrap mt-1 min-h-[16px]">
-        {weak.length > 0 && (
-          <span className="text-[11px] text-amber-400">
-            Weak wording: “{weak[0]}” — try a specific action + outcome
-          </span>
-        )}
-        {needsVerb && weak.length === 0 && (
-          <>
-            <span className="text-[11px] text-[var(--color-muted-2)] inline-flex items-center gap-1">
-              <Sparkles size={10} /> Try starting with:
-            </span>
-            {verbs.map(v => (
-              <button
-                key={v}
-                onClick={() => onChange(`${v} ${bullet.trimStart()}`)}
-                className="text-[11px] px-2 py-0.5 rounded-md border border-[var(--color-border-subtle)] text-[var(--color-muted)] hover:text-[var(--color-text)] hover:border-[var(--color-border)] transition-colors focus-ring"
-              >
-                {v}
-              </button>
-            ))}
-          </>
-        )}
-        {bullet.length > BULLET_MAX * 0.75 && (
-          <span className="ml-auto text-[10px] tabular-nums text-[var(--color-muted-2)]">
-            {bullet.length}/{BULLET_MAX}
-          </span>
-        )}
-      </div>
+      {bullet.length > BULLET_MAX * 0.75 && (
+        <div className="text-right text-[10px] tabular-nums text-[var(--color-muted-2)] mt-1">
+          {bullet.length}/{BULLET_MAX}
+        </div>
+      )}
     </div>
   )
 }
@@ -163,6 +131,7 @@ export function CVBuilderClient() {
   const [showAts, setShowAts] = useState(false)
   const [scale, setScale]     = useState(0.5)
   const [downloading, setDownloading] = useState(false)
+  const [dismissedSugg, setDismissedSugg] = useState<Set<string>>(new Set())
 
   const innerRef     = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -319,8 +288,6 @@ export function CVBuilderClient() {
                   <BulletEditor
                     key={bi}
                     bullet={b}
-                    seed={ei * 5 + bi}
-                    suggestVerbs={section !== 'education'}
                     onChange={v => patchEntry(section, e.id, { bullets: e.bullets.map((x, i) => (i === bi ? v : x)) })}
                     onRemove={() => patchEntry(section, e.id, { bullets: e.bullets.filter((_, i) => i !== bi) })}
                   />
@@ -445,7 +412,6 @@ export function CVBuilderClient() {
 
       {/* Header + toolbar */}
       <div className="mb-8 print:hidden">
-        <span className="eyebrow block mb-3">Completely free · No sign-up · No watermarks</span>
         <h1 className="text-[clamp(1.75rem,5vw,2.75rem)] font-bold tracking-tight text-[var(--color-text)]">
           SCA CV Builder
         </h1>
@@ -573,7 +539,24 @@ export function CVBuilderClient() {
                 className="cv-scale-wrapper"
                 style={{ transform: `scale(${scale})`, transformOrigin: 'top left', width: PAGE_W }}
               >
-                <CVPreview data={data} density={density} innerRef={innerRef} />
+                <CVPreview
+                  data={data}
+                  density={density}
+                  innerRef={innerRef}
+                  uiScale={1 / Math.max(scale, 0.25)}
+                  dismissed={dismissedSugg}
+                  onDismiss={key => setDismissedSugg(prev => new Set(prev).add(key))}
+                  onApplyVerb={(section, entryId, bulletIdx, verb) =>
+                    setData(d => ({
+                      ...d,
+                      [section]: d[section].map(e =>
+                        e.id === entryId
+                          ? { ...e, bullets: e.bullets.map((b, i) => (i === bulletIdx ? `${verb} ${b.trimStart()}` : b)) }
+                          : e
+                      ),
+                    }))
+                  }
+                />
               </div>
             </div>
           </div>

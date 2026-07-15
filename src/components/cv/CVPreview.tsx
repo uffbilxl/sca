@@ -1,6 +1,10 @@
 'use client'
-import { RefObject } from 'react'
-import { CVData, CVEntry, SectionKey, SECTION_TITLES } from '@/lib/cv'
+import { RefObject, useEffect, useRef, useState } from 'react'
+import { X } from 'lucide-react'
+import {
+  CVData, CVEntry, SectionKey, SECTION_TITLES, ACTION_VERBS,
+  startsWithActionVerb, findWeakPhrases,
+} from '@/lib/cv'
 
 /* A4 at 96dpi */
 export const PAGE_W = 794
@@ -16,18 +20,41 @@ const D = [
   { font: 11.5, lh: 1.26, sectionGap: 10, entryGap: 6,  bulletGap: 1, namePt: 26, padY: 38, padX: 54 },
 ] as const
 
+type SuggestSection = 'experience' | 'extracurricular'
+
 interface Props {
   data: CVData
   density: Density
   innerRef: RefObject<HTMLDivElement>
+  /* Optional in-template suggestions */
+  uiScale?: number
+  dismissed?: Set<string>
+  onDismiss?: (key: string) => void
+  onApplyVerb?: (section: SuggestSection, entryId: string, bulletIdx: number, verb: string) => void
 }
 
 function hasEntries(entries: CVEntry[]) {
   return entries.some(e => e.org.trim() || e.role.trim() || e.bullets.some(b => b.trim()))
 }
 
-export function CVPreview({ data, density, innerRef }: Props) {
+export function CVPreview({
+  data, density, innerRef, uiScale = 1, dismissed, onDismiss, onApplyVerb,
+}: Props) {
   const d = D[density]
+  const [openKey, setOpenKey] = useState<string | null>(null)
+  const popoverRef = useRef<HTMLDivElement>(null)
+
+  /* Click anywhere off the popover closes it */
+  useEffect(() => {
+    if (!openKey) return
+    const handler = (e: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) setOpenKey(null)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [openKey])
+
+  const suggestionsOn = !!(dismissed && onDismiss)
 
   const contactParts = [data.email, data.phone, data.linkedin, data.github, data.portfolio]
     .map(s => s.trim())
@@ -58,7 +85,118 @@ export function CVPreview({ data, density, innerRef }: Props) {
     </h2>
   )
 
-  const entryBlock = (e: CVEntry, last: boolean) => (
+  /* One flagged-bullet popover: verb chips for weak starts, advice for weak
+     phrases. Counter-scaled so it stays readable inside the shrunk preview. */
+  const suggestionPopover = (
+    key: string, section: SuggestSection, entryId: string, bulletIdx: number,
+    weak: string[], needsVerb: boolean, seed: number,
+  ) => {
+    const verbs = [0, 1, 2].map(i => ACTION_VERBS[(seed * 3 + i * 7) % ACTION_VERBS.length])
+    return (
+      <div
+        ref={popoverRef}
+        className="cv-sugg"
+        onMouseDown={e => e.stopPropagation()}
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: '100%',
+          zIndex: 20,
+          transform: `scale(${uiScale})`,
+          transformOrigin: 'top left',
+          width: 280,
+          background: '#16161f',
+          border: '1px solid rgba(255,255,255,0.12)',
+          borderRadius: 12,
+          padding: '10px 12px',
+          boxShadow: '0 12px 32px rgba(0,0,0,0.55)',
+          fontFamily: 'var(--font-geist-sans), -apple-system, sans-serif',
+          fontSize: 12,
+          lineHeight: 1.45,
+          color: '#d6d6dc',
+          cursor: 'default',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+          <p style={{ flex: 1, margin: 0 }}>
+            {weak.length > 0
+              ? <>Weak wording: <em style={{ color: '#f59e0b' }}>“{weak[0]}”</em> — describe a specific action and its outcome.</>
+              : <>This bullet starts weakly. Try opening with an action verb:</>}
+          </p>
+          <button
+            onClick={() => setOpenKey(null)}
+            aria-label="Close suggestion"
+            style={{ background: 'none', border: 0, color: '#86868b', cursor: 'pointer', padding: 2 }}
+          >
+            <X size={12} />
+          </button>
+        </div>
+        {needsVerb && weak.length === 0 && onApplyVerb && (
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+            {verbs.map(v => (
+              <button
+                key={v}
+                onClick={() => { onApplyVerb(section, entryId, bulletIdx, v); setOpenKey(null) }}
+                style={{
+                  fontSize: 11, padding: '3px 9px', borderRadius: 999,
+                  border: '1px solid rgba(99,102,241,0.4)', background: 'rgba(99,102,241,0.12)',
+                  color: '#a5a7f7', cursor: 'pointer',
+                }}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        )}
+        <button
+          onClick={() => { onDismiss?.(key); setOpenKey(null) }}
+          style={{
+            marginTop: 8, fontSize: 11, background: 'none', border: 0,
+            color: '#86868b', cursor: 'pointer', padding: 0, textDecoration: 'underline',
+          }}
+        >
+          Ignore this suggestion
+        </button>
+      </div>
+    )
+  }
+
+  const bulletItem = (
+    b: string, i: number, e: CVEntry, section: SectionKey,
+  ) => {
+    const canSuggest = suggestionsOn && (section === 'experience' || section === 'extracurricular')
+    const weak = canSuggest ? findWeakPhrases(b) : []
+    const needsVerb = canSuggest && b.trim().length > 0 && !startsWithActionVerb(b)
+    const key = `${e.id}:${i}:${b}`
+    const flagged = canSuggest && (weak.length > 0 || needsVerb) && !dismissed?.has(key)
+
+    return (
+      <li key={i} style={{ marginBottom: d.bulletGap, position: 'relative' }}>
+        {flagged ? (
+          <span
+            className="cv-flag"
+            onMouseDown={ev => { ev.stopPropagation(); setOpenKey(openKey === key ? null : key) }}
+            style={{
+              cursor: 'pointer',
+              background: 'rgba(245,158,11,0.13)',
+              borderBottom: '1.5px dashed #d97706',
+            }}
+            title="Suggestion available — click to view"
+          >
+            {b}
+          </span>
+        ) : (
+          b
+        )}
+        {flagged && openKey === key && suggestionPopover(
+          key, section as SuggestSection, e.id, i, weak, needsVerb,
+          e.id.length + i,
+        )}
+      </li>
+    )
+  }
+
+  const entryBlock = (e: CVEntry, last: boolean, section: SectionKey) => (
     <div key={e.id} style={{ marginBottom: last ? 0 : d.entryGap }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
         <span style={{ fontWeight: 700 }}>{e.org}</span>
@@ -69,9 +207,7 @@ export function CVPreview({ data, density, innerRef }: Props) {
         <span style={{ whiteSpace: 'nowrap' }}>{e.dates}</span>
       </div>
       <ul style={{ margin: `${d.bulletGap}px 0 0`, paddingLeft: 22, listStyleType: 'disc' }}>
-        {e.bullets.filter(b => b.trim()).map((b, i) => (
-          <li key={i} style={{ marginBottom: d.bulletGap }}>{b}</li>
-        ))}
+        {e.bullets.map((b, i) => (b.trim() ? bulletItem(b, i, e, section) : null))}
       </ul>
     </div>
   )
@@ -93,7 +229,7 @@ export function CVPreview({ data, density, innerRef }: Props) {
         return (
           <section key={key}>
             {sectionTitle(key)}
-            {entries.map((e, i) => entryBlock(e, i === entries.length - 1))}
+            {entries.map((e, i) => entryBlock(e, i === entries.length - 1, key))}
           </section>
         )
       }
