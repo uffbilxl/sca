@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CommitteeModal } from '@/components/layout/CommitteeModal'
-import { ReportIssueModal } from '@/components/layout/ReportIssueModal'
 
 const navLinks = [
   { href: '/',                label: 'Home' },
@@ -17,10 +16,9 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname()
-  const [showModal, setShowModal]           = useState(false)
-  const [showReportModal, setShowReportModal] = useState(false)
-  const [mobileOpen, setMobileOpen]         = useState(false)
-  const [scrolled, setScrolled]             = useState(false)
+  const [showModal, setShowModal]   = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 1)
@@ -115,13 +113,13 @@ export function Navbar() {
 
           {/* Desktop right actions */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
-            <button
-              onClick={() => setShowReportModal(true)}
-              className="px-3 py-1.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors focus-ring rounded-md"
-              style={{ fontSize: '0.8125rem' }}
+            <Link
+              href="/cv-builder"
+              className="px-4 py-1.5 text-[var(--color-accent)] border border-[var(--color-accent)]/35 rounded-full hover:border-[var(--color-accent)]/70 hover:bg-[var(--color-accent-dim)] transition-all duration-200 focus-ring"
+              style={{ fontSize: '0.8125rem', fontWeight: 500 }}
             >
-              Report Issue
-            </button>
+              CV Builder
+            </Link>
             <button
               onClick={() => setShowModal(true)}
               className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
@@ -213,15 +211,15 @@ export function Navbar() {
               style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }}
             />
 
-            <button
-              onClick={() => { setShowReportModal(true); setMobileOpen(false) }}
-              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
+            <Link
+              href="/cv-builder"
+              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-accent)] border border-[var(--color-accent)]/30 rounded-xl hover:border-[var(--color-accent)]/60 transition-colors focus-ring"
             >
-              Report an Issue
-            </button>
+              CV Builder
+            </Link>
             <button
               onClick={() => { setShowModal(true); setMobileOpen(false) }}
-              className="mt-2 px-4 py-4 text-[15px] font-medium text-left text-[var(--color-accent)] border border-[var(--color-accent)]/30 rounded-xl hover:border-[var(--color-accent)]/60 transition-colors focus-ring"
+              className="mt-2 px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
             >
               Join the Committee
             </button>
@@ -230,7 +228,6 @@ export function Navbar() {
       )}
 
       {showModal && <CommitteeModal onClose={() => setShowModal(false)} />}
-      {showReportModal && <ReportIssueModal onClose={() => setShowReportModal(false)} />}
     </>
   )
 }

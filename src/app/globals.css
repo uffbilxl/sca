@@ -239,3 +239,25 @@ body {
   }
   .ticker-track { animation: none; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   CV Builder — print to PDF (A4, text-based, ATS-friendly)
+   ───────────────────────────────────────────────────────────── */
+@media print {
+  @page { size: A4; margin: 0; }
+  html, body { background: #ffffff !important; }
+  body * { visibility: hidden; }
+  #cv-print-area, #cv-print-area * { visibility: visible; }
+  /* Escape the scaled preview: undo transforms so position:fixed
+     anchors to the real page, then pin to A4 */
+  .cv-preview-pane { display: block !important; }
+  .cv-scale-wrapper { transform: none !important; }
+  #cv-print-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 210mm;
+    min-height: 297mm;
+    box-shadow: none !important;
+  }
+}

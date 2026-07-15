@@ -7,6 +7,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Toaster } from '@/components/ui/Toaster'
 import { AnimatedBackground } from '@/components/layout/AnimatedBackground'
 import { PageTransition } from '@/components/layout/PageTransition'
+import { FooterReportIssue } from '@/components/layout/FooterReportIssue'
 
 export const metadata: Metadata = {
   title: 'BCUSCA - Student Computing Association',
@@ -34,6 +35,7 @@ const footerLinks = [
   { href: '/opportunities', label: 'Opportunities' },
   { href: '/events', label: 'Events' },
   { href: '/committee', label: 'Committee' },
+  { href: '/cv-builder', label: 'CV Builder' },
   { href: '/resources', label: 'Resources' },
   { href: '/about', label: 'About' },
 ]
@@ -98,6 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   >
                     bilal.arshad2@mail.bcu.ac.uk
                   </a>
+                  <FooterReportIssue />
                 </div>
               </div>
             </div>
