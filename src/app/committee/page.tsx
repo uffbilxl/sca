@@ -58,17 +58,14 @@ const DEPARTMENTS: Section[] = [
     members: [
       { name: 'Hamzah Abdur Rahman', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/hamzah-abdur-rahman-5553ab2b8/' },
       { name: 'Asim Raza',           role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
-      { name: 'Prem Lodhia',         role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/', website: 'https://premlodhia.com' },
     ],
   },
   {
     name: 'Cyber Security',
     color: '#ef4444',
     head: {
-      name: 'Prem Lodhia',
+      name: 'TBC',
       role: 'Head of Cyber Security',
-      linkedin: 'https://www.linkedin.com/in/prem-lodhia-29a888382/',
-      website: 'https://premlodhia.com',
     },
     members: [
       { name: 'Daeron Wallace', role: 'Content Creator', linkedin: 'https://www.linkedin.com/in/daeron-wallace/' },
