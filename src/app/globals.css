@@ -59,6 +59,17 @@
   --wash-purple: radial-gradient(ellipse 50% 40% at 92% 85%, rgba(168,85,247,0.1) 0%, transparent 55%);
   --wash-blue:   radial-gradient(ellipse 45% 35% at 5% 90%, rgba(59,130,246,0.07) 0%, transparent 55%);
 
+  /* Homepage hero */
+  --hero-bg:            #000000;
+  --hero-text:          #f5f5f7;
+  --hero-gradient-text: linear-gradient(135deg, #ffffff 20%, #c7d2fe 65%, #818cf8 100%);
+  --hero-muted:         #86868b;
+  --hero-fade-color:    #000000;
+  --hero-grain:         #ffffff;
+  --hero-btn-text:      #f5f5f7;
+  --hero-btn-border-rgb: 255, 255, 255;
+  --hero-subtle:        #48484a;
+
   /* Type scale */
   --text-xs:   0.75rem;
   --text-sm:   0.875rem;
@@ -125,6 +136,17 @@
   --wash-top:    radial-gradient(ellipse 80% 55% at 50% -5%, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.02) 40%, transparent 65%);
   --wash-purple: radial-gradient(ellipse 50% 40% at 92% 85%, rgba(168,85,247,0.05) 0%, transparent 55%);
   --wash-blue:   radial-gradient(ellipse 45% 35% at 5% 90%, rgba(59,130,246,0.04) 0%, transparent 55%);
+
+  /* Homepage hero */
+  --hero-bg:            #ffffff;
+  --hero-text:          #1d1d1f;
+  --hero-gradient-text: linear-gradient(135deg, #1d1d1f 15%, #6366f1 70%, #4338ca 100%);
+  --hero-muted:         #6e6e73;
+  --hero-fade-color:    #ffffff;
+  --hero-grain:         #000000;
+  --hero-btn-text:      #1d1d1f;
+  --hero-btn-border-rgb: 0, 0, 0;
+  --hero-subtle:        #c7c7cc;
 }
 
 /* ─────────────────────────────────────────────────────────────

@@ -34,7 +34,7 @@ export function HeroContent() {
     <section
       ref={containerRef}
       className="relative min-h-screen overflow-hidden flex items-center justify-center"
-      style={{ background: '#000000' }}
+      style={{ background: 'var(--hero-bg)' }}
     >
       {/* Layered gradient light sources — background layer (parallax) */}
       <motion.div
@@ -72,13 +72,13 @@ export function HeroContent() {
         {/* Bottom-up fade */}
         <div
           className="absolute bottom-0 inset-x-0 h-48"
-          style={{ background: 'linear-gradient(to top, #000000, transparent)' }}
+          style={{ background: 'linear-gradient(to top, var(--hero-fade-color), transparent)' }}
         />
         {/* Grain overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, var(--hero-grain) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
           }}
         />
@@ -115,13 +115,13 @@ export function HeroContent() {
             marginBottom: '1.75rem',
           }}
         >
-          {/* "Your computing" — pure white */}
-          <span style={{ color: '#f5f5f7' }}>Your computing</span>
+          {/* "Your computing" — primary hero text */}
+          <span style={{ color: 'var(--hero-text)' }}>Your computing</span>
           <br />
-          {/* "community." — white-to-lavender gradient for depth */}
+          {/* "community." — gradient for depth, theme-aware */}
           <span
             style={{
-              background: 'linear-gradient(135deg, #ffffff 20%, #c7d2fe 65%, #818cf8 100%)',
+              background: 'var(--hero-gradient-text)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -140,7 +140,7 @@ export function HeroContent() {
           style={{
             fontSize: 'clamp(1rem, 2vw, 1.2rem)',
             fontWeight: 400,
-            color: '#86868b',
+            color: 'var(--hero-muted)',
             maxWidth: '520px',
             lineHeight: 1.7,
             marginBottom: '2.5rem',
@@ -171,9 +171,9 @@ export function HeroContent() {
             className="inline-flex items-center gap-2 px-7 py-3.5 font-medium rounded-full border transition-all duration-200 focus-ring"
             style={{
               fontSize: '0.9375rem',
-              color: '#f5f5f7',
-              borderColor: 'rgba(255,255,255,0.15)',
-              background: 'rgba(255,255,255,0.05)',
+              color: 'var(--hero-btn-text)',
+              borderColor: 'rgba(var(--hero-btn-border-rgb),0.15)',
+              background: 'rgba(var(--hero-btn-border-rgb),0.05)',
               backdropFilter: 'blur(12px)',
             }}
           >
@@ -190,7 +190,7 @@ export function HeroContent() {
           style={{
             marginTop: '2.5rem',
             fontSize: '11px',
-            color: '#48484a',
+            color: 'var(--hero-subtle)',
             maxWidth: '360px',
             lineHeight: 1.6,
           }}
@@ -210,7 +210,7 @@ export function HeroContent() {
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <ChevronDown size={18} style={{ color: '#48484a' }} />
+          <ChevronDown size={18} style={{ color: 'var(--hero-subtle)' }} />
         </motion.div>
       </motion.div>
     </section>
