@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <div className="text-[9px] font-mono font-bold text-[var(--t4)] uppercase tracking-widest mb-3">// SCA Admin</div>
           <h1 className="font-display text-[22px] font-black tracking-[-0.4px] text-[var(--t1)]">Admin Portal</h1>
-          <p className="text-[12px] font-mono text-[var(--t4)] mt-1.5">Restricted access — enter your password to continue</p>
+          <p className="text-[12px] font-mono text-[var(--t4)] mt-1.5">Restricted access. Enter your password to continue</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-[var(--bg2)] border border-[var(--b1)] p-6 space-y-4">

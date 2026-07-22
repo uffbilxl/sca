@@ -268,7 +268,7 @@ export function CVBuilderClient() {
       <Card
         key={section}
         title={SECTION_TITLES[section]}
-        note={entries.length === 0 ? 'Empty — hidden on the CV' : undefined}
+        note={entries.length === 0 ? 'Empty (hidden on the CV)' : undefined}
         onMoveUp={idx > 0 ? () => moveSection(section, -1) : undefined}
         onMoveDown={idx < data.sectionOrder.length - 1 ? () => moveSection(section, 1) : undefined}
       >
@@ -342,7 +342,7 @@ export function CVBuilderClient() {
       <Card
         key="summary"
         title={SECTION_TITLES.summary}
-        note="Optional — hidden when empty"
+        note="Optional (hidden when empty)"
         onMoveUp={orderIndex('summary') > 0 ? () => moveSection('summary', -1) : undefined}
         onMoveDown={orderIndex('summary') < data.sectionOrder.length - 1 ? () => moveSection('summary', 1) : undefined}
       >
@@ -416,7 +416,7 @@ export function CVBuilderClient() {
           SCA CV Builder
         </h1>
         <p className="text-sm text-[var(--color-muted)] mt-2 max-w-xl leading-relaxed">
-          Build your CV. Land your opportunity. Completely free — made by students, for students.
+          Build your CV. Land your opportunity. Completely free. Made by students, for students.
           The classic one-page, ATS-friendly template UK employers expect.
         </p>
 
@@ -439,7 +439,7 @@ export function CVBuilderClient() {
             }`}
           >
             {fits ? <Check size={12} /> : <X size={12} />}
-            {fits ? 'Fits on one page' : 'Over one page — trim some bullets'}
+            {fits ? 'Fits on one page' : 'Over one page, trim some bullets'}
           </span>
 
           <div className="ml-auto flex items-center gap-2">
@@ -487,7 +487,7 @@ export function CVBuilderClient() {
             {report.repeatedStarts.length > 0 && (
               <p className="text-[11px] text-amber-400 mt-4">
                 {report.repeatedStarts.length > 1 ? 'Several bullets start' : 'Three or more bullets start'} with
-                “{report.repeatedStarts.join('”, “')}” — vary your opening verbs.
+                “{report.repeatedStarts.join('”, “')}”. Vary your opening verbs.
               </p>
             )}
           </div>

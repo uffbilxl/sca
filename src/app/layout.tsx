@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 import Link from 'next/link'
+import { Linkedin, Instagram } from 'lucide-react'
 import { Navbar } from '@/components/layout/Navbar'
 import { Toaster } from '@/components/ui/Toaster'
 import { AnimatedBackground } from '@/components/layout/AnimatedBackground'
@@ -66,6 +67,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <p className="text-sm text-[var(--color-muted)] leading-relaxed max-w-[220px]">
                   From your first lecture to your first offer.
                 </p>
+                <div className="flex items-center gap-2 mt-5">
+                  <a
+                    href="https://www.linkedin.com/company/bcu-student-computing-association/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="SCA on LinkedIn"
+                    className="w-8 h-8 rounded-full border border-[var(--color-border-subtle)] flex items-center justify-center text-[var(--color-muted)] hover:text-[var(--color-text)] hover:border-[var(--color-border)] transition-colors focus-ring"
+                  >
+                    <Linkedin size={15} aria-hidden="true" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/bcu_sca"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="SCA on Instagram"
+                    className="w-8 h-8 rounded-full border border-[var(--color-border-subtle)] flex items-center justify-center text-[var(--color-muted)] hover:text-[var(--color-text)] hover:border-[var(--color-border)] transition-colors focus-ring"
+                  >
+                    <Instagram size={15} aria-hidden="true" />
+                  </a>
+                </div>
               </div>
 
               {/* Navigation */}

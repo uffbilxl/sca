@@ -121,7 +121,7 @@ export function CvPdfDoc({ data, density }: { data: CVData; density: Density }) 
   }
 
   return (
-    <Document title={`${data.name || 'CV'} — CV`} author={data.name || undefined}>
+    <Document title={`${data.name || 'CV'} - CV`} author={data.name || undefined}>
       <Page size="A4" style={s.page}>
         <Text style={s.name}>{data.name || 'YOUR NAME'}</Text>
         {contactParts.length > 0 && <Text style={s.contact}>{contactParts.join(' | ')}</Text>}

@@ -65,7 +65,7 @@ export default async function OpportunitiesAdminPage() {
                 <td className="px-4 py-3 text-[12px] text-[var(--t1)] truncate" title={opp.title}>{opp.title}</td>
                 <td className="px-4 py-3 text-[11px] text-[var(--t3)] truncate">{opp.company.name}</td>
                 <td className="px-4 py-3 text-[11px] text-[var(--t3)]">{opportunityTypeLabel(opp.type)}</td>
-                <td className="px-4 py-3 text-[11px] text-[var(--t3)]">{opp.deadline ? formatDeadline(opp.deadline) : '—'}</td>
+                <td className="px-4 py-3 text-[11px] text-[var(--t3)]">{opp.deadline ? formatDeadline(opp.deadline) : 'N/A'}</td>
                 <td className="px-4 py-3">
                   <span className={`inline-flex items-center gap-1.5 text-[10px] ${statusColour[opp.status]}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${statusDot[opp.status]}`} />

@@ -120,7 +120,7 @@ export function CVPreview({
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
           <p style={{ flex: 1, margin: 0 }}>
             {weak.length > 0
-              ? <>Weak wording: <em style={{ color: '#f59e0b' }}>“{weak[0]}”</em> — describe a specific action and its outcome.</>
+              ? <>Weak wording: <em style={{ color: '#f59e0b' }}>“{weak[0]}”</em>. Describe a specific action and its outcome.</>
               : <>This bullet starts weakly. Try opening with an action verb:</>}
           </p>
           <button
@@ -181,7 +181,7 @@ export function CVPreview({
               background: 'rgba(245,158,11,0.13)',
               borderBottom: '1.5px dashed #d97706',
             }}
-            title="Suggestion available — click to view"
+            title="Suggestion available, click to view"
           >
             {b}
           </span>

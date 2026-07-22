@@ -61,18 +61,18 @@ export default function ImportPage() {
         <div className="text-[10px] font-semibold text-[var(--t4)] uppercase tracking-widest mb-3">Expected columns</div>
         <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
           {[
-            ['Title', 'Required — role name'],
-            ['Company', 'Required — company name'],
+            ['Title', 'Required, role name'],
+            ['Company', 'Required, company name'],
             ['Type', 'INTERNSHIP / PLACEMENT / GRADUATE / SPRING_WEEK / INSIGHT'],
             ['Location', 'e.g. London or United Kingdom'],
             ['Work Mode', 'REMOTE / HYBRID / ONSITE (default: HYBRID)'],
             ['Apply URL', 'Full URL to application page'],
             ['Status', 'OPEN / CLOSING_SOON / CLOSED (default: OPEN)'],
-            ['Description', 'Optional — auto-generated if blank'],
-            ['Start Date', 'Optional — e.g. Summer 2026'],
-            ['Deadline', 'Optional — e.g. 2026-08-31'],
-            ['Featured', 'Optional — true / false'],
-            ['Sponsored', 'Optional — true / false'],
+            ['Description', 'Optional, auto-generated if blank'],
+            ['Start Date', 'Optional, e.g. Summer 2026'],
+            ['Deadline', 'Optional, e.g. 2026-08-31'],
+            ['Featured', 'Optional, true / false'],
+            ['Sponsored', 'Optional, true / false'],
           ].map(([col, desc]) => (
             <div key={col} className="flex gap-2">
               <span className="text-[11px] font-semibold text-[var(--t2)] min-w-[80px]">{col}</span>
@@ -81,7 +81,7 @@ export default function ImportPage() {
           ))}
         </div>
         <p className="text-[11px] text-[var(--t4)] mt-3 pt-3 border-t border-[var(--b1)]">
-          Column names are matched flexibly — casing and spacing don&apos;t matter. Duplicate rows (same Apply URL) are skipped automatically.
+          Column names are matched flexibly. Casing and spacing don&apos;t matter. Duplicate rows (same Apply URL) are skipped automatically.
         </p>
       </div>
 
