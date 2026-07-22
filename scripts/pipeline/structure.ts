@@ -6,7 +6,10 @@ import type { RawListing } from './types'
  * Gemini's structured JSON output mode so the model can't return anything
  * that doesn't match the schema. */
 
-const MODEL = 'gemini-2.0-flash'
+/* An alias Google keeps pointed at their current recommended fast model,
+ * rather than a pinned version — avoids silently breaking again when a
+ * specific dated model gets deprecated for new API keys. */
+const MODEL = 'gemini-flash-latest'
 const BATCH_SIZE = 12 // listings per LLM call — keeps prompts small and cheap
 const VALID_TYPES = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK', 'INSIGHT'] as const
 const VALID_WORK_MODES = ['REMOTE', 'HYBRID', 'ONSITE'] as const
