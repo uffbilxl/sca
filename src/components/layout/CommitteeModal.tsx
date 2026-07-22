@@ -42,8 +42,8 @@ export function CommitteeModal({ onClose }: Props) {
         <motion.div
           className="relative z-10 w-full max-w-[480px] rounded-2xl p-8 shadow-2xl"
           style={{
-            background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
-            border: '1px solid rgba(255,255,255,0.09)',
+            background: 'var(--card-gradient)',
+            border: '1px solid rgba(var(--hairline-rgb),0.09)',
           }}
           initial={{ opacity: 0, y: 24, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -55,9 +55,9 @@ export function CommitteeModal({ onClose }: Props) {
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center rounded-lg transition-colors"
-            style={{ color: '#6e6e73', background: 'transparent' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.06)'; (e.currentTarget as HTMLButtonElement).style.color = '#f5f5f7' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#6e6e73' }}
+            style={{ color: 'var(--t4)', background: 'transparent' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(var(--hairline-rgb),0.06)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--t1)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--t4)' }}
             aria-label="Close"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -70,7 +70,7 @@ export function CommitteeModal({ onClose }: Props) {
             className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
             style={{ background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.2)' }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
@@ -78,16 +78,16 @@ export function CommitteeModal({ onClose }: Props) {
           <p className="eyebrow mb-2">Get involved</p>
           <h2
             className="font-bold mb-3 leading-snug"
-            style={{ fontSize: '1.25rem', color: '#f5f5f7', letterSpacing: '-0.02em' }}
+            style={{ fontSize: '1.25rem', color: 'var(--t1)', letterSpacing: '-0.02em' }}
           >
             Join the SCA Committee
           </h2>
 
-          <p style={{ fontSize: '0.8125rem', color: '#aeaeb2', lineHeight: 1.65, marginBottom: '0.75rem' }}>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--t2)', lineHeight: 1.65, marginBottom: '0.75rem' }}>
             The Student Computing Association is always looking for passionate BCU computing
             students to join the committee and help shape the society.
           </p>
-          <p style={{ fontSize: '0.8125rem', color: '#86868b', lineHeight: 1.65, marginBottom: '1.5rem' }}>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--t3)', lineHeight: 1.65, marginBottom: '1.5rem' }}>
             Whether you're interested in organising events, managing social media, building tech
             projects, or leading sponsorship. There's a role for you.
           </p>
@@ -95,20 +95,20 @@ export function CommitteeModal({ onClose }: Props) {
           {/* Perks list */}
           <div
             className="flex flex-col gap-2.5 p-4 rounded-xl mb-6"
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+            style={{ background: 'rgba(var(--hairline-rgb),0.03)', border: '1px solid rgba(var(--hairline-rgb),0.07)' }}
           >
             {perks.map((item, i) => (
               <motion.div
                 key={item}
                 className="flex items-center gap-2.5"
-                style={{ fontSize: '0.8125rem', color: '#aeaeb2' }}
+                style={{ fontSize: '0.8125rem', color: 'var(--t2)' }}
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.18 + i * 0.06, duration: 0.22, ease: 'easeOut' }}
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                  style={{ background: '#6366f1' }}
+                  style={{ background: 'var(--acc)' }}
                 />
                 {item}
               </motion.div>
@@ -126,7 +126,7 @@ export function CommitteeModal({ onClose }: Props) {
             Apply now →
           </a>
 
-          <p style={{ textAlign: 'center', fontSize: '0.6875rem', color: '#48484a', marginTop: '0.75rem' }}>
+          <p style={{ textAlign: 'center', fontSize: '0.6875rem', color: 'var(--b2)', marginTop: '0.75rem' }}>
             Takes less than 5 minutes · Open to all BCU computing students
           </p>
         </motion.div>

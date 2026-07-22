@@ -257,7 +257,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Disclaimer ticker */}
-      <div className="w-full overflow-hidden border-b border-[var(--b1)] bg-[#0d0d18] py-2">
+      <div className="w-full overflow-hidden border-b border-[var(--b1)] bg-[var(--bg2)] py-2">
         <div className="ticker-track flex w-max">
           {[...tickerItems, ...tickerItems].map((item, i) => (
             <span key={i} className={`flex items-center whitespace-nowrap text-[11px] font-medium ${item.highlight ? 'text-amber-400' : 'text-[var(--t3)]'}`}>
@@ -268,7 +268,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
       </div>
 
       {/* Mini stats strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-[var(--b1)] bg-[#0d0d18]">
+      <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-[var(--b1)] bg-[var(--bg2)]">
         {[
           { n: totalOpen, l: 'Opportunities' },
           { n: internships, l: 'Internships' },
@@ -284,7 +284,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
 
       <div className="flex flex-1">
       {/* Desktop sidebar */}
-      <aside className="hidden md:block w-[240px] flex-shrink-0 border-r border-[var(--b1)] bg-[#0d0d18] p-5 sticky top-[52px] self-start max-h-[calc(100vh-52px)] overflow-y-auto">
+      <aside className="hidden md:block w-[240px] flex-shrink-0 border-r border-[var(--b1)] bg-[var(--bg2)] p-5 sticky top-[52px] self-start max-h-[calc(100vh-52px)] overflow-y-auto">
         {filterPanel}
       </aside>
 
@@ -292,7 +292,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
       {showFilters && (
         <div className="fixed inset-0 z-50 md:hidden flex">
           <div className="flex-1 bg-black/50" onClick={() => setShowFilters(false)} />
-          <div className="w-[290px] bg-[#080810] border-l border-[var(--b1)] flex flex-col overflow-hidden">
+          <div className="w-[290px] bg-[var(--bg2)] border-l border-[var(--b1)] flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-[var(--b1)] flex-shrink-0">
               <span className="text-[13px] font-semibold text-[var(--t1)]">Filters</span>
               <button
@@ -378,7 +378,7 @@ function OpportunityRow({ opp }: { opp: Opportunity }) {
   return (
     <Link
       href={`/opportunities/${opp.slug}`}
-      className="bg-[#0d0d18] px-4 sm:px-5 py-4 flex items-center gap-3 sm:gap-4 border-b border-[var(--b1)] last:border-b-0 hover:bg-[var(--bg3)] transition-colors group"
+      className="bg-[var(--bg2)] px-4 sm:px-5 py-4 flex items-center gap-3 sm:gap-4 border-b border-[var(--b1)] last:border-b-0 hover:bg-[var(--bg3)] transition-colors group"
     >
       <CompanyLogo name={opp.company.name} logoUrl={opp.company.logo} size={40} />
 

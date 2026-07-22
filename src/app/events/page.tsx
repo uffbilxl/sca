@@ -88,7 +88,7 @@ export default function EventsPage() {
       {/* Next event countdown */}
       {nextEvent && !countdown.over && (
         <div className="relative mb-10 rounded-2xl overflow-hidden border border-[var(--color-accent)]/20">
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'var(--card-gradient)' }} />
           <div
             className="absolute inset-0"
             style={{
@@ -179,7 +179,7 @@ export default function EventsPage() {
 
       {/* Timeline list */}
       {list.length === 0 ? (
-        <div className="border border-[rgba(255,255,255,0.07)] rounded-2xl py-20 px-6 text-center" style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)' }}>
+        <div className="border border-[rgba(var(--hairline-rgb),0.07)] rounded-2xl py-20 px-6 text-center" style={{ background: 'var(--card-gradient)' }}>
           <div className="w-14 h-14 rounded-2xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-5">
             <Clock size={24} className="text-[var(--color-accent)]" aria-hidden="true" />
           </div>
@@ -250,8 +250,8 @@ export default function EventsPage() {
                       isPast ? 'opacity-60' : 'hover:border-[rgba(99,102,241,0.3)]'
                     }`}
                     style={{
-                      background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
-                      border: '1px solid rgba(255,255,255,0.07)',
+                      background: 'var(--card-gradient)',
+                      border: '1px solid rgba(var(--hairline-rgb),0.07)',
                     }}
                   >
                     <div className="flex items-start gap-4">

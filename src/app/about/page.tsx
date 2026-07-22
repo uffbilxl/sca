@@ -64,7 +64,7 @@ export default function AboutPage() {
       <FadeIn delay={0.05}>
         <section
           className="mb-12 p-6 sm:p-8 rounded-2xl border"
-          style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+          style={{ background: 'var(--card-gradient)', borderColor: 'rgba(var(--hairline-rgb),0.07)' }}
         >
           <span className="eyebrow mb-3">Our mission</span>
           <p className="text-[16px] sm:text-[18px] font-semibold text-[var(--color-text)] leading-relaxed">
@@ -87,8 +87,8 @@ export default function AboutPage() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="group flex flex-col gap-2 p-5 rounded-2xl border transition-all duration-200 hover:border-[rgba(255,255,255,0.14)]"
-                style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+                className="group flex flex-col gap-2 p-5 rounded-2xl border transition-all duration-200 hover:border-[rgba(var(--hairline-rgb),0.14)]"
+                style={{ background: 'var(--card-gradient)', borderColor: 'rgba(var(--hairline-rgb),0.07)' }}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[13px] font-semibold text-[var(--color-text)]" style={{ fontFamily: 'var(--font-geist-sans)' }}>
@@ -120,7 +120,7 @@ export default function AboutPage() {
             <FadeIn key={v.title} delay={0.12 + i * 0.05}>
               <div
                 className="flex gap-5 p-5 rounded-2xl border"
-                style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+                style={{ background: 'var(--card-gradient)', borderColor: 'rgba(var(--hairline-rgb),0.07)' }}
               >
                 <div className="text-[11px] font-semibold text-[var(--color-accent)] tracking-widest pt-0.5 flex-shrink-0 w-6">
                   0{i + 1}
@@ -142,8 +142,8 @@ export default function AboutPage() {
         <section
           className="mb-12 p-5 rounded-2xl border border-l-2"
           style={{
-            background: 'linear-gradient(145deg, #1a1510 0%, #14100c 100%)',
-            borderColor: 'rgba(255,255,255,0.07)',
+            background: 'var(--amber-card-gradient)',
+            borderColor: 'rgba(var(--hairline-rgb),0.07)',
             borderLeftColor: 'rgba(217,119,6,0.7)',
           }}
         >
@@ -166,7 +166,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
               className="p-5 rounded-2xl border"
-              style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+              style={{ background: 'var(--card-gradient)', borderColor: 'rgba(var(--hairline-rgb),0.07)' }}
             >
               <div className="text-[13px] font-semibold text-[var(--color-text)] mb-1.5" style={{ fontFamily: 'var(--font-geist-sans)' }}>
                 Join the SCA
@@ -195,7 +195,7 @@ export default function AboutPage() {
             </div>
             <div
               className="p-5 rounded-2xl border"
-              style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+              style={{ background: 'var(--card-gradient)', borderColor: 'rgba(var(--hairline-rgb),0.07)' }}
             >
               <div className="text-[13px] font-semibold text-[var(--color-text)] mb-1.5" style={{ fontFamily: 'var(--font-geist-sans)' }}>
                 Join the committee

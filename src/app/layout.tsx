@@ -9,6 +9,7 @@ import { Toaster } from '@/components/ui/Toaster'
 import { AnimatedBackground } from '@/components/layout/AnimatedBackground'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { FooterReportIssue } from '@/components/layout/FooterReportIssue'
+import { themeInitScript } from '@/components/layout/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'BCUSCA - Student Computing Association',
@@ -43,7 +44,10 @@ const footerLinks = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`dark ${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-screen text-[var(--color-text)] antialiased" style={{ background: 'transparent' }}>
         <AnimatedBackground />
         <Navbar />
@@ -53,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <footer
           className="border-t border-[var(--color-border-subtle)]"
-          style={{ background: 'linear-gradient(180deg, #0d0d18 0%, #080810 100%)' }}
+          style={{ background: 'var(--footer-gradient)' }}
         >
           <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-14">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">

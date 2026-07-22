@@ -22,9 +22,9 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
   return (
     <Link
       href={`/opportunities/${opp.slug}`}
-      className="group relative flex flex-col rounded-2xl p-5 border border-[rgba(255,255,255,0.07)] hover:border-[rgba(99,102,241,0.3)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] transition-all duration-300 focus-ring"
+      className="group relative flex flex-col rounded-2xl p-5 border border-[rgba(var(--hairline-rgb),0.07)] hover:border-[rgba(99,102,241,0.3)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] transition-all duration-300 focus-ring"
       style={{
-        background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+        background: 'var(--card-gradient)',
         transitionTimingFunction: 'cubic-bezier(0.25,0.46,0.45,0.94)',
       }}
     >

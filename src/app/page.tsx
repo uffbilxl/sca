@@ -99,7 +99,7 @@ export default async function HomePage() {
       <section
         className={`${SECTION_PAD} section-divider`}
         style={{
-          background: 'linear-gradient(180deg, #000000 0%, #08080f 60%, #0d0d18 100%)',
+          background: 'var(--section-gradient-a)',
         }}
       >
         <div className={INNER}>
@@ -152,7 +152,7 @@ export default async function HomePage() {
       <section
         className={`${SECTION_PAD} section-divider`}
         style={{
-          background: 'linear-gradient(160deg, #0d0d18 0%, #111118 40%, #0f0f1a 100%)',
+          background: 'var(--section-gradient-b)',
         }}
       >
         <div className={INNER}>
@@ -169,12 +169,12 @@ export default async function HomePage() {
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-px"
-            style={{ background: 'rgba(255,255,255,0.06)' }}>
+            style={{ background: 'rgba(var(--hairline-rgb),0.06)' }}>
             {pillars.map(({ num, title, body, Icon }, i) => (
               <FadeIn key={title} delay={i * 0.1} className="h-full">
                 <div
                   className="flex flex-col gap-5 p-8 sm:p-10 h-full"
-                  style={{ background: 'linear-gradient(145deg, #111118 0%, #0d0d16 100%)' }}
+                  style={{ background: 'var(--card-gradient)' }}
                 >
                   {/* Muted number */}
                   <span
@@ -220,7 +220,7 @@ export default async function HomePage() {
       <section
         className={`${SECTION_PAD} section-divider`}
         style={{
-          background: 'linear-gradient(180deg, #08080f 0%, #000000 100%)',
+          background: 'var(--section-gradient-c)',
         }}
       >
         <div className={INNER}>
@@ -241,9 +241,9 @@ export default async function HomePage() {
               <FadeIn key={label} delay={i * 0.05}>
                 <Link
                   href={href}
-                  className="group flex items-start justify-between p-6 rounded-2xl border border-[rgba(255,255,255,0.07)] hover:border-[rgba(99,102,241,0.3)] transition-all duration-300 focus-ring"
+                  className="group flex items-start justify-between p-6 rounded-2xl border border-[rgba(var(--hairline-rgb),0.07)] hover:border-[rgba(99,102,241,0.3)] transition-all duration-300 focus-ring"
                   style={{
-                    background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+                    background: 'var(--card-gradient)',
                     transitionTimingFunction: 'cubic-bezier(0.25,0.46,0.45,0.94)',
                   }}
                 >
@@ -281,7 +281,7 @@ export default async function HomePage() {
       <section
         className="section-divider relative overflow-hidden"
         style={{
-          background: 'linear-gradient(160deg, #0a0a16 0%, #0d0d1e 50%, #080812 100%)',
+          background: 'var(--section-gradient-d)',
         }}
       >
         {/* Strong indigo glow from bottom-center */}

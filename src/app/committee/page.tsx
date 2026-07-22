@@ -200,10 +200,10 @@ function SocialLinks({ person }: { person: Person }) {
       ) : (
         <span
           className="flex items-center justify-center w-7 h-7 rounded-lg"
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+          style={{ background: 'rgba(var(--hairline-rgb),0.02)', border: '1px solid rgba(var(--hairline-rgb),0.04)' }}
           aria-hidden="true"
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#2d2d2d">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--bg4)">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>
         </span>
@@ -215,18 +215,18 @@ function SocialLinks({ person }: { person: Person }) {
           rel="noopener noreferrer"
           onClick={e => e.stopPropagation()}
           className="flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-150 focus-ring"
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#86868b' }}
+          style={{ background: 'rgba(var(--hairline-rgb),0.05)', border: '1px solid rgba(var(--hairline-rgb),0.08)', color: 'var(--t3)' }}
           onMouseEnter={e => {
             const el = e.currentTarget as HTMLAnchorElement
-            el.style.background = 'rgba(255,255,255,0.1)'
-            el.style.borderColor = 'rgba(255,255,255,0.18)'
-            el.style.color = '#f5f5f7'
+            el.style.background = 'rgba(var(--hairline-rgb),0.1)'
+            el.style.borderColor = 'rgba(var(--hairline-rgb),0.18)'
+            el.style.color = 'var(--t1)'
           }}
           onMouseLeave={e => {
             const el = e.currentTarget as HTMLAnchorElement
-            el.style.background = 'rgba(255,255,255,0.05)'
-            el.style.borderColor = 'rgba(255,255,255,0.08)'
-            el.style.color = '#86868b'
+            el.style.background = 'rgba(var(--hairline-rgb),0.05)'
+            el.style.borderColor = 'rgba(var(--hairline-rgb),0.08)'
+            el.style.color = 'var(--t3)'
           }}
           aria-label={`${person.name}'s website`}
         >
@@ -245,7 +245,7 @@ function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentC
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
       className="flex items-center gap-3 px-4 py-3 rounded-xl border transition-colors"
-      style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.05)' }}
+      style={{ background: 'rgba(var(--hairline-rgb),0.02)', borderColor: 'rgba(var(--hairline-rgb),0.05)' }}
     >
       <div
         className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
@@ -270,8 +270,8 @@ function SectionTile({ section, isOpen, onToggle }: { section: Section; isOpen: 
   return (
     <div className="rounded-2xl border overflow-hidden transition-all duration-300"
       style={{
-        borderColor: isOpen ? `${color}50` : 'rgba(255,255,255,0.07)',
-        background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+        borderColor: isOpen ? `${color}50` : 'rgba(var(--hairline-rgb),0.07)',
+        background: 'var(--card-gradient)',
         boxShadow: isOpen ? `0 0 32px ${color}18` : 'none',
       }}
     >
@@ -356,7 +356,7 @@ export default function CommitteePage() {
       <section className="mb-14">
         <div className="flex items-center gap-3 mb-6">
           <span className="section-title">Leadership</span>
-          <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="flex-1 h-px" style={{ background: 'rgba(var(--hairline-rgb),0.07)' }} />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -368,7 +368,7 @@ export default function CommitteePage() {
               transition={{ duration: 0.4, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="flex items-start gap-4 p-6 rounded-2xl"
               style={{
-                background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)',
+                background: 'var(--card-gradient)',
                 border: '1px solid rgba(99,102,241,0.2)',
                 boxShadow: '0 0 32px rgba(99,102,241,0.06)',
               }}
@@ -400,7 +400,7 @@ export default function CommitteePage() {
       <section className="mb-14">
         <div className="flex items-center gap-3 mb-6">
           <span className="section-title">Departments</span>
-          <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="flex-1 h-px" style={{ background: 'rgba(var(--hairline-rgb),0.07)' }} />
         </div>
 
         <div className="flex flex-col gap-3">
@@ -419,7 +419,7 @@ export default function CommitteePage() {
       <section className="mb-14">
         <div className="flex items-center gap-3 mb-6">
           <span className="section-title">Teams</span>
-          <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="flex-1 h-px" style={{ background: 'rgba(var(--hairline-rgb),0.07)' }} />
         </div>
 
         <div className="flex flex-col gap-3">
@@ -435,7 +435,7 @@ export default function CommitteePage() {
       </section>
 
       {/* Footer */}
-      <div className="pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <div className="pt-6" style={{ borderTop: '1px solid rgba(var(--hairline-rgb),0.07)' }}>
         <p className="text-[12px] text-[var(--color-muted)] text-center">
           Interested in joining the committee?{' '}
           <Link

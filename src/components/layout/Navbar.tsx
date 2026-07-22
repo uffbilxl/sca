@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown, FileText, FolderOpen, Rocket } from 'lucide-react'
 import { CommitteeModal } from '@/components/layout/CommitteeModal'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 
 /* "Resources" sits between Committee and About as a dropdown (see below) */
 const navLinks = [
@@ -68,7 +69,7 @@ function ResourcesDropdown({ pathname }: { pathname: string }) {
         <div
           className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 rounded-2xl border p-1.5 focus-ring"
           style={{
-            background: 'rgba(17,17,17,0.98)',
+            background: 'var(--dropdown-bg)',
             backdropFilter: 'saturate(180%) blur(20px)',
             WebkitBackdropFilter: 'saturate(180%) blur(20px)',
             borderColor: 'var(--color-border-subtle)',
@@ -120,13 +121,13 @@ export function Navbar() {
   const glassStyle = scrolled
     ? {
         /* Apple's exact nav glass formula */
-        background: 'rgba(0, 0, 0, 0.72)',
+        background: 'var(--navbar-glass-bg)',
         backdropFilter: 'saturate(180%) blur(20px)',
         WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        borderBottom: '1px solid rgba(var(--hairline-rgb),0.06)',
       }
     : {
-        background: 'rgba(0, 0, 0, 0)',
+        background: 'var(--navbar-glass-bg-top)',
         backdropFilter: 'saturate(180%) blur(0px)',
         WebkitBackdropFilter: 'saturate(180%) blur(0px)',
         borderBottom: '1px solid transparent',
@@ -233,6 +234,9 @@ export function Navbar() {
 
           {/* Desktop right actions */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
+            <ThemeToggle
+              className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-text)] hover:border-[var(--b2)] transition-all duration-200 focus-ring"
+            />
             <button
               onClick={() => setShowModal(true)}
               className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
@@ -251,8 +255,11 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile: Join + hamburger */}
+          {/* Mobile: theme toggle + Join + hamburger */}
           <div className="flex md:hidden items-center gap-2 ml-auto">
+            <ThemeToggle
+              className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors focus-ring"
+            />
             <Link
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
@@ -293,10 +300,10 @@ export function Navbar() {
         <div
           className="fixed top-12 inset-x-0 bottom-0 z-40 md:hidden flex flex-col overflow-y-auto"
           style={{
-            background: 'rgba(0,0,0,0.96)',
+            background: 'var(--mobile-menu-bg)',
             backdropFilter: 'saturate(180%) blur(20px)',
             WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderTop: '1px solid rgba(var(--hairline-rgb),0.06)',
           }}
         >
           <div className="px-6 py-6 flex flex-col gap-1">
@@ -370,7 +377,7 @@ export function Navbar() {
 
             <div
               className="my-4"
-              style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }}
+              style={{ height: '1px', background: 'rgba(var(--hairline-rgb),0.06)' }}
             />
 
             <button

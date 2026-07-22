@@ -20,7 +20,7 @@ const CATEGORIES: Category[] = [
   {
     id: 'cv',
     label: 'CV Templates',
-    color: '#6366f1',
+    color: 'var(--acc)',
     Icon: FileText,
     resources: [
       {
@@ -161,8 +161,8 @@ export default function ResourcesPage() {
                 {cat.resources.map(resource => (
                   <div
                     key={resource.title}
-                    className="flex flex-col gap-4 p-5 rounded-2xl border transition-all duration-200 hover:border-[rgba(255,255,255,0.14)]"
-                    style={{ background: 'linear-gradient(145deg, #141420 0%, #0f0f18 100%)', borderColor: 'rgba(255,255,255,0.07)' }}
+                    className="flex flex-col gap-4 p-5 rounded-2xl border transition-all duration-200 hover:border-[rgba(var(--hairline-rgb),0.14)]"
+                    style={{ background: 'var(--card-gradient)', borderColor: 'rgba(var(--hairline-rgb),0.07)' }}
                   >
                     {/* Top */}
                     <div className="flex items-start gap-3">

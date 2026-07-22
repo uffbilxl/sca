@@ -36,6 +36,29 @@
   --acc: #6366f1;
   --acc2: #4f52d4;
 
+  /* Shared surface treatments (theme-aware) */
+  --card-gradient: linear-gradient(145deg, #141420 0%, #0f0f18 100%);
+  --card-border:   rgba(255,255,255,0.07);
+  --hairline-rgb:  255, 255, 255;      /* base for rgba(var(--hairline-rgb), X) borders/hovers */
+  --navbar-glass-bg:     rgba(0, 0, 0, 0.72);
+  --navbar-glass-bg-top: rgba(0, 0, 0, 0);
+  --mobile-menu-bg:      rgba(0, 0, 0, 0.96);
+  --dropdown-bg:         rgba(17, 17, 17, 0.98);
+  --section-gradient-a: linear-gradient(180deg, #000000 0%, #08080f 60%, #0d0d18 100%);
+  --section-gradient-b: linear-gradient(160deg, #0d0d18 0%, #111118 40%, #0f0f1a 100%);
+  --section-gradient-c: linear-gradient(180deg, #08080f 0%, #000000 100%);
+  --section-gradient-d: linear-gradient(160deg, #0a0a16 0%, #0d0d1e 50%, #080812 100%);
+  --footer-gradient:     linear-gradient(180deg, #0d0d18 0%, #080810 100%);
+  --stats-strip-gradient: linear-gradient(135deg, #0c0c16 0%, #0f0f1c 50%, #0a0a14 100%);
+  --amber-card-gradient: linear-gradient(145deg, #1a1510 0%, #14100c 100%);
+
+  /* Sitewide fixed wallpaper (AnimatedBackground) — NOT the homepage hero,
+     which has its own hardcoded dark art and stays dark in both themes. */
+  --wash-base:   linear-gradient(160deg, #05050d 0%, #000000 40%, #050510 100%);
+  --wash-top:    radial-gradient(ellipse 80% 55% at 50% -5%, rgba(99,102,241,0.2) 0%, rgba(99,102,241,0.05) 40%, transparent 65%);
+  --wash-purple: radial-gradient(ellipse 50% 40% at 92% 85%, rgba(168,85,247,0.1) 0%, transparent 55%);
+  --wash-blue:   radial-gradient(ellipse 45% 35% at 5% 90%, rgba(59,130,246,0.07) 0%, transparent 55%);
+
   /* Type scale */
   --text-xs:   0.75rem;
   --text-sm:   0.875rem;
@@ -48,6 +71,60 @@
   --text-5xl:  3.75rem;
   --text-6xl:  5rem;
   --text-7xl:  6rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LIGHT THEME — overrides everything above when active.
+   The homepage hero and the fixed animated background blobs are
+   deliberately excluded: they're hand-tuned art assuming a pure
+   black canvas and stay dark in both themes by design.
+   ───────────────────────────────────────────────────────────── */
+:root[data-theme='light'] {
+  --color-bg:          #fafafa;
+  --color-surface:     #ffffff;
+  --color-surface-2:   #f2f2f5;
+  --color-border:      #d8d8dc;
+  --color-border-subtle: #e7e7ea;
+  --color-text:        #1d1d1f;
+  --color-muted:       #6e6e73;
+  --color-muted-2:     #86868b;
+  --color-accent:      #6366f1;
+  --color-accent-dim:  rgba(99, 102, 241, 0.1);
+  --color-tag:         #f2f2f5;
+
+  --bg:  #fafafa;
+  --bg2: #ffffff;
+  --bg3: #f2f2f5;
+  --bg4: #e7e7ea;
+  --b1:  #d8d8dc;
+  --b2:  #c7c7cc;
+  --b3:  #aeaeb2;
+  --t1:  #1d1d1f;
+  --t2:  #3a3a3c;
+  --t3:  #6e6e73;
+  --t4:  #86868b;
+  --acc: #6366f1;
+  --acc2: #4f52d4;
+
+  --card-gradient: linear-gradient(145deg, #ffffff 0%, #f5f6fa 100%);
+  --card-border:   rgba(15,15,20,0.08);
+  --hairline-rgb:  15, 15, 20;
+  --navbar-glass-bg:     rgba(255, 255, 255, 0.78);
+  --navbar-glass-bg-top: rgba(255, 255, 255, 0);
+  --mobile-menu-bg:      rgba(255, 255, 255, 0.97);
+  --dropdown-bg:         rgba(255, 255, 255, 0.98);
+  --section-gradient-a: linear-gradient(180deg, #ffffff 0%, #f4f5f9 100%);
+  --section-gradient-b: linear-gradient(180deg, #ffffff 0%, #f4f5f9 100%);
+  --section-gradient-c: linear-gradient(180deg, #ffffff 0%, #f4f5f9 100%);
+  --section-gradient-d: linear-gradient(180deg, #ffffff 0%, #f4f5f9 100%);
+  --footer-gradient:     linear-gradient(180deg, #f4f5f9 0%, #eceef3 100%);
+  --stats-strip-gradient: linear-gradient(180deg, #ffffff 0%, #f4f5f9 100%);
+  --amber-card-gradient: linear-gradient(145deg, #fffaf0 0%, #fdf3e0 100%);
+
+  --wash-base:   linear-gradient(160deg, #fafafa 0%, #f4f5f9 100%);
+  --wash-top:    radial-gradient(ellipse 80% 55% at 50% -5%, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.02) 40%, transparent 65%);
+  --wash-purple: radial-gradient(ellipse 50% 40% at 92% 85%, rgba(168,85,247,0.05) 0%, transparent 55%);
+  --wash-blue:   radial-gradient(ellipse 45% 35% at 5% 90%, rgba(59,130,246,0.04) 0%, transparent 55%);
 }
 
 /* ─────────────────────────────────────────────────────────────

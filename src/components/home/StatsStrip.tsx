@@ -27,7 +27,7 @@ export function StatsStrip() {
     <section
       className="section-divider"
       style={{
-        background: 'linear-gradient(135deg, #0c0c16 0%, #0f0f1c 50%, #0a0a14 100%)',
+        background: 'var(--stats-strip-gradient)',
       }}
     >
       <div className="max-w-[1080px] mx-auto px-6 sm:px-10">
