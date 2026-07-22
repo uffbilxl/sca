@@ -1,24 +1,113 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { ChevronDown, FileText, FolderOpen, Rocket } from 'lucide-react'
 import { CommitteeModal } from '@/components/layout/CommitteeModal'
 
+/* "Resources" sits between Committee and About as a dropdown (see below) */
 const navLinks = [
   { href: '/',                label: 'Home' },
   { href: '/opportunities',   label: 'Opportunities' },
   { href: '/sca-opportunities', label: 'SCA' },
   { href: '/events',          label: 'Events' },
   { href: '/committee',       label: 'Committee' },
-  { href: '/resources',       label: 'Resources' },
+]
+const navLinksAfterResources = [
   { href: '/about',           label: 'About' },
 ]
 
+const resourceLinks = [
+  { href: '/cv-builder', label: 'CV Builder', desc: 'Build & download your CV', Icon: FileText, external: false },
+  { href: '/resources',  label: 'Documents',   desc: 'Templates, guides & cheat sheets', Icon: FolderOpen, external: false },
+  { href: 'https://sca-project-finder.vercel.app/', label: 'Project Marketplace', desc: 'Find and join student project teams', Icon: Rocket, external: true },
+]
+
+/* Desktop dropdown for CV Builder + Documents, triggered from "Resources" */
+function ResourcesDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const active = resourceLinks.some(l => pathname === l.href || pathname.startsWith(l.href))
+
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    const escHandler = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('mousedown', handler)
+    document.addEventListener('keydown', escHandler)
+    return () => {
+      document.removeEventListener('mousedown', handler)
+      document.removeEventListener('keydown', escHandler)
+    }
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+        aria-haspopup="true"
+        className={`relative flex items-center gap-1 px-3 py-2 rounded-md transition-colors duration-150 focus-ring group ${
+          active ? 'text-[var(--color-text)]' : 'text-[var(--color-muted)] hover:text-[var(--color-text)]'
+        }`}
+        style={{ fontSize: '0.8125rem', fontWeight: active ? 500 : 400 }}
+      >
+        Resources
+        <ChevronDown size={13} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        {active && (
+          <span className="absolute bottom-[4px] left-3 right-6 h-px bg-[var(--color-text)] origin-center" />
+        )}
+        {!active && (
+          <span className="absolute bottom-[4px] left-3 right-6 h-px bg-[var(--color-muted)] origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
+        )}
+      </button>
+
+      {open && (
+        <div
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 rounded-2xl border p-1.5 focus-ring"
+          style={{
+            background: 'rgba(17,17,17,0.98)',
+            backdropFilter: 'saturate(180%) blur(20px)',
+            WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+            borderColor: 'var(--color-border-subtle)',
+            boxShadow: '0 16px 40px rgba(0,0,0,0.5)',
+          }}
+        >
+          {resourceLinks.map(l => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              target={l.external ? '_blank' : undefined}
+              rel={l.external ? 'noopener noreferrer' : undefined}
+              className="flex items-start gap-3 px-3 py-2.5 rounded-xl transition-colors hover:bg-white/5 focus-ring"
+            >
+              <span
+                className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                style={{ background: 'var(--color-accent-dim)', color: 'var(--color-accent)' }}
+              >
+                <l.Icon size={15} />
+              </span>
+              <span className="flex flex-col">
+                <span className="text-[13px] font-medium text-[var(--color-text)]">{l.label}</span>
+                <span className="text-[11.5px] text-[var(--color-muted)] mt-0.5">{l.desc}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function Navbar() {
   const pathname = usePathname()
-  const [showModal, setShowModal]   = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled]     = useState(false)
+  const [showModal, setShowModal]         = useState(false)
+  const [mobileOpen, setMobileOpen]       = useState(false)
+  const [mobileResOpen, setMobileResOpen] = useState(false)
+  const [scrolled, setScrolled]           = useState(false)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 1)
@@ -26,7 +115,7 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  useEffect(() => { setMobileOpen(false) }, [pathname])
+  useEffect(() => { setMobileOpen(false); setMobileResOpen(false) }, [pathname])
 
   const glassStyle = scrolled
     ? {
@@ -109,17 +198,41 @@ export function Navbar() {
                 </Link>
               )
             })}
+            <ResourcesDropdown pathname={pathname} />
+            {navLinksAfterResources.map(link => {
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(link.href))
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-3 py-2 rounded-md transition-colors duration-150 focus-ring group ${
+                    active
+                      ? 'text-[var(--color-text)]'
+                      : 'text-[var(--color-muted)] hover:text-[var(--color-text)]'
+                  }`}
+                  style={{ fontSize: '0.8125rem', fontWeight: active ? 500 : 400 }}
+                >
+                  {link.label}
+                  {active && (
+                    <span
+                      className="absolute bottom-[4px] left-3 right-3 h-px bg-[var(--color-text)] origin-center"
+                      style={{ transform: 'scaleX(1)' }}
+                    />
+                  )}
+                  {!active && (
+                    <span
+                      className="absolute bottom-[4px] left-3 right-3 h-px bg-[var(--color-muted)] origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
+                    />
+                  )}
+                </Link>
+              )
+            })}
           </div>
 
           {/* Desktop right actions */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0 ml-auto">
-            <Link
-              href="/cv-builder"
-              className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
-              style={{ fontSize: '0.8125rem' }}
-            >
-              CV Builder
-            </Link>
             <button
               onClick={() => setShowModal(true)}
               className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
@@ -206,20 +319,63 @@ export function Navbar() {
               )
             })}
 
+            {/* Resources disclosure */}
+            <button
+              onClick={() => setMobileResOpen(o => !o)}
+              aria-expanded={mobileResOpen}
+              className={`flex items-center justify-between px-4 py-4 rounded-xl transition-colors text-[15px] font-medium ${
+                resourceLinks.some(l => pathname === l.href || pathname.startsWith(l.href))
+                  ? 'text-[var(--color-text)] bg-white/5'
+                  : 'text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-white/5'
+              }`}
+            >
+              Resources
+              <ChevronDown size={16} className={`transition-transform duration-200 ${mobileResOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileResOpen && (
+              <div className="flex flex-col gap-1 pl-4 pb-1">
+                {resourceLinks.map(l => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    target={l.external ? '_blank' : undefined}
+                    rel={l.external ? 'noopener noreferrer' : undefined}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-white/5 transition-colors"
+                  >
+                    <l.Icon size={15} className="flex-shrink-0" />
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {navLinksAfterResources.map(link => {
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(link.href))
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`px-4 py-4 rounded-xl transition-colors text-[15px] font-medium ${
+                    active
+                      ? 'text-[var(--color-text)] bg-white/5'
+                      : 'text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-white/5'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+
             <div
               className="my-4"
               style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }}
             />
 
-            <Link
-              href="/cv-builder"
-              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
-            >
-              CV Builder
-            </Link>
             <button
               onClick={() => { setShowModal(true); setMobileOpen(false) }}
-              className="mt-2 px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
+              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
             >
               Join the Committee
             </button>
