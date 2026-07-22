@@ -114,6 +114,10 @@ export async function importOpportunityRows(
     const rawType = field(row, 'opportunity type', 'type', 'category', 'kind')
     const location = field(row, 'location', 'city', 'place', 'region') || 'United Kingdom'
     const applyUrl = field(row, 'direct apply link', 'apply url', 'apply link', 'url', 'link', 'applyurl', 'applicationurl', 'apply')
+    // The stable listing page this came from — falls back to applyUrl when a
+    // row doesn't distinguish the two (e.g. manual CSV uploads), which keeps
+    // that path's identity/dedup behaviour exactly as it was before.
+    const sourceUrl = field(row, 'source url', 'sourceurl') || applyUrl
     const startDate = field(row, 'estimated start date', 'start date', 'startdate', 'start')
     const deadlineRaw = field(row, 'application deadline', 'deadline', 'closing date', 'closes')
     const logoUrl = field(row, 'company logo png url', 'logo', 'logo url', 'company logo')
@@ -131,11 +135,14 @@ export async function importOpportunityRows(
       continue
     }
 
-    const normUrl = applyUrl ? normalizeUrl(applyUrl) : ''
-    if (normUrl) {
-      batchUrls.add(normUrl)
-      if (seenUrls.has(normUrl)) { results.skipped++; continue }
-      seenUrls.add(normUrl)
+    // Identity/dedup runs on sourceUrl (the stable listing page), not
+    // applyUrl (the real destination) — the latter can point at a shared
+    // company ATS URL or change slightly between scrapes of the same listing.
+    const normIdentity = sourceUrl ? normalizeUrl(sourceUrl) : ''
+    if (normIdentity) {
+      batchUrls.add(normIdentity)
+      if (seenUrls.has(normIdentity)) { results.skipped++; continue }
+      seenUrls.add(normIdentity)
     }
 
     const type = inferType(rawType)
@@ -168,16 +175,31 @@ export async function importOpportunityRows(
         },
       })
 
-      const existing = normUrl
-        ? await prisma.opportunity.findFirst({ where: { applyUrl: { equals: applyUrl, mode: 'insensitive' } } })
+      const existing = normIdentity
+        ? await prisma.opportunity.findFirst({ where: { sourceUrl: { equals: sourceUrl, mode: 'insensitive' } } })
         : await prisma.opportunity.findFirst({ where: { title, companyId: company.id } })
 
       if (existing) {
+        // Pick up a better applyUrl if this scrape found one (e.g. a listing
+        // originally imported pointing at an aggregator page now resolves to
+        // the real company destination) — upgrades legacy rows over time
+        // without needing a one-off migration.
+        const betterApplyUrl = applyUrl && applyUrl !== existing.applyUrl ? applyUrl : undefined
+
         if (status === 'CLOSED' && existing.status !== 'CLOSED') {
-          await prisma.opportunity.update({ where: { id: existing.id }, data: { status: 'CLOSED' } })
+          await prisma.opportunity.update({
+            where: { id: existing.id },
+            data: { status: 'CLOSED', ...(betterApplyUrl ? { applyUrl: betterApplyUrl } : {}) },
+          })
           results.closed++
         } else if (status !== 'CLOSED' && existing.status !== status) {
-          await prisma.opportunity.update({ where: { id: existing.id }, data: { status } })
+          await prisma.opportunity.update({
+            where: { id: existing.id },
+            data: { status, ...(betterApplyUrl ? { applyUrl: betterApplyUrl } : {}) },
+          })
+          results.updated++
+        } else if (betterApplyUrl) {
+          await prisma.opportunity.update({ where: { id: existing.id }, data: { applyUrl: betterApplyUrl } })
           results.updated++
         } else {
           results.skipped++
@@ -198,6 +220,7 @@ export async function importOpportunityRows(
           title, slug, description, type, location, workMode, status,
           featured, sponsored,
           applyUrl: applyUrl || null,
+          sourceUrl: sourceUrl || null,
           startDate: startDate || null,
           deadline,
           companyId: company.id,
@@ -212,23 +235,23 @@ export async function importOpportunityRows(
   // ── Close anything currently OPEN that wasn't in this batch ──────────────
   if (batchUrls.size > 0) {
     const openWithUrl = await prisma.opportunity.findMany({
-      where: { status: { not: 'CLOSED' }, applyUrl: { not: null } },
-      select: { id: true, applyUrl: true },
+      where: { status: { not: 'CLOSED' }, sourceUrl: { not: null } },
+      select: { id: true, sourceUrl: true },
     })
 
     for (const entry of openWithUrl) {
-      if (!entry.applyUrl) continue
+      if (!entry.sourceUrl) continue
 
       // Domain-scoped mode: only close opportunities whose source domain was
       // actually part of this batch. Without this, a scrape run that only
       // covers a subset of sources would wrongly close every opportunity
       // from every OTHER source just for not appearing in today's batch.
       if (options.sourceDomains) {
-        const entryDomain = getDomain(entry.applyUrl)
+        const entryDomain = getDomain(entry.sourceUrl)
         if (!options.sourceDomains.includes(entryDomain)) continue
       }
 
-      if (!batchUrls.has(normalizeUrl(entry.applyUrl))) {
+      if (!batchUrls.has(normalizeUrl(entry.sourceUrl))) {
         await prisma.opportunity.update({ where: { id: entry.id }, data: { status: 'CLOSED' } })
         results.closed++
       }

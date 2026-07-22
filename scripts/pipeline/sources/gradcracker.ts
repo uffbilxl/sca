@@ -8,6 +8,14 @@ const SEARCH_URLS = [
   'https://www.gradcracker.com/search/computing-technology/placements-internships',
 ]
 
+/* Gradcracker's own "Apply online now" button is a tracked outbound
+ * redirect containing the real destination — decodable without following
+ * it. We deliberately don't chase it: doing so means visiting every
+ * listing's own detail page (~80/run), and testing that at realistic
+ * volume tripped Cloudflare's rate limiting hard enough to briefly block
+ * even the listing page itself. Not worth the risk to the source that
+ * already works reliably — applyUrl stays the Gradcracker listing page. */
+
 /* Gradcracker renders real listing cards as <article> elements, but also
  * ships a hidden aria-hidden="true" honeypot <article> per page — a common
  * anti-bot trap for scrapers that blindly follow every link. We explicitly

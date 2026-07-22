@@ -2,7 +2,8 @@
  * structuring step converts it to the exact import schema. */
 export interface RawListing {
   sourceDomain: string   // e.g. 'gradcracker.com' — used for domain-scoped closing
-  sourceUrl: string      // listing detail page URL, used as the Apply URL
+  sourceUrl: string      // the aggregator's own listing page — stable identity, used for dedup/closing
+  applyUrl?: string      // the real destination (employer/ATS) when discoverable; falls back to sourceUrl if absent
   title: string
   company: string
   location?: string

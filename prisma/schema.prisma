@@ -45,6 +45,12 @@ model Opportunity {
   featured         Boolean          @default(false)
   status           Status           @default(OPEN)
   applyUrl         String?
+  /// The stable listing page this opportunity was scraped from (e.g. the
+  /// aggregator's own job page), used to recognise the same opportunity
+  /// across re-scrapes and to scope automated closing to sources actually
+  /// re-checked. Distinct from applyUrl, which is the real destination a
+  /// student should click through to and may point at a third-party ATS.
+  sourceUrl        String?
   companyId        String
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt

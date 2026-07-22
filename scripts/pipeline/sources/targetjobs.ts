@@ -51,10 +51,11 @@ export async function scrapeTargetJobs(page: Page): Promise<RawListing[]> {
 
       listings.push({
         sourceDomain: DOMAIN,
-        // Use the TargetJobs listing page (not the external applicationUrl)
-        // so the domain-scoped close-sweep can reliably match it back to
-        // this source — matches the same convention Gradcracker/HigherIn use.
+        // sourceUrl stays the TargetJobs listing page (stable identity, used
+        // for dedup/closing); applyUrl is the real employer/ATS destination,
+        // already present in the API response — no extra request needed.
         sourceUrl: tjUrl,
+        applyUrl: d.applicationUrl || undefined,
         title: d.title,
         company: d.organisation?.title || 'Unknown',
         location: Array.isArray(d.location) ? d.location.join(', ') : d.location,
