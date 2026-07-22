@@ -6,10 +6,15 @@ import type { RawListing } from './types'
  * Gemini's structured JSON output mode so the model can't return anything
  * that doesn't match the schema. */
 
-/* An alias Google keeps pointed at their current recommended fast model,
- * rather than a pinned version — avoids silently breaking again when a
- * specific dated model gets deprecated for new API keys. */
-const MODEL = 'gemini-flash-latest'
+/* An alias Google keeps pointed at their current recommended lite/fast
+ * model, rather than a pinned version — avoids silently breaking again
+ * when a specific dated model gets deprecated for new API keys. The
+ * "lite" tier specifically: the flagship "latest" model's free tier is
+ * capped at just 20 requests/DAY (discovered the hard way), nowhere near
+ * enough for a ~230-listing run; lite models are built for exactly this
+ * kind of high-volume, low-complexity structured-extraction task and get
+ * a much more generous free-tier daily allowance. */
+const MODEL = 'gemini-flash-lite-latest'
 const BATCH_SIZE = 12 // listings per LLM call — keeps prompts small and cheap
 const VALID_TYPES = ['INTERNSHIP', 'PLACEMENT', 'GRADUATE', 'SPRING_WEEK', 'INSIGHT'] as const
 const VALID_WORK_MODES = ['REMOTE', 'HYBRID', 'ONSITE'] as const
@@ -75,35 +80,63 @@ export interface StructuredRow {
   relevant: boolean
 }
 
-async function structureBatch(batch: RawListing[], apiKey: string): Promise<Map<number, StructuredRow>> {
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: buildPrompt(batch) }] }],
-        generationConfig: {
-          responseMimeType: 'application/json',
-          responseSchema: RESPONSE_SCHEMA,
-          temperature: 0.1,
-        },
-      }),
-    }
-  )
+const MAX_RETRIES = 5
+const MIN_DELAY_MS = 13_000 // free tier is 5 requests/minute — stay comfortably under that
 
-  if (!res.ok) {
-    throw new Error(`Gemini API error ${res.status}: ${await res.text()}`)
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+/* Pulls the server-suggested retry delay (e.g. "53s") out of a 429 body,
+ * falling back to a conservative default if it's missing or unparsable. */
+function parseRetryDelayMs(errorBody: string): number {
+  const match = errorBody.match(/"retryDelay":\s*"(\d+)s"/)
+  return match ? parseInt(match[1], 10) * 1000 + 1000 : MIN_DELAY_MS
+}
+
+async function structureBatch(batch: RawListing[], apiKey: string): Promise<Map<number, StructuredRow>> {
+  let lastErr: Error = new Error('unknown error')
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: buildPrompt(batch) }] }],
+          generationConfig: {
+            responseMimeType: 'application/json',
+            responseSchema: RESPONSE_SCHEMA,
+            temperature: 0.1,
+          },
+        }),
+      }
+    )
+
+    if (res.ok) {
+      const data = await res.json()
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+      if (!text) throw new Error('Gemini returned no content')
+      const rows: (StructuredRow & { index: number })[] = JSON.parse(text)
+      const map = new Map<number, StructuredRow>()
+      for (const r of rows) map.set(r.index, r)
+      return map
+    }
+
+    const bodyText = await res.text()
+    lastErr = new Error(`Gemini API error ${res.status}: ${bodyText}`)
+
+    // 429 (rate limit) and 503 (temporarily overloaded) are worth retrying;
+    // anything else (bad request, auth failure) won't fix itself.
+    if (res.status !== 429 && res.status !== 503) throw lastErr
+
+    const delay = res.status === 429 ? parseRetryDelayMs(bodyText) : MIN_DELAY_MS
+    console.warn(`Batch got ${res.status}, retrying in ${Math.round(delay / 1000)}s (attempt ${attempt + 1}/${MAX_RETRIES})`)
+    await sleep(delay)
   }
 
-  const data = await res.json()
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
-  if (!text) throw new Error('Gemini returned no content')
-
-  const rows: (StructuredRow & { index: number })[] = JSON.parse(text)
-  const map = new Map<number, StructuredRow>()
-  for (const r of rows) map.set(r.index, r)
-  return map
+  throw lastErr
 }
 
 export async function structureListings(
@@ -113,12 +146,13 @@ export async function structureListings(
   const out: { row: Record<string, string>; source: RawListing }[] = []
 
   for (let i = 0; i < listings.length; i += BATCH_SIZE) {
+    const batchStart = Date.now()
     const batch = listings.slice(i, i + BATCH_SIZE)
     let structured: Map<number, StructuredRow>
     try {
       structured = await structureBatch(batch, apiKey)
     } catch (err) {
-      console.error(`Structuring batch ${i}-${i + batch.length} failed:`, err)
+      console.error(`Structuring batch ${i}-${i + batch.length} failed after retries:`, err)
       continue // skip this batch, don't fail the whole run
     }
 
@@ -142,6 +176,14 @@ export async function structureListings(
         },
       })
     })
+
+    // Pace calls to stay under the free tier's 5 requests/minute cap, even
+    // when nothing failed — only sleep off whatever time the call itself
+    // didn't already use.
+    const elapsed = Date.now() - batchStart
+    if (elapsed < MIN_DELAY_MS && i + BATCH_SIZE < listings.length) {
+      await sleep(MIN_DELAY_MS - elapsed)
+    }
   }
 
   return out
