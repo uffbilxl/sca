@@ -1,8 +1,23 @@
-# SCA Opportunities Tracker
-
+# SCA Website
 **Birmingham City University · Student Computing Association**
 
-A platform for BCU computing students to discover and track tech opportunities — internships, placements, graduate roles, spring weeks, and events.
+From your first lecture to your first offer
+
+This website serves as a multi-functional platform. 
+You can:
+- Find spring weeks, summer internships, placements, and graduate roles.
+- Learn about SCA
+- Find our past and upcoming events
+- Learn more about the committee
+- Access resources we built.
+- Learn more about SCA
+- Apply to join the committee
+- Find our LinkedIn
+
+- ---
+
+
+
 
 ---
 
