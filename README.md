@@ -16,8 +16,13 @@ You can:
 
 - ---
 
+We have a CV builder, this is a tool that sits on our website where users can edit boxes with their own education, experience, extracurriculars, skills, interests, etc. and download it at the click of a button. (https://bcusca.org/cv-builder)
 
+We have resources spannning CV and cover letter templates to cheat sheets for programming languages, these are downloadable as PDFs or Word Docs. (https://bcusca.org/resources)
 
+We have a project market place. This aims to connect project creators with teams. Students list their project as a product: scope, tech stack, roadmap and the ideal team you need to ship it. They browse the marketplace, filter by the skills they have, and apply to the projects that excite them. 
+Finally, students accept applicants, assign roles, and coordinate with your new team over realtime project chat. (https://sca-project-finder.vercel.app/)
+ 
 
 ---
 
