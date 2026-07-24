@@ -37,6 +37,6 @@ Finally, students accept applicants, assign roles, and coordinate with your new 
 
 --- 
 
-View the website live at hhtps://bcusca.org
+View the website live at https://bcusca.org
 
 ---
