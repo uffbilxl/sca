@@ -1,9 +1,10 @@
 # SCA Website
 **Birmingham City University · Student Computing Association**
 
-From your first lecture to your first offer
+From your first lecture to your first offer.
 
 This website serves as a multi-functional platform. 
+
 You can:
 - Find spring weeks, summer internships, placements, and graduate roles.
 - Learn about SCA
