@@ -17,6 +17,6 @@ A platform for BCU computing students to discover and track tech opportunities â
 
 --- 
 
-View the website live at hhtps://bcusca.orh
+View the website live at hhtps://bcusca.org
 
 ---
