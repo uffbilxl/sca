@@ -38,6 +38,20 @@ const EVENTS: SCAEvent[] = [
     poster: null,
   },
   {
+    id: 'application-simulation-day-oct-2026',
+    title: 'Application Simulation Day',
+    description: null,
+    location: 'STEAMhouse',
+    isOnline: false,
+    date: new Date('2026-10-01T09:00:00'),
+    endDate: new Date('2026-10-01T17:00:00'),
+    spots: null,
+    registrations: 0,
+    registrationUrl: null,
+    type: 'OTHER',
+    poster: null,
+  },
+  {
     id: 'social-night-june-2026',
     title: 'Social Night: Debate & Gaming',
     description:
