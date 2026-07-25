@@ -412,8 +412,7 @@ export default function EventsPage() {
   const [tab, setTab]           = useState<'upcoming' | 'past'>('upcoming')
   const [posterSrc, setPosterSrc] = useState<string | null>(null)
 
-  const list      = tab === 'upcoming' ? upcoming : past
-  const nextEvent = upcoming[0] ?? null
+  const list = tab === 'upcoming' ? upcoming : past
 
   return (
     <div className="max-w-[860px] mx-auto px-5 sm:px-8 py-10 sm:py-14" style={{ position: 'relative', zIndex: 1 }}>
@@ -431,69 +430,6 @@ export default function EventsPage() {
           Workshops, talks, networking and career events for BCU computing students.
         </p>
       </div>
-
-      {/* Next event */}
-      {nextEvent && (
-        <div className="relative mb-10 rounded-2xl overflow-hidden border border-[var(--color-accent)]/20">
-          <div className="absolute inset-0" style={{ background: 'var(--card-gradient)' }} />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(ellipse 80% 60% at 0% 0%, rgba(99,102,241,0.12), transparent)',
-            }}
-          />
-
-          <div className="relative px-6 sm:px-8 py-7 sm:py-9">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
-              <span className="eyebrow">Next Event</span>
-            </div>
-
-            <h2
-              className="text-[clamp(1.2rem,4vw,1.75rem)] font-bold text-[var(--color-text)] leading-tight mb-3"
-              style={{ fontFamily: 'var(--font-geist-sans)' }}
-            >
-              {nextEvent.title}
-            </h2>
-
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-[var(--color-muted)] mb-7">
-              <span>{format(nextEvent.date, 'EEEE, d MMMM yyyy')}</span>
-              <span className="flex items-center gap-1">
-                <Clock size={11} aria-hidden="true" />
-                {format(nextEvent.date, 'h:mm a')}
-                {nextEvent.endDate ? ` – ${format(nextEvent.endDate, 'h:mm a')}` : ''}
-              </span>
-              <span className="flex items-center gap-1">
-                <MapPin size={11} aria-hidden="true" />
-                {nextEvent.location}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              {!nextEvent.spots && !nextEvent.registrationUrl ? (
-                <span className="px-4 py-2 border border-[var(--color-border)] rounded-full text-[12px] text-[var(--color-muted)] font-medium">
-                  Open to all, no registration needed
-                </span>
-              ) : (
-                <RegisterButton
-                  eventId={nextEvent.id}
-                  disabled={spotsLeft(nextEvent.spots, nextEvent.registrations) === 'Full'}
-                  registrationUrl={nextEvent.registrationUrl}
-                />
-              )}
-              {nextEvent.poster && (
-                <button
-                  onClick={() => setPosterSrc(nextEvent.poster!)}
-                  className="px-4 py-2 border border-[var(--color-border)] rounded-full text-[12px] text-[var(--color-muted)] hover:border-[var(--b3)] hover:text-[var(--color-text)] transition-colors focus-ring"
-                >
-                  View poster
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Tabs */}
       <div className="flex gap-1 mb-8 border border-[var(--color-border)] rounded-full p-1 w-fit bg-[var(--color-surface)]">
