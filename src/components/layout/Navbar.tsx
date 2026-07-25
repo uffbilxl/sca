@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/sca-opportunities', label: 'SCA' },
   { href: '/events',          label: 'Events' },
   { href: '/committee',       label: 'Committee' },
+  { href: '/research',        label: 'Research' },
 ]
 const navLinksAfterResources = [
   { href: '/about',           label: 'About' },
