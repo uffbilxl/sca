@@ -235,7 +235,7 @@ function SocialLinks({ person }: { person: Person }) {
 }
 
 /* ── Member row ────────────────────────────────────────────── */
-function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentColor: string; index?: number }) {
+function MemberRow({ person, accentColor, index = 0, showRole = true }: { person: Person; accentColor: string; index?: number; showRole?: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -252,7 +252,9 @@ function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentC
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-[13px] font-semibold text-[var(--color-text)] leading-tight truncate">{person.name}</p>
-        <p className="text-[11px] text-[var(--color-muted)] leading-tight mt-0.5">{person.role}</p>
+        {showRole && (
+          <p className="text-[11px] text-[var(--color-muted)] leading-tight mt-0.5">{person.role}</p>
+        )}
       </div>
       <SocialLinks person={person} />
     </motion.div>
@@ -263,6 +265,7 @@ function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentC
 function SectionTile({ section, isOpen, onToggle }: { section: Section; isOpen: boolean; onToggle: () => void }) {
   const { name, color, head, members } = section
   const memberCount = (head ? 1 : 0) + members.length
+  const showRole = name !== 'Marketing'
 
   return (
     <div className="rounded-2xl border overflow-hidden transition-all duration-300"
@@ -313,11 +316,11 @@ function SectionTile({ section, isOpen, onToggle }: { section: Section; isOpen: 
             <div className="p-4 flex flex-col gap-2">
               {/* Head first */}
               {head && (
-                <MemberRow person={head} accentColor={color} index={0} />
+                <MemberRow person={head} accentColor={color} index={0} showRole={showRole} />
               )}
               {/* Members */}
               {members.map((m, i) => (
-                <MemberRow key={m.name + i} person={m} accentColor={color} index={(head ? 1 : 0) + i} />
+                <MemberRow key={m.name + i} person={m} accentColor={color} index={(head ? 1 : 0) + i} showRole={showRole} />
               ))}
             </div>
           </motion.div>
