@@ -24,6 +24,20 @@ const EVENTS: SCAEvent[] = [
     poster: null,
   },
   {
+    id: 'meet-and-greet-sept-2026',
+    title: 'Meet and Greet',
+    description: null,
+    location: 'STEAMhouse',
+    isOnline: false,
+    date: new Date('2026-09-20T16:00:00'),
+    endDate: null,
+    spots: null,
+    registrations: 0,
+    registrationUrl: null,
+    type: 'NETWORKING',
+    poster: null,
+  },
+  {
     id: 'social-night-june-2026',
     title: 'Social Night: Debate & Gaming',
     description:
