@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { MapPin, Clock, X } from 'lucide-react'
@@ -404,37 +404,6 @@ const EVENTS: SCAEvent[] = [
   },
 ]
 
-function useCountdown(target: Date | null) {
-  const [diff, setDiff] = useState(() =>
-    target ? Math.max(0, +target - Date.now()) : 0
-  )
-  useEffect(() => {
-    if (!target) return
-    const id = setInterval(() => setDiff(Math.max(0, +target - Date.now())), 1000)
-    return () => clearInterval(id)
-  }, [target])
-  return {
-    days:  Math.floor(diff / 86400000),
-    hours: Math.floor((diff % 86400000) / 3600000),
-    mins:  Math.floor((diff % 3600000) / 60000),
-    secs:  Math.floor((diff % 60000) / 1000),
-    over:  diff === 0,
-  }
-}
-
-function CountdownUnit({ value, label }: { value: number; label: string }) {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="w-[60px] h-[60px] sm:w-[68px] sm:h-[68px] rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center">
-        <span className="text-[26px] sm:text-[30px] font-bold text-[var(--color-text)] tabular-nums leading-none" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-          {String(value).padStart(2, '0')}
-        </span>
-      </div>
-      <span className="text-[9px] font-semibold uppercase tracking-widest text-[var(--color-muted)]">{label}</span>
-    </div>
-  )
-}
-
 export default function EventsPage() {
   const now = new Date()
   const upcoming = EVENTS.filter(e => e.date >= now).sort((a, b) => +a.date - +b.date)
@@ -445,7 +414,6 @@ export default function EventsPage() {
 
   const list      = tab === 'upcoming' ? upcoming : past
   const nextEvent = upcoming[0] ?? null
-  const countdown = useCountdown(nextEvent?.date ?? null)
 
   return (
     <div className="max-w-[860px] mx-auto px-5 sm:px-8 py-10 sm:py-14" style={{ position: 'relative', zIndex: 1 }}>
@@ -464,8 +432,8 @@ export default function EventsPage() {
         </p>
       </div>
 
-      {/* Next event countdown */}
-      {nextEvent && !countdown.over && (
+      {/* Next event */}
+      {nextEvent && (
         <div className="relative mb-10 rounded-2xl overflow-hidden border border-[var(--color-accent)]/20">
           <div className="absolute inset-0" style={{ background: 'var(--card-gradient)' }} />
           <div
@@ -500,16 +468,6 @@ export default function EventsPage() {
                 <MapPin size={11} aria-hidden="true" />
                 {nextEvent.location}
               </span>
-            </div>
-
-            <div className="flex items-end gap-2 sm:gap-3 mb-7">
-              <CountdownUnit value={countdown.days}  label="Days"  />
-              <span className="text-[22px] font-bold text-[var(--color-border)] mb-[22px] select-none">:</span>
-              <CountdownUnit value={countdown.hours} label="Hours" />
-              <span className="text-[22px] font-bold text-[var(--color-border)] mb-[22px] select-none">:</span>
-              <CountdownUnit value={countdown.mins}  label="Mins"  />
-              <span className="text-[22px] font-bold text-[var(--color-border)] mb-[22px] select-none">:</span>
-              <CountdownUnit value={countdown.secs}  label="Secs"  />
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
