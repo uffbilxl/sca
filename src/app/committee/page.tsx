@@ -22,11 +22,6 @@ interface Section {
 /* ── Data ──────────────────────────────────────────────────── */
 const LEADERSHIP: Person[] = [
   {
-    name: 'Maryam Ahmad',
-    role: 'Community Engagement',
-    linkedin: 'https://www.linkedin.com/in/maryam-a-259297235',
-  },
-  {
     name: 'Tayyeb Nadeem Somro',
     role: 'President',
     linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/',
@@ -37,6 +32,11 @@ const LEADERSHIP: Person[] = [
     role: 'Vice President',
     linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/',
     website: 'https://bilalarshad.co.uk',
+  },
+  {
+    name: 'Maryam Ahmad',
+    role: 'Community Engagement',
+    linkedin: 'https://www.linkedin.com/in/maryam-a-259297235',
   },
   {
     name: 'Michael Martinak',
@@ -363,7 +363,7 @@ export default function CommitteePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex items-start gap-4 p-6 rounded-2xl"
+              className={`flex items-start gap-4 p-6 rounded-2xl ${i === 0 ? 'sm:col-span-2' : ''}`}
               style={{
                 background: 'var(--card-gradient)',
                 border: '1px solid rgba(99,102,241,0.2)',
