@@ -9,6 +9,21 @@ import type { SCAEvent } from '@/types'
 
 const EVENTS: SCAEvent[] = [
   {
+    id: 'welcome-week-sept-2026',
+    title: 'Welcome Week: Meet the Committee',
+    description:
+      'Kick off the new academic year with the SCA. Meet the committee, win prizes, and get stuck into a week of fun activities.',
+    location: 'BCU City Centre Campus',
+    isOnline: false,
+    date: new Date('2026-09-14T12:00:00'),
+    endDate: null,
+    spots: null,
+    registrations: 0,
+    registrationUrl: null,
+    type: 'NETWORKING',
+    poster: null,
+  },
+  {
     id: 'social-night-june-2026',
     title: 'Social Night: Debate & Gaming',
     description:
