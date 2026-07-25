@@ -9,7 +9,7 @@ interface Stat {
 const stats: Stat[] = [
   { value: '250+', label: 'Live opportunities' },
   { value: '90+',  label: 'Partner companies' },
-  { value: '8',    label: 'Specialist divisions' },
+  { value: '6',    label: 'Specialist divisions' },
   { value: '100%', label: 'Free for BCU students' },
 ]
 
