@@ -13,7 +13,7 @@ const EVENTS: SCAEvent[] = [
     title: 'Welcome Week: Meet the Committee',
     description:
       'Kick off the new academic year with the SCA. Meet the committee, win prizes, and get stuck into a week of fun activities.',
-    location: 'BCU City Centre Campus',
+    location: 'STEAMhouse',
     isOnline: false,
     date: new Date('2026-09-14T12:00:00'),
     endDate: null,
