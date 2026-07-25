@@ -110,7 +110,6 @@ const DEPARTMENTS: Section[] = [
     members: [
       { name: 'Ayaan Ahmed',  role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/ayaan-ahmed-477289330/' },
       { name: 'Jasleen Kaur', role: 'Events Coordinator',    linkedin: 'https://www.linkedin.com/in/jasleen-kaur-269367387/' },
-      { name: 'Abigail',      role: 'Events Coordinator' },
     ],
   },
 ]
