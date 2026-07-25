@@ -153,10 +153,10 @@ const TEAMS: Section[] = [
     members: [
       { name: 'Michael Martinak',      role: 'Head of Research', linkedin: 'https://www.linkedin.com/in/profile-mmartinak/' },
       { name: 'Bilal Arshad',         role: 'Researcher', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
       { name: 'George James',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
       { name: 'Baber Khan',            role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
       { name: 'Orlando Igwe',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
-      { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
     ],
   },
 ]
