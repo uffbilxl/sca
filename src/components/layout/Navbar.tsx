@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown, FileText, FolderOpen, Rocket } from 'lucide-react'
-import { CommitteeModal } from '@/components/layout/CommitteeModal'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 
 /* "Resources" sits between Committee and About as a dropdown (see below) */
@@ -106,7 +105,6 @@ function ResourcesDropdown({ pathname }: { pathname: string }) {
 
 export function Navbar() {
   const pathname = usePathname()
-  const [showModal, setShowModal]         = useState(false)
   const [mobileOpen, setMobileOpen]       = useState(false)
   const [mobileResOpen, setMobileResOpen] = useState(false)
   const [scrolled, setScrolled]           = useState(false)
@@ -238,13 +236,6 @@ export function Navbar() {
             <ThemeToggle
               className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-muted)] hover:text-[var(--color-text)] hover:border-[var(--b2)] transition-all duration-200 focus-ring"
             />
-            <button
-              onClick={() => setShowModal(true)}
-              className="px-4 py-1.5 text-[var(--color-muted)] border border-[var(--color-border)] rounded-full hover:border-[var(--b2)] hover:text-[var(--color-text)] transition-all duration-200 focus-ring"
-              style={{ fontSize: '0.8125rem' }}
-            >
-              Join Committee
-            </button>
             <Link
               href="https://www.linkedin.com/company/bcu-student-computing-association/"
               target="_blank"
@@ -376,22 +367,10 @@ export function Navbar() {
               )
             })}
 
-            <div
-              className="my-4"
-              style={{ height: '1px', background: 'rgba(var(--hairline-rgb),0.06)' }}
-            />
-
-            <button
-              onClick={() => { setShowModal(true); setMobileOpen(false) }}
-              className="px-4 py-4 text-[15px] font-medium text-left text-[var(--color-muted)] border border-[var(--color-border)] rounded-xl hover:text-[var(--color-text)] transition-colors focus-ring"
-            >
-              Join the Committee
-            </button>
           </div>
         </div>
       )}
 
-      {showModal && <CommitteeModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
