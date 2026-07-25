@@ -29,7 +29,7 @@ const EVENTS: SCAEvent[] = [
     description: null,
     location: 'STEAMhouse',
     isOnline: false,
-    date: new Date('2026-09-20T16:00:00'),
+    date: new Date('2026-09-23T16:00:00'),
     endDate: null,
     spots: null,
     registrations: 0,
