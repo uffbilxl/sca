@@ -112,7 +112,7 @@ export function OpportunitiesClient({ opportunities, initialType }: Props) {
     { text: `${totalOpen} opportunities currently open` },
     { text: `Roles from ${companies} companies across the UK` },
     { text: `${internships} internships · ${placements} placements · ${graduates} graduate roles` },
-    { text: `Updated regularly with the latest UK tech opportunities` },
+    { text: `This tracker is updated daily with new opportunities` },
   ]
   const sep = <span className="text-[var(--b3)] mx-6">◆</span>
 
