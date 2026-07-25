@@ -151,6 +151,7 @@ const TEAMS: Section[] = [
     name: 'Research & Development',
     color: '#8b5cf6',
     members: [
+      { name: 'Michael Martinak',      role: 'Head of Research', linkedin: 'https://www.linkedin.com/in/profile-mmartinak/' },
       { name: 'Bilal Arshad',         role: 'Researcher', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
       { name: 'George James',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
       { name: 'Baber Khan',            role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
