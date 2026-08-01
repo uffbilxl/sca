@@ -121,7 +121,12 @@ export async function importOpportunityRows(
     const startDate = field(row, 'estimated start date', 'start date', 'startdate', 'start')
     const deadlineRaw = field(row, 'application deadline', 'deadline', 'closing date', 'closes')
     const logoUrl = field(row, 'company logo png url', 'logo', 'logo url', 'company logo')
-    const companyWebsite = field(row, 'company website', 'website', 'company url')
+    const companyWebsiteRaw = field(row, 'company website', 'website', 'company url')
+    // Normalise a bare domain (e.g. "apple.com", as the LLM returns) into a
+    // full URL so getDomain() and the stored company link both work.
+    const companyWebsite = companyWebsiteRaw
+      ? (companyWebsiteRaw.startsWith('http') ? companyWebsiteRaw : `https://${companyWebsiteRaw}`)
+      : ''
     const rawWorkMode = field(row, 'work mode', 'workmode', 'mode', 'remote')
     const rawStatus = field(row, 'status', 'open/closed', 'state')
     const rawFeatured = field(row, 'featured')
@@ -161,7 +166,10 @@ export async function importOpportunityRows(
 
     try {
       const companySlug = toSlug(companyName)
-      const domain = applyUrl ? getDomain(applyUrl) : companyWebsite ? getDomain(companyWebsite) : ''
+      // Prefer the company's own site for the logo/domain when we have one —
+      // applyUrl may point at a job-board aggregator or third-party ATS
+      // rather than the employer itself, which would fetch the wrong favicon.
+      const domain = companyWebsite ? getDomain(companyWebsite) : applyUrl ? getDomain(applyUrl) : ''
       const logo = logoUrl || (domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=256` : null)
 
       const company = await prisma.company.upsert({

@@ -35,6 +35,7 @@ const RESPONSE_SCHEMA = {
       deadline: { type: 'STRING', description: 'ISO date YYYY-MM-DD, or "Rolling" if ongoing/ASAP, or empty string if unknown' },
       sponsored: { type: 'BOOLEAN', description: 'true only if visa sponsorship is explicitly mentioned' },
       relevant: { type: 'BOOLEAN', description: 'true only if this role is realistically relevant to a computing/tech/software/data/cyber security student' },
+      companyWebsite: { type: 'STRING', description: 'The hiring company\'s own official website domain (e.g. "apple.com"), from your own knowledge of the company — NOT the job board/aggregator this listing was found on. Empty string if you genuinely don\'t know.' },
     },
     required: ['index', 'title', 'company', 'type', 'location', 'workMode', 'description', 'relevant'],
   },
@@ -60,6 +61,7 @@ Rules:
 - deadline: convert any human date into YYYY-MM-DD. If it says "Ongoing", "Rolling", or no real deadline is given, return "Rolling".
 - relevant: set to false for roles clearly outside computing/tech (e.g. pure marketing, HR, law, retail, finance-only analyst roles with no technical component). Set true for software, data, AI, cyber security, IT, engineering-with-a-tech-component roles.
 - Never invent facts not present in the input. If something is genuinely unknown, use an empty string (except deadline, which becomes "Rolling").
+- companyWebsite: this listing was scraped from a job board/aggregator, not the employer's own site — use your own knowledge of the company to give its real official domain, not the aggregator's. Leave empty if you don't recognise the company.
 
 Input listings:
 ${JSON.stringify(items, null, 2)}
@@ -78,6 +80,7 @@ export interface StructuredRow {
   deadline?: string
   sponsored: boolean
   relevant: boolean
+  companyWebsite?: string
 }
 
 const MAX_RETRIES = 5
@@ -160,11 +163,15 @@ export async function structureListings(
       const s = structured.get(localIdx)
       if (!s || s.relevant === false) return
 
+      // Strip stray markdown formatting (**bold**, _italic_) that
+      // occasionally leaks through into an otherwise-plain field.
+      const cleanCompany = s.company.replace(/[*_]+/g, '').trim()
+
       out.push({
         source: listing,
         row: {
           title: s.title,
-          company: s.company,
+          company: cleanCompany,
           type: VALID_TYPES.includes(s.type as any) ? s.type : 'INTERNSHIP',
           location: s.location || listing.location || 'United Kingdom',
           workmode: VALID_WORK_MODES.includes(s.workMode as any) ? s.workMode : 'HYBRID',
@@ -174,6 +181,7 @@ export async function structureListings(
           startdate: s.startDate || '',
           deadline: s.deadline && s.deadline !== 'Rolling' ? s.deadline : '',
           sponsored: s.sponsored ? 'true' : 'false',
+          companywebsite: s.companyWebsite || '',
         },
       })
     })
