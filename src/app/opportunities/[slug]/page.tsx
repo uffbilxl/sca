@@ -25,7 +25,11 @@ export default async function OpportunityDetailPage({ params }: Props) {
     where: { slug: params.slug },
     include: { company: true, tags: { include: { tag: true } } },
   })
-  if (!opp) notFound()
+  // Closed roles are already excluded from every listing/search surface —
+  // without this, a direct/bookmarked/indexed link would still render the
+  // page in full, "Apply now" button and all, for a role that's no longer
+  // taking applications.
+  if (!opp || opp.status === 'CLOSED') notFound()
 
   const related = await prisma.opportunity.findMany({
     where: {
