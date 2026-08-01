@@ -2,7 +2,6 @@ import { chromium } from 'playwright'
 import { importOpportunityRows } from '../../src/lib/importOpportunities'
 import { scrapeGradcracker, DOMAIN as GRADCRACKER_DOMAIN } from './sources/gradcracker'
 import { scrapeHigherIn, DOMAIN as HIGHERIN_DOMAIN } from './sources/higherin'
-import { scrapeMilkround, DOMAIN as MILKROUND_DOMAIN } from './sources/milkround'
 import { scrapeTargetJobs, DOMAIN as TARGETJOBS_DOMAIN } from './sources/targetjobs'
 import { structureListings } from './structure'
 import { sendRunSummaryEmail } from './notify'
@@ -51,14 +50,6 @@ async function main() {
       run: async () => {
         const page = await browser.newPage({ userAgent: UA })
         try { return await scrapeHigherIn(page) } finally { await page.close() }
-      },
-    },
-    {
-      name: 'Milkround',
-      domain: MILKROUND_DOMAIN,
-      run: async () => {
-        const page = await browser.newPage({ userAgent: UA })
-        try { return await scrapeMilkround(page) } finally { await page.close() }
       },
     },
     {
