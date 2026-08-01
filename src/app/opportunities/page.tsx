@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic'
+/* See src/app/page.tsx for why this isn't force-dynamic anymore. */
+export const revalidate = 300
 
 import { prisma } from '@/lib/prisma'
 import { OpportunitiesClient } from '@/components/opportunities/OpportunitiesClient'

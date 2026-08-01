@@ -1,4 +1,9 @@
-export const dynamic = 'force-dynamic'
+/* Data only actually changes via the 12-hourly scrape job or occasional
+ * admin edits — force-dynamic meant re-querying Postgres on every single
+ * visit (serverless cold-start + remote DB round trip = multi-second
+ * loads). A short revalidation window keeps pages feeling instant for
+ * almost every visitor while staying fresh well within that cadence. */
+export const revalidate = 300
 
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
