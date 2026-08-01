@@ -1,15 +1,11 @@
 /* See src/app/page.tsx for why this isn't force-dynamic anymore. */
 export const revalidate = 300
 
+import { Suspense } from 'react'
 import { prisma } from '@/lib/prisma'
 import { OpportunitiesClient } from '@/components/opportunities/OpportunitiesClient'
-import type { OpportunityType } from '@/types'
 
-interface Props {
-  searchParams: { type?: string }
-}
-
-export default async function OpportunitiesPage({ searchParams }: Props) {
+export default async function OpportunitiesPage() {
   const opportunities = await prisma.opportunity.findMany({
     where: { status: { not: 'CLOSED' } },
     include: {
@@ -20,6 +16,9 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
     orderBy: { createdAt: 'desc' },
   })
 
-  const initialType = searchParams.type as OpportunityType | undefined
-  return <OpportunitiesClient opportunities={opportunities as any} initialType={initialType} />
+  return (
+    <Suspense>
+      <OpportunitiesClient opportunities={opportunities as any} />
+    </Suspense>
+  )
 }

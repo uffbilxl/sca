@@ -9,6 +9,17 @@ import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 interface Props { params: { slug: string } }
 
+/* Without this, Next.js never treats the route as cacheable at all — the
+ * revalidate export above is silently ignored for [slug] segments with no
+ * generateStaticParams. Returning nothing here means no page is built
+ * ahead of time (opportunities change too often via the scrape job for
+ * that to be worth it); each slug is instead rendered on its first visit,
+ * then served from cache for `revalidate` seconds — the on-demand ISR
+ * Next.js calls "fallback: blocking" in the old Pages Router. */
+export async function generateStaticParams() {
+  return []
+}
+
 export default async function OpportunityDetailPage({ params }: Props) {
   const opp = await prisma.opportunity.findFirst({
     where: { slug: params.slug },

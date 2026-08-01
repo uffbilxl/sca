@@ -1,6 +1,7 @@
 'use client'
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Opportunity, OpportunityType } from '@/types'
 import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
@@ -15,10 +16,14 @@ const TYPES: { value: OpportunityType; label: string }[] = [
 
 interface Props {
   opportunities: Opportunity[]
-  initialType?: OpportunityType
 }
 
-export function OpportunitiesClient({ opportunities, initialType }: Props) {
+export function OpportunitiesClient({ opportunities }: Props) {
+  // Read on the client (not passed as a server prop) so the page itself
+  // stays cacheable — reading searchParams server-side forces Next.js to
+  // skip caching for the whole route.
+  const searchParams = useSearchParams()
+  const initialType = searchParams.get('type') as OpportunityType | null
   const [types, setTypes] = useState<OpportunityType[]>(initialType ? [initialType] : [])
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState<'newest' | 'deadline' | 'salary' | 'az'>('newest')
