@@ -4,7 +4,7 @@ import {
 } from 'react'
 import {
   Download, RotateCcw, Plus, Trash2, ChevronUp, ChevronDown,
-  Check, X, ChevronRight,
+  Check, X, ChevronRight, Sparkles,
 } from 'lucide-react'
 import {
   CVData, CVEntry, SectionKey, DEFAULT_CV, STORAGE_KEY, SECTION_TITLES,
@@ -442,6 +442,16 @@ export function CVBuilderClient() {
             {fits ? 'Fits on one page' : 'Over one page, trim some bullets'}
           </span>
 
+          {report.hasDifferentiator && (
+            <span
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] border text-[var(--color-accent)]"
+              style={{ borderColor: 'rgba(99,102,241,0.3)' }}
+              title="A section like Research, Projects, Certifications, or Leadership makes your CV stand out"
+            >
+              <Sparkles size={12} /> Differentiator section detected
+            </span>
+          )}
+
           <div className="ml-auto flex items-center gap-2">
             <button
               onClick={reset}
@@ -488,6 +498,11 @@ export function CVBuilderClient() {
               <p className="text-[11px] text-amber-400 mt-4">
                 {report.repeatedStarts.length > 1 ? 'Several bullets start' : 'Three or more bullets start'} with
                 “{report.repeatedStarts.join('”, “')}”. Vary your opening verbs.
+              </p>
+            )}
+            {report.lengthWarnings.length > 0 && (
+              <p className="text-[11px] text-amber-400 mt-2">
+                {report.lengthWarnings.length} bullet{report.lengthWarnings.length > 1 ? 's are' : ' is'} too short or too long — check the highlighted ones on your CV.
               </p>
             )}
           </div>

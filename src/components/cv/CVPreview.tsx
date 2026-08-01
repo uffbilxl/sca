@@ -3,7 +3,7 @@ import { RefObject, useEffect, useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import {
   CVData, CVEntry, SectionKey, SECTION_TITLES, ACTION_VERBS,
-  startsWithActionVerb, findWeakPhrases,
+  startsWithActionVerb, findWeakPhrases, bulletLengthIssue,
 } from '@/lib/cv'
 
 /* A4 at 96dpi */
@@ -85,13 +85,26 @@ export function CVPreview({
     </h2>
   )
 
-  /* One flagged-bullet popover: verb chips for weak starts, advice for weak
-     phrases. Counter-scaled so it stays readable inside the shrunk preview. */
+  /* One flagged-bullet popover: stacks whichever notes apply (weak wording,
+     length outlier, weak opening) plus verb chips. Counter-scaled so it
+     stays readable inside the shrunk preview. */
   const suggestionPopover = (
     key: string, section: SuggestSection, entryId: string, bulletIdx: number,
-    weak: string[], needsVerb: boolean, seed: number,
+    weak: string[], needsVerb: boolean, lengthIssue: 'short' | 'long' | null, seed: number,
   ) => {
     const verbs = [0, 1, 2].map(i => ACTION_VERBS[(seed * 3 + i * 7) % ACTION_VERBS.length])
+    const notes: React.ReactNode[] = []
+    if (weak.length > 0) {
+      notes.push(<>Weak wording: <em style={{ color: '#f59e0b' }}>“{weak[0]}”</em>. Describe a specific action and its outcome.</>)
+    }
+    if (lengthIssue === 'short') {
+      notes.push(<>This bullet looks too vague — add more detail about what you did and the result.</>)
+    } else if (lengthIssue === 'long') {
+      notes.push(<>This bullet is quite long — consider splitting it or trimming it down.</>)
+    }
+    if (needsVerb && weak.length === 0) {
+      notes.push(<>This bullet starts weakly. Try opening with an action verb:</>)
+    }
     return (
       <div
         ref={popoverRef}
@@ -118,11 +131,9 @@ export function CVPreview({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-          <p style={{ flex: 1, margin: 0 }}>
-            {weak.length > 0
-              ? <>Weak wording: <em style={{ color: '#f59e0b' }}>“{weak[0]}”</em>. Describe a specific action and its outcome.</>
-              : <>This bullet starts weakly. Try opening with an action verb:</>}
-          </p>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {notes.map((note, i) => <p key={i} style={{ margin: 0 }}>{note}</p>)}
+          </div>
           <button
             onClick={() => setOpenKey(null)}
             aria-label="Close suggestion"
@@ -167,8 +178,9 @@ export function CVPreview({
     const canSuggest = suggestionsOn && (section === 'experience' || section === 'extracurricular')
     const weak = canSuggest ? findWeakPhrases(b) : []
     const needsVerb = canSuggest && b.trim().length > 0 && !startsWithActionVerb(b)
+    const lengthIssue = canSuggest ? bulletLengthIssue(b) : null
     const key = `${e.id}:${i}:${b}`
-    const flagged = canSuggest && (weak.length > 0 || needsVerb) && !dismissed?.has(key)
+    const flagged = canSuggest && (weak.length > 0 || needsVerb || lengthIssue !== null) && !dismissed?.has(key)
 
     return (
       <li key={i} style={{ marginBottom: d.bulletGap, position: 'relative' }}>
@@ -189,7 +201,7 @@ export function CVPreview({
           b
         )}
         {flagged && openKey === key && suggestionPopover(
-          key, section as SuggestSection, e.id, i, weak, needsVerb,
+          key, section as SuggestSection, e.id, i, weak, needsVerb, lengthIssue,
           e.id.length + i,
         )}
       </li>
