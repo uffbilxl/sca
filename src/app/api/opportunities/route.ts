@@ -16,16 +16,25 @@ export async function GET(req: NextRequest) {
   const search = searchParams.get('search')
   const sort = searchParams.get('sort') ?? 'newest'
 
-  const where: any = { status: { not: 'CLOSED' } }
+  // status !== CLOSED alone isn't enough — a listing whose deadline has
+  // simply passed stays OPEN in the DB until something notices, but
+  // shouldn't be served as if it still were. Kept under AND (rather than
+  // a top-level OR) so it composes safely with the search OR-group below.
+  const where: any = {
+    status: { not: 'CLOSED' },
+    AND: [{ OR: [{ deadline: null }, { deadline: { gte: new Date() } }] }],
+  }
   if (type) where.type = type
   if (mode) where.workMode = mode
   if (sponsored === 'true') where.sponsored = true
   if (search) {
-    where.OR = [
-      { title: { contains: search, mode: 'insensitive' } },
-      { company: { name: { contains: search, mode: 'insensitive' } } },
-      { location: { contains: search, mode: 'insensitive' } },
-    ]
+    where.AND.push({
+      OR: [
+        { title: { contains: search, mode: 'insensitive' } },
+        { company: { name: { contains: search, mode: 'insensitive' } } },
+        { location: { contains: search, mode: 'insensitive' } },
+      ],
+    })
   }
 
   const orderBy: any =

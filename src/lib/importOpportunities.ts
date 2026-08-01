@@ -266,5 +266,15 @@ export async function importOpportunityRows(
     }
   }
 
+  // ── Close anything whose deadline has simply passed ───────────────────
+  // Independent of the source-scoped sweep above (and of whether this batch
+  // covered that opportunity's source at all) — a passed deadline means
+  // it's over regardless of what the scrape did or didn't find today.
+  const expired = await prisma.opportunity.updateMany({
+    where: { status: { not: 'CLOSED' }, deadline: { lt: new Date() } },
+    data: { status: 'CLOSED' },
+  })
+  results.closed += expired.count
+
   return results
 }

@@ -7,7 +7,10 @@ import { OpportunitiesClient } from '@/components/opportunities/OpportunitiesCli
 
 export default async function OpportunitiesPage() {
   const opportunities = await prisma.opportunity.findMany({
-    where: { status: { not: 'CLOSED' } },
+    // status !== CLOSED alone isn't enough — a listing whose deadline has
+    // simply passed stays OPEN in the DB until something notices, but
+    // shouldn't be shown (or offered to "apply" to) as if it still were.
+    where: { status: { not: 'CLOSED' }, OR: [{ deadline: null }, { deadline: { gte: new Date() } }] },
     include: {
       company: true,
       tags: { include: { tag: true } },

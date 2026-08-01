@@ -28,14 +28,18 @@ export default async function OpportunityDetailPage({ params }: Props) {
   // Closed roles are already excluded from every listing/search surface —
   // without this, a direct/bookmarked/indexed link would still render the
   // page in full, "Apply now" button and all, for a role that's no longer
-  // taking applications.
-  if (!opp || opp.status === 'CLOSED') notFound()
+  // taking applications. Also treat a passed deadline as closed, same as
+  // every other public query — status alone lags behind the actual date.
+  if (!opp || opp.status === 'CLOSED' || deadlineStatus(opp.deadline) === 'closed') notFound()
 
   const related = await prisma.opportunity.findMany({
     where: {
       slug: { not: params.slug },
       status: { not: 'CLOSED' },
-      OR: [{ type: opp.type }, { companyId: opp.companyId }],
+      AND: [
+        { OR: [{ type: opp.type }, { companyId: opp.companyId }] },
+        { OR: [{ deadline: null }, { deadline: { gte: new Date() } }] },
+      ],
     },
     include: { company: true },
     take: 3,

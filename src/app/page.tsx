@@ -25,7 +25,12 @@ import {
 
 async function getHomeData() {
   const all = await prisma.opportunity.findMany({
-    where: { featured: true, status: { not: 'CLOSED' } },
+    // status !== CLOSED alone isn't enough — see src/app/opportunities/page.tsx
+    where: {
+      featured: true,
+      status: { not: 'CLOSED' },
+      OR: [{ deadline: null }, { deadline: { gte: new Date() } }],
+    },
     include: {
       company: true,
       tags: { include: { tag: true } },
