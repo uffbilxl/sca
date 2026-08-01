@@ -1,8 +1,29 @@
-# SCA Opportunities Tracker
-
+# SCA Website
 **Birmingham City University · Student Computing Association**
 
-A platform for BCU computing students to discover and track tech opportunities — internships, placements, graduate roles, spring weeks, and events.
+From your first lecture to your first offer.
+
+This website serves as a multi-functional platform. 
+
+You can:
+- Find spring weeks, summer internships, placements, and graduate roles.
+- Learn about SCA
+- Find our past and upcoming events
+- Learn more about the committee
+- Access resources we built.
+- Learn more about SCA
+- Apply to join the committee
+- Find our LinkedIn
+
+- ---
+
+We have a CV builder, this is a tool that sits on our website where users can edit boxes with their own education, experience, extracurriculars, skills, interests, etc. and download it at the click of a button. (https://bcusca.org/cv-builder)
+
+We have resources spannning CV and cover letter templates to cheat sheets for programming languages, these are downloadable as PDFs or Word Docs. (https://bcusca.org/resources)
+
+We have a project market place. This aims to connect project creators with teams. Students list their project as a product: scope, tech stack, roadmap and the ideal team you need to ship it. They browse the marketplace, filter by the skills they have, and apply to the projects that excite them. 
+Finally, students accept applicants, assign roles, and coordinate with your new team over realtime project chat. (https://sca-project-finder.vercel.app/)
+ 
 
 ---
 
@@ -15,122 +36,8 @@ A platform for BCU computing students to discover and track tech opportunities �
 - **Animations**: Framer Motion
 - **Deployment**: Vercel + Railway/Supabase
 
----
+--- 
 
-## Getting Started
-
-### 1. Clone and install
-
-```bash
-git clone https://github.com/YOUR_ORG/sca-tracker.git
-cd sca-tracker
-npm install
-```
-
-### 2. Set up environment variables
-
-```bash
-cp .env.example .env
-```
-
-Fill in `.env`:
-```
-DATABASE_URL="postgresql://postgres:password@localhost:5432/sca_tracker"
-NEXTAUTH_SECRET="your-secret-here"
-NEXTAUTH_URL="http://localhost:3000"
-```
-
-### 3. Set up the database
-
-Make sure PostgreSQL is running, then:
-
-```bash
-npm run db:push
-npm run db:seed
-```
-
-This creates all tables and seeds sample data including:
-- 6 companies (Google, Microsoft, Amazon, Meta, Deloitte, JPMorgan)
-- 6 opportunities across all types
-- 8 upcoming events
-- Sample comments
-- Default admin user: `admin@bcu.ac.uk` / `admin123`
-
-### 4. Run the dev server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000)
+View the website live at: https://bcusca.org
 
 ---
-
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── page.tsx                  # Homepage
-│   ├── opportunities/
-│   │   ├── page.tsx              # Opportunities listing
-│   │   └── [id]/page.tsx         # Opportunity detail
-│   ├── events/page.tsx           # Events listing
-│   ├── admin/
-│   │   ├── layout.tsx            # Admin layout with sidebar
-│   │   └── page.tsx              # Admin dashboard
-│   └── api/
-│       ├── opportunities/route.ts
-│       ├── events/route.ts
-│       ├── comments/route.ts
-│       └── feedback/route.ts
-├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   └── StatsBar.tsx
-│   ├── opportunities/
-│   │   ├── OpportunityCard.tsx
-│   │   └── OpportunitiesClient.tsx
-│   ├── comments/
-│   │   └── CommentsSection.tsx
-│   ├── events/
-│   │   └── RegisterButton.tsx
-│   ├── admin/
-│   │   └── AdminSidebar.tsx
-│   └── ui/
-│       ├── SCALogo.tsx
-│       └── Toaster.tsx
-├── lib/
-│   ├── prisma.ts
-│   └── utils.ts
-└── types/index.ts
-```
-
----
-
-## Deployment
-
-### Vercel (Frontend)
-
-1. Push to GitHub
-2. Import to [vercel.com](https://vercel.com)
-3. Add environment variables in Vercel dashboard
-4. Deploy
-
-### Railway (Database)
-
-1. Create a PostgreSQL service on [railway.app](https://railway.app)
-2. Copy the `DATABASE_URL` into Vercel env vars
-3. Run `npx prisma db push` against the Railway database
-
----
-
-## Adding Opportunities
-
-Log into `/admin` with `admin@bcu.ac.uk` / `admin123` (change this in production!) and use the dashboard to manage opportunities, companies, events, and comment moderation.
-
----
-
-## Contributing
-
-Built and maintained by the **BCU Student Computing Association**. To contribute, open a PR or raise an issue on GitHub.

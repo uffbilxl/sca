@@ -34,6 +34,11 @@ const LEADERSHIP: Person[] = [
     website: 'https://bilalarshad.co.uk',
   },
   {
+    name: 'Maryam Ahmad',
+    role: 'Community Engagement',
+    linkedin: 'https://www.linkedin.com/in/maryam-a-259297235',
+  },
+  {
     name: 'Michael Martinak',
     role: 'Head of Research',
     linkedin: 'https://www.linkedin.com/in/profile-mmartinak/',
@@ -110,7 +115,6 @@ const DEPARTMENTS: Section[] = [
     members: [
       { name: 'Ayaan Ahmed',  role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/ayaan-ahmed-477289330/' },
       { name: 'Jasleen Kaur', role: 'Events Coordinator',    linkedin: 'https://www.linkedin.com/in/jasleen-kaur-269367387/' },
-      { name: 'Abigail',      role: 'Events Coordinator' },
     ],
   },
 ]
@@ -123,13 +127,6 @@ const TEAMS: Section[] = [
       { name: 'Mohammad Hamza', role: 'Marketing',                   linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/' },
       { name: 'Abrar Alam',     role: 'Content Creator / Photographer', linkedin: 'https://www.linkedin.com/in/abrartalam/' },
       { name: 'Samyaan Khan',   role: 'Graphic Designer',            linkedin: 'https://www.linkedin.com/in/samyaan-khan-036977250/' },
-    ],
-  },
-  {
-    name: 'Community Engagement',
-    color: '#2dd4bf',
-    members: [
-      { name: 'Maryam Ahmad', role: 'Community Engagement', linkedin: 'https://www.linkedin.com/in/maryam-a-259297235' },
     ],
   },
   {
@@ -154,11 +151,12 @@ const TEAMS: Section[] = [
     name: 'Research & Development',
     color: '#8b5cf6',
     members: [
+      { name: 'Michael Martinak',      role: 'Head of Research', linkedin: 'https://www.linkedin.com/in/profile-mmartinak/' },
       { name: 'Bilal Arshad',         role: 'Researcher', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
       { name: 'George James',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
       { name: 'Baber Khan',            role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
       { name: 'Orlando Igwe',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
-      { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
     ],
   },
 ]
@@ -238,7 +236,7 @@ function SocialLinks({ person }: { person: Person }) {
 }
 
 /* ── Member row ────────────────────────────────────────────── */
-function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentColor: string; index?: number }) {
+function MemberRow({ person, accentColor, index = 0, showRole = true }: { person: Person; accentColor: string; index?: number; showRole?: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -255,7 +253,9 @@ function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentC
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-[13px] font-semibold text-[var(--color-text)] leading-tight truncate">{person.name}</p>
-        <p className="text-[11px] text-[var(--color-muted)] leading-tight mt-0.5">{person.role}</p>
+        {showRole && (
+          <p className="text-[11px] text-[var(--color-muted)] leading-tight mt-0.5">{person.role}</p>
+        )}
       </div>
       <SocialLinks person={person} />
     </motion.div>
@@ -266,6 +266,7 @@ function MemberRow({ person, accentColor, index = 0 }: { person: Person; accentC
 function SectionTile({ section, isOpen, onToggle }: { section: Section; isOpen: boolean; onToggle: () => void }) {
   const { name, color, head, members } = section
   const memberCount = (head ? 1 : 0) + members.length
+  const showRole = name !== 'Marketing'
 
   return (
     <div className="rounded-2xl border overflow-hidden transition-all duration-300"
@@ -316,11 +317,11 @@ function SectionTile({ section, isOpen, onToggle }: { section: Section; isOpen: 
             <div className="p-4 flex flex-col gap-2">
               {/* Head first */}
               {head && (
-                <MemberRow person={head} accentColor={color} index={0} />
+                <MemberRow person={head} accentColor={color} index={0} showRole={showRole} />
               )}
               {/* Members */}
               {members.map((m, i) => (
-                <MemberRow key={m.name + i} person={m} accentColor={color} index={(head ? 1 : 0) + i} />
+                <MemberRow key={m.name + i} person={m} accentColor={color} index={(head ? 1 : 0) + i} showRole={showRole} />
               ))}
             </div>
           </motion.div>
@@ -366,7 +367,7 @@ export default function CommitteePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="flex items-start gap-4 p-6 rounded-2xl"
+              className={`flex items-start gap-4 p-6 rounded-2xl ${i === 0 ? 'sm:col-span-2' : ''}`}
               style={{
                 background: 'var(--card-gradient)',
                 border: '1px solid rgba(99,102,241,0.2)',

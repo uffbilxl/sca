@@ -190,7 +190,7 @@ export function HeroContent() {
           style={{
             marginTop: '2.5rem',
             fontSize: '11px',
-            color: 'var(--hero-subtle)',
+            color: 'var(--hero-text)',
             maxWidth: '360px',
             lineHeight: 1.6,
           }}
