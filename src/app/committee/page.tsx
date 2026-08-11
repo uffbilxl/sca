@@ -79,15 +79,11 @@ const DEPARTMENTS: Section[] = [
   {
     name: 'Artificial Intelligence',
     color: '#a855f7',
-    head: {
-      name: 'TBC',
-      role: 'Head of AI',
-    },
     members: [
-      { name: 'Mohamed Dahir',  role: 'Sports Analytics Lead',  linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
-      { name: 'Zakaria Miah',   role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/zakaria-miah/' },
-      { name: 'Ali Bhuiyan',    role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/shakayat-ali-bhuiyan-b93179309/' },
-      { name: 'Al Tahsin Rafi', role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/al-tahsin-rafi-18b75631b/' },
+      { name: 'Mohamed Dahir',       role: 'Sports Analytics Lead',  linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
+      { name: 'Zakaria Miah',        role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/zakaria-miah/' },
+      { name: 'Orlando Igwe',        role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
+      { name: 'Charanpreet Kaur',    role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/charanpreet--kaur/' },
     ],
   },
   {
@@ -146,6 +142,7 @@ const TEAMS: Section[] = [
       { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
       { name: 'George James',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
       { name: 'Baber Khan',            role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
+      { name: 'Charanpreet Kaur',      role: 'Researcher', linkedin: 'https://www.linkedin.com/in/charanpreet--kaur/' },
     ],
   },
 ]
