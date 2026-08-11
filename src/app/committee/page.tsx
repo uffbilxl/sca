@@ -80,9 +80,8 @@ const DEPARTMENTS: Section[] = [
     name: 'Artificial Intelligence',
     color: '#a855f7',
     head: {
-      name: 'Orlando Igwe',
+      name: 'TBC',
       role: 'Head of AI',
-      linkedin: 'https://www.linkedin.com/in/orlando-igwe/',
     },
     members: [
       { name: 'Mohamed Dahir',  role: 'Sports Analytics Lead',  linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
@@ -130,21 +129,12 @@ const TEAMS: Section[] = [
     ],
   },
   {
-    name: 'Web Team',
+    name: 'Technical Platforms',
     color: '#f97316',
     members: [
-      { name: 'Bilal Arshad',         role: 'Web', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
-      { name: 'Asim Raza',            role: 'Web', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
-      { name: 'Tayyeb Nadeem Somro',  role: 'Web', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
-    ],
-  },
-  {
-    name: 'App Team',
-    color: '#3b82f6',
-    members: [
-      { name: 'Bilal Arshad',         role: 'App Dev', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
-      { name: 'Asim Raza',            role: 'App Dev', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
-      { name: 'Tayyeb Nadeem Somro',  role: 'App Dev', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
+      { name: 'Bilal Arshad',         role: 'Web & App Dev', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/', website: 'https://bilalarshad.co.uk' },
+      { name: 'Asim Raza',            role: 'Web & App Dev', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
+      { name: 'Tayyeb Nadeem Somro',  role: 'Web & App Dev', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
     ],
   },
   {
@@ -156,7 +146,6 @@ const TEAMS: Section[] = [
       { name: 'Tayyeb Nadeem Somro',   role: 'Researcher', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/', website: 'http://tayyebns.com' },
       { name: 'George James',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/georgeojames/' },
       { name: 'Baber Khan',            role: 'Researcher', linkedin: 'https://www.linkedin.com/in/baberr/', website: 'https://baberr.com' },
-      { name: 'Orlando Igwe',          role: 'Researcher', linkedin: 'https://www.linkedin.com/in/orlando-igwe/' },
     ],
   },
 ]
