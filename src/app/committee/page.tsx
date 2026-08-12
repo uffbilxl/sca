@@ -79,6 +79,10 @@ const DEPARTMENTS: Section[] = [
   {
     name: 'Artificial Intelligence',
     color: '#a855f7',
+    head: {
+      name: 'TBC',
+      role: 'Head of AI',
+    },
     members: [
       { name: 'Mohamed Dahir',       role: 'Sports Analytics Lead',  linkedin: 'https://www.linkedin.com/in/m-a-dahir/' },
       { name: 'Zakaria Miah',        role: 'Technical Coordinator',  linkedin: 'https://www.linkedin.com/in/zakaria-miah/' },
