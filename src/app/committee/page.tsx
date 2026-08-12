@@ -94,13 +94,13 @@ const DEPARTMENTS: Section[] = [
     name: 'Digital Transformation',
     color: '#06b6d4',
     head: {
-      name: 'Hodane Gouled',
+      name: 'TBC',
       role: 'Head of Digital Transformation',
-      linkedin: 'https://www.linkedin.com/in/hodane-gouled-b32534230/',
     },
     members: [
-      { name: 'Joe Paddock', role: 'Strategy',    linkedin: 'https://www.linkedin.com/in/joepaddock-uk/' },
-      { name: 'Tamara',      role: 'Coordinator' },
+      { name: 'Joe Paddock',   role: 'Strategy',    linkedin: 'https://www.linkedin.com/in/joepaddock-uk/' },
+      { name: 'Tamara',        role: 'Coordinator' },
+      { name: 'Hodane Gouled', role: 'Coordinator', linkedin: 'https://www.linkedin.com/in/hodane-gouled-b32534230/' },
     ],
   },
   {
