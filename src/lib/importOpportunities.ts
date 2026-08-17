@@ -20,6 +20,7 @@ const DEFENCE_BLOCKLIST = new Set([
   'serco', 'leidos', 'saic', 'dyncorp', 'mantech',
   'rolls-royce defence', 'cobham', 'ultra intelligence',
   'chemring', 'meggitt', 'avon protection',
+  'cern', // nuclear/particle-physics research — excluded per site policy
 ])
 
 function isDefenceCompany(name: string): boolean {

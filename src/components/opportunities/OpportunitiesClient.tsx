@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Opportunity, OpportunityType } from '@/types'
 import { formatDeadline, deadlineStatus, opportunityTypeLabel, opportunityTypeBadgeClass, workModeLabel, formatSalary } from '@/lib/utils'
+import { prominenceScore } from '@/lib/companyRanking'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
 
 const TYPES: { value: OpportunityType; label: string }[] = [
@@ -50,7 +51,12 @@ export function OpportunitiesClient({ opportunities }: Props) {
         o.tags.some(({ tag }) => tag.name.toLowerCase().includes(q))
       )
     }
-    if (sort === 'newest') list.sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
+    // Default view: recognisable UK employers first, newest within that —
+    // an explicit sort choice below (deadline/salary/A-Z) overrides this.
+    if (sort === 'newest') list.sort((a, b) => {
+      const diff = prominenceScore(b.company.name, b.location) - prominenceScore(a.company.name, a.location)
+      return diff !== 0 ? diff : +new Date(b.createdAt) - +new Date(a.createdAt)
+    })
     if (sort === 'deadline') list.sort((a, b) => {
       if (!a.deadline) return 1; if (!b.deadline) return -1
       return +new Date(a.deadline) - +new Date(b.deadline)
@@ -212,7 +218,7 @@ export function OpportunitiesClient({ opportunities }: Props) {
             onChange={e => setSort(e.target.value as any)}
             className="bg-[var(--bg3)] border border-[var(--b2)] rounded-md px-2.5 sm:px-3 py-1.5 text-[11px] text-[var(--t2)] outline-none flex-shrink-0"
           >
-            <option value="newest">Newest first</option>
+            <option value="newest">Recommended</option>
             <option value="deadline">Deadline soonest</option>
             <option value="salary">Highest salary</option>
             <option value="az">A–Z</option>

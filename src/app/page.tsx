@@ -12,6 +12,7 @@ import { TickerBanner } from '@/components/home/TickerBanner'
 import { HeroContent } from '@/components/home/HeroContent'
 import { StatsStrip } from '@/components/home/StatsStrip'
 import { FadeIn } from '@/components/ui/FadeIn'
+import { prominenceScore } from '@/lib/companyRanking'
 import {
   Briefcase,
   Calendar,
@@ -37,6 +38,12 @@ async function getHomeData() {
       _count: { select: { comments: true } },
     },
     orderBy: { createdAt: 'desc' },
+  })
+
+  // Recognisable UK employers first within each type, newest as tiebreaker
+  all.sort((a, b) => {
+    const diff = prominenceScore(b.company.name, b.location) - prominenceScore(a.company.name, a.location)
+    return diff !== 0 ? diff : +new Date(b.createdAt) - +new Date(a.createdAt)
   })
 
   // Round-robin across types for variety, fill until we have 6
