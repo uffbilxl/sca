@@ -126,7 +126,6 @@ const TEAMS: Section[] = [
     members: [
       { name: 'Mohammad Hamza', role: 'Marketing',                   linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/' },
       { name: 'Abrar Alam',     role: 'Content Creator / Photographer', linkedin: 'https://www.linkedin.com/in/abrartalam/' },
-      { name: 'Samyaan Khan',   role: 'Graphic Designer',            linkedin: 'https://www.linkedin.com/in/samyaan-khan-036977250/' },
     ],
   },
   {
