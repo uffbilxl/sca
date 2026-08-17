@@ -61,7 +61,6 @@ const DEPARTMENTS: Section[] = [
       website: 'https://yasaminzaid.com',
     },
     members: [
-      { name: 'Hamzah Abdur Rahman', role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/hamzah-abdur-rahman-5553ab2b8/' },
       { name: 'Asim Raza',           role: 'Technical Coordinator', linkedin: 'https://www.linkedin.com/in/muhammad-asim-r-0a577b3a9/' },
     ],
   },
@@ -100,7 +99,7 @@ const DEPARTMENTS: Section[] = [
     },
     members: [
       { name: 'Joe Paddock',   role: 'Strategy',    linkedin: 'https://www.linkedin.com/in/joepaddock-uk/' },
-      { name: 'Tamara',        role: 'Coordinator' },
+      { name: 'Tamara Browne', role: 'Coordinator' },
       { name: 'Hodane Gouled', role: 'Coordinator', linkedin: 'https://www.linkedin.com/in/hodane-gouled-b32534230/' },
     ],
   },
