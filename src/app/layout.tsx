@@ -114,12 +114,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <p className="text-[10px] font-semibold text-[var(--color-muted)] uppercase tracking-widest mb-5">Contact</p>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk"
-                    className="text-sm text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors break-all"
-                  >
-                    tayyeb.nadeemsomro@mail.bcu.ac.uk
-                  </a>
-                  <a
                     href="mailto:bilal.arshad2@mail.bcu.ac.uk"
                     className="text-sm text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors break-all"
                   >

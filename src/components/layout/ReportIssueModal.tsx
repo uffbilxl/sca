@@ -7,9 +7,7 @@ interface Props {
 }
 
 const contacts = [
-  { name: 'Muhammad Asim Raza',   role: 'Technical Operations Manager', email: 'Muhammad.raza6@mail.bcu.ac.uk' },
-  { name: 'Tayyeb Nadeem Somro',  role: 'President',             email: 'tayyeb.nadeemsomro@mail.bcu.ac.uk' },
-  { name: 'Bilal Arshad',         role: 'Vice President',        email: 'bilal.arshad2@mail.bcu.ac.uk' },
+  { name: 'Bilal Arshad', role: 'President', email: 'bilal.arshad2@mail.bcu.ac.uk' },
 ]
 
 export function ReportIssueModal({ onClose }: Props) {
@@ -82,7 +80,7 @@ export function ReportIssueModal({ onClose }: Props) {
             Report an Issue
           </h2>
           <p style={{ fontSize: '0.8125rem', color: 'var(--t3)', lineHeight: 1.65, marginBottom: '1.5rem' }}>
-            Spotted something not working, or have a suggestion? Reach out directly to a team member below.
+            Spotted something not working, or have a suggestion? Email us and we'll pick it up.
           </p>
 
           <div className="flex flex-col gap-2">
@@ -116,7 +114,7 @@ export function ReportIssueModal({ onClose }: Props) {
           </div>
 
           <p style={{ textAlign: 'center', fontSize: '0.6875rem', color: 'var(--b2)', marginTop: '1.25rem' }}>
-            Clicking a name will open your email client directly.
+            Clicking the name opens your email client directly.
           </p>
         </motion.div>
       </div>

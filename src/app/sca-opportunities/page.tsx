@@ -153,8 +153,8 @@ export default function SCAOpportunitiesPage() {
                 <p className="text-[11px] font-mono text-[var(--t4)]">Year-long · Starting 2026</p>
                 <div className="flex items-center gap-1.5 text-[11px] font-mono text-[var(--t4)]">
                   <span>Organiser:</span>
-                  <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-[var(--t1)] hover:underline font-medium">
-                    Tayyeb Nadeem Somro
+                  <a href="mailto:bilal.arshad2@mail.bcu.ac.uk" className="text-[var(--t1)] hover:underline font-medium">
+                    Bilal Arshad
                   </a>
                 </div>
               </div>
@@ -357,9 +357,9 @@ export default function SCAOpportunitiesPage() {
                     <p className="text-[11px] font-mono text-[var(--t4)]">All positions filled</p>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-[var(--t4)]">
                       <span>Organisers:</span>
-                      <a href="mailto:tayyeb.nadeemsomro@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
+                      <span className="text-[var(--t3)] font-medium">
                         Tayyeb Nadeem Somro
-                      </a>
+                      </span>
                       <span>&amp;</span>
                       <a href="mailto:bilal.arshad2@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
                         Bilal Arshad
