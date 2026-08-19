@@ -150,7 +150,8 @@ const COMMITTEE: Person[] = [
   },
 
   {
-    id: 'vacant-digital-head', name: 'TBC', vacant: true,
+    id: 'tanzila-mudassar', name: 'Tanzila Mudassar',
+    linkedin: 'https://www.linkedin.com/in/tanzila-mudassar/',
     roles: [{ group: 'digital', title: 'Head of Digital Transformation', lead: true }],
   },
   {
