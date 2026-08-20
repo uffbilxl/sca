@@ -106,12 +106,14 @@ const COMMITTEE: Person[] = [
     roles: [{ group: 'software', title: 'Head of Software Engineering', lead: true }],
   },
   {
-    id: 'vacant-software-coord', name: 'TBC', vacant: true,
+    id: 'haarisah-hussain', name: 'Haarisah Hussain',
+    linkedin: 'https://www.linkedin.com/in/haarisah-hussain-2ba850315',
     roles: [{ group: 'software', title: 'Technical Coordinator' }],
   },
 
   {
-    id: 'vacant-cyber-head', name: 'TBC', vacant: true,
+    id: 'ivan-khan', name: 'Ivan Khan',
+    linkedin: 'https://www.linkedin.com/in/ivan-k-036007387/',
     roles: [{ group: 'cyber', title: 'Head of Cyber Security', lead: true }],
   },
   {
@@ -155,8 +157,7 @@ const COMMITTEE: Person[] = [
     roles: [{ group: 'digital', title: 'Head of Digital Transformation', lead: true }],
   },
   {
-    id: 'joe-paddock', name: 'Joe Paddock',
-    linkedin: 'https://www.linkedin.com/in/joepaddock-uk/',
+    id: 'vacant-digital-strategy', name: 'TBC', vacant: true,
     roles: [{ group: 'digital', title: 'Strategy' }],
   },
   {
