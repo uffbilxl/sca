@@ -212,7 +212,10 @@ const COMMITTEE: Person[] = [
     id: 'baber-khan', name: 'Baber Khan',
     linkedin: 'https://www.linkedin.com/in/baberr/',
     website: 'https://baberr.com',
-    roles: [{ group: 'research', title: 'Researcher' }],
+    roles: [
+      { group: 'software', title: 'Technical Coordinator' },
+      { group: 'research', title: 'Researcher' },
+    ],
   },
 ]
 
