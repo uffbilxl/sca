@@ -25,6 +25,15 @@ const PAPERS: Paper[] = [
     pdfUrl: '/ssrn-7179658.pdf',
   },
   {
+    title: 'Explainable Alert Prioritisation: An Evaluation Protocol for SHAP-Based Insider Threat Detection in Critical National Infrastructure',
+    authors: [
+      { name: 'Tayyeb Nadeem Somro', linkedin: 'https://www.linkedin.com/in/tayyeb-nadeem-somro/' },
+      { name: 'Bilal Arshad', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/' },
+    ],
+    ssrnUrl: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7179639',
+    pdfUrl: '/ssrn-7179639.pdf',
+  },
+  {
     title: 'Extending Microsoft STRIDE: Prompt Injection Threat Model for Enterprise RAG Systems',
     authors: [
       { name: 'Bilal Arshad', linkedin: 'https://www.linkedin.com/in/bilal-arshad-4a07812b4/' },

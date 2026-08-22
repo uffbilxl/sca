@@ -91,6 +91,7 @@ const COMMITTEE: Person[] = [
     linkedin: 'https://www.linkedin.com/in/profile-mmartinak/',
     roles: [
       { group: 'leadership', title: 'Head of Research', lead: true },
+      { group: 'cyber',      title: 'Technical Coordinator' },
       { group: 'research',   title: 'Head of Research', lead: true },
     ],
   },
@@ -219,7 +220,7 @@ const APPLY_URL = 'https://tally.so/r/681g7e'
 
 /* ── Helpers ───────────────────────────────────────────────── */
 function initials(name: string) {
-  return name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
+  return name.split(' ').map(p => p[0]).join('').slice(0, 3).toUpperCase()
 }
 
 function LinkedInMark({ size = 12 }: { size?: number }) {
