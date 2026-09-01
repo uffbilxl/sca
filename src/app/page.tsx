@@ -24,7 +24,20 @@ import {
   FileText,
 } from 'lucide-react'
 
+/* Same reasoning as src/app/opportunities/page.tsx: a build-time prerender
+ * must not be able to fail the deploy just because the database is briefly
+ * unreachable (or, with a Sensitive DATABASE_URL, not exposed to the build at
+ * all). Fall back to the empty state and let revalidation fill it in. */
 async function getHomeData() {
+  try {
+    return await queryHomeData()
+  } catch (err) {
+    console.error('[home] prerender query failed, shipping empty and revalidating later:', err)
+    return { featured: [] } as Awaited<ReturnType<typeof queryHomeData>>
+  }
+}
+
+async function queryHomeData() {
   const all = await prisma.opportunity.findMany({
     // status !== CLOSED alone isn't enough — see src/app/opportunities/page.tsx
     where: {
