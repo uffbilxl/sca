@@ -1,5 +1,6 @@
 import type { Page } from 'playwright'
 import type { RawListing } from '../types'
+import { paginate } from './util'
 
 export const DOMAIN = 'higherin.com'
 
@@ -12,33 +13,36 @@ const SEARCH_URLS = [
 /* HigherIn (formerly RateMyPlacement/RateMyApprenticeship) renders results
  * client-side. Job title links are the only reliable anchor — they match
  * /jobs/{numericId}/{company-slug}/{title-slug}. Everything else (company,
- * deadline, salary, location) is read from the surrounding card's text. */
-export async function scrapeHigherIn(page: Page): Promise<RawListing[]> {
+ * deadline, salary, location) is read from the surrounding card's text.
+ *
+ * Results are paginated at ?page=N with only 20 per page — graduates alone
+ * reports 152 results across 8 pages. Reading page 1 only, as this did
+ * previously, surfaced barely an eighth of the source. */
+export async function scrapeHigherIn(page: Page, warnings: string[] = []): Promise<RawListing[]> {
   const listings: RawListing[] = []
 
   for (const url of SEARCH_URLS) {
-    try {
-      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
-      await page.waitForTimeout(2500)
-    } catch {
-      continue
-    }
-
-    const cards = await page.evaluate(() => {
-      const out: { href: string; text: string }[] = []
-      const links = Array.from(document.querySelectorAll('a')).filter(a =>
-        /higherin\.com\/jobs\/\d+\//.test(a.href) && a.innerText.trim().length > 20
-      )
-      const seen = new Set<string>()
-      for (const link of links) {
-        if (seen.has(link.href)) continue
-        seen.add(link.href)
-        // The title link's own innerText already contains the whole card:
-        // title / company / "Deadline: ..." / type / salary? / location
-        out.push({ href: link.href, text: (link as HTMLElement).innerText })
-      }
-      return out
-    })
+    const cards = await paginate(
+      page,
+      url,
+      () =>
+        page.evaluate(() => {
+          const out: { href: string; text: string }[] = []
+          const links = Array.from(document.querySelectorAll('a')).filter(a =>
+            /higherin\.com\/jobs\/\d+\//.test(a.href) && a.innerText.trim().length > 20
+          )
+          const seen = new Set<string>()
+          for (const link of links) {
+            if (seen.has(link.href)) continue
+            seen.add(link.href)
+            // The title link's own innerText already contains the whole card:
+            // title / company / "Deadline: ..." / type / salary? / location
+            out.push({ href: link.href, text: (link as HTMLElement).innerText })
+          }
+          return out
+        }),
+      { label: `HigherIn ${url.split('/').pop()}`, warnings, readySelector: 'a[href*="/jobs/"]', settleMs: 3000 },
+    )
 
     for (const c of cards) {
       const lines = c.text.split('\n').map(l => l.trim()).filter(Boolean)

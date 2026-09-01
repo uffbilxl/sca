@@ -32,6 +32,9 @@ async function main() {
   }
 
   const browser = await chromium.launch()
+  // Collected by the scrapers: a partial scrape stays usable, but the reason
+  // it was partial has to reach the run summary rather than vanish.
+  const warnings: string[] = []
   const perSource: { name: string; scraped: number; structured: number; domain: string }[] = []
   const allRaw: RawListing[] = []
 
@@ -41,7 +44,7 @@ async function main() {
       domain: GRADCRACKER_DOMAIN,
       run: async () => {
         const page = await browser.newPage({ userAgent: UA })
-        try { return await scrapeGradcracker(page) } finally { await page.close() }
+        try { return await scrapeGradcracker(page, warnings) } finally { await page.close() }
       },
     },
     {
@@ -49,7 +52,7 @@ async function main() {
       domain: HIGHERIN_DOMAIN,
       run: async () => {
         const page = await browser.newPage({ userAgent: UA })
-        try { return await scrapeHigherIn(page) } finally { await page.close() }
+        try { return await scrapeHigherIn(page, warnings) } finally { await page.close() }
       },
     },
     {
@@ -57,7 +60,7 @@ async function main() {
       domain: TARGETJOBS_DOMAIN,
       run: async () => {
         const page = await browser.newPage({ userAgent: UA })
-        try { return await scrapeTargetJobs(page) } finally { await page.close() }
+        try { return await scrapeTargetJobs(page, warnings) } finally { await page.close() }
       },
     },
   ]
@@ -75,6 +78,11 @@ async function main() {
   }
 
   await browser.close()
+
+  if (warnings.length > 0) {
+    console.warn('\nScrape warnings:')
+    warnings.forEach(w => console.warn(`  - ${w}`))
+  }
 
   // Only trust domains that returned enough listings to look like a real,
   // successful scrape rather than a transient failure.
@@ -108,6 +116,7 @@ async function main() {
   await sendRunSummaryEmail({
     results,
     perSource: perSource.map(({ name, scraped, structured }) => ({ name, scraped, structured })),
+    warnings,
     startedAt,
     finishedAt: new Date(),
   })

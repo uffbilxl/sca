@@ -9,6 +9,10 @@ interface RunSummary {
   perSource: { name: string; scraped: number; structured: number }[]
   startedAt: Date
   finishedAt: Date
+  /* Non-fatal scrape problems (bot challenge, nav timeout, partial capture).
+   * A run can succeed and still have silently collected half a source, so
+   * these need to be visible even when the import itself reports no errors. */
+  warnings?: string[]
   fatalError?: string
 }
 
@@ -49,6 +53,7 @@ export async function sendRunSummaryEmail(summary: RunSummary): Promise<void> {
       <li>Skipped (duplicate/incomplete): ${results.skipped}</li>
       <li>Blocked (defence-sector filter): ${results.blocked}</li>
     </ul>
+    ${summary.warnings && summary.warnings.length > 0 ? `<h3>Scrape warnings (${summary.warnings.length})</h3><ul>${summary.warnings.slice(0, 20).map(w => `<li>${escapeHtml(w)}</li>`).join('')}</ul>` : ''}
     ${results.errors.length > 0 ? `<h3>Row errors (${results.errors.length})</h3><ul>${results.errors.slice(0, 20).map(e => `<li>${escapeHtml(e)}</li>`).join('')}</ul>` : ''}
   `
 

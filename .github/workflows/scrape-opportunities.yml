@@ -10,7 +10,11 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Paginating all three sources takes the raw haul from ~180 to ~800
+    # listings, and Gemini's free tier caps us at 5 requests/min (13s between
+    # batches in structure.ts), so ~68 batches alone need ~15 min. 30 was cutting
+    # it close enough that a single 429 backoff would time the run out.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
