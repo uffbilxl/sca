@@ -5,6 +5,7 @@ import { scrapeHigherIn, DOMAIN as HIGHERIN_DOMAIN } from './sources/higherin'
 import { scrapeTargetJobs, DOMAIN as TARGETJOBS_DOMAIN } from './sources/targetjobs'
 import { structureListings } from './structure'
 import { sendRunSummaryEmail } from './notify'
+import { sweepDeadLinks } from './linkcheck'
 import type { RawListing } from './types'
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -112,6 +113,20 @@ async function main() {
   )
 
   console.log('\nImport results:', results)
+
+  /* Retire listings whose application link is definitively gone. Runs after
+   * the import so today's new rows are covered too, and counts into closed
+   * since that is what it does. */
+  console.log('\nChecking application links...')
+  const linkCheck = await sweepDeadLinks()
+  console.log(
+    `Link check: ${linkCheck.checked} checked, ${linkCheck.dead} dead (closed), ` +
+    `${linkCheck.alive} alive, ${linkCheck.inconclusive} inconclusive`
+  )
+  results.closed += linkCheck.dead
+  if (linkCheck.dead > 0) {
+    warnings.push(`Closed ${linkCheck.dead} listing(s) with dead application links`)
+  }
 
   await sendRunSummaryEmail({
     results,
