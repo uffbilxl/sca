@@ -19,12 +19,43 @@ const DEFENCE_BLOCKLIST = new Set([
   'rafael', 'airbus defence', 'airbus defence and space',
   'serco', 'leidos', 'saic', 'dyncorp', 'mantech',
   'rolls-royce defence', 'cobham', 'ultra intelligence',
-  'chemring', 'meggitt', 'avon protection',
+  'chemring', 'meggitt', 'avon protection', 'babcock',
   'cern', // nuclear/particle-physics research — excluded per site policy
 ])
 
+/* Exact-set matching let every naming variant straight through: the list has
+ * "lockheed martin" but the listing said "Lockheed Martin UK", so it imported.
+ * Same for "Thales Group", "BAE Systems plc" and so on.
+ *
+ * Match on a normalised word prefix instead. A blocklisted name matches when
+ * its words are the leading words of the company name, which covers arbitrary
+ * trailing suffixes (UK / plc / Group / International) without the false
+ * positives a plain substring test would cause — "Cerner" does not start with
+ * the word "cern", though it does contain it as a substring.
+ *
+ * Prefix matching also keeps the list's existing intent for partial entries:
+ * "rolls-royce defence" still requires that third word, so plain "Rolls-Royce"
+ * (civil aerospace and power systems) stays allowed. */
+function normaliseCompany(name: string): string[] {
+  const words = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter(Boolean)
+  return words[0] === 'the' ? words.slice(1) : words
+}
+
 function isDefenceCompany(name: string): boolean {
-  return DEFENCE_BLOCKLIST.has(name.trim().toLowerCase())
+  const words = normaliseCompany(name)
+  if (words.length === 0) return false
+
+  for (const blocked of Array.from(DEFENCE_BLOCKLIST)) {
+    const blockedWords = normaliseCompany(blocked)
+    if (blockedWords.length > words.length) continue
+    if (blockedWords.every((w, i) => words[i] === w)) return true
+  }
+  return false
 }
 
 // ─── URL normalisation ───────────────────────────────────────────────────────
@@ -276,6 +307,30 @@ export async function importOpportunityRows(
     data: { status: 'CLOSED' },
   })
   results.closed += expired.count
+
+  // ── Retire anything from a blocklisted company ────────────────────────
+  // The import-time check only stops new rows, so anything that landed while
+  // the blocklist had a gap would sit there indefinitely — exact-set matching
+  // previously let "Lockheed Martin UK" and "Babcock International Group"
+  // through. Re-checking every live row makes the blocklist self-healing:
+  // widen it and the next run retires what it now covers. Closing rather than
+  // deleting is enough, since the public API already excludes CLOSED.
+  const live = await prisma.opportunity.findMany({
+    where: { status: { not: 'CLOSED' } },
+    select: { id: true, company: { select: { name: true } } },
+  })
+  const nowBlocked = live.filter(o => o.company && isDefenceCompany(o.company.name))
+  if (nowBlocked.length > 0) {
+    await prisma.opportunity.updateMany({
+      where: { id: { in: nowBlocked.map(o => o.id) } },
+      data: { status: 'CLOSED' },
+    })
+    results.blocked += nowBlocked.length
+    results.errors.push(
+      `Retired ${nowBlocked.length} live listing(s) from blocklisted companies: ` +
+      Array.from(new Set(nowBlocked.map(o => o.company!.name))).join(', ')
+    )
+  }
 
   return results
 }

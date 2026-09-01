@@ -4,10 +4,15 @@ import { paginate } from './util'
 
 export const DOMAIN = 'higherin.com'
 
+/* Sector-filtered at source. The unfiltered equivalents cover every sector
+ * (578 listings against 166 here), so we were paying the LLM to read and
+ * reject ~412 marketing, law and retail roles every run, and leaning on it
+ * never to misjudge one. HigherIn's own /technology facet is the same filter
+ * Gradcracker and TargetJobs already get from their URLs. */
 const SEARCH_URLS = [
-  'https://higherin.com/search-jobs/internships',
-  'https://higherin.com/search-jobs/graduates',
-  'https://higherin.com/search-jobs/placements',
+  'https://higherin.com/search-jobs/internships/technology',
+  'https://higherin.com/search-jobs/graduates/technology',
+  'https://higherin.com/search-jobs/placements/technology',
 ]
 
 /* HigherIn (formerly RateMyPlacement/RateMyApprenticeship) renders results
