@@ -158,8 +158,9 @@ const COMMITTEE: Person[] = [
     roles: [{ group: 'digital', title: 'Head of Digital Transformation', lead: true }],
   },
   {
-    id: 'vacant-digital-strategy', name: 'TBC', vacant: true,
-    roles: [{ group: 'digital', title: 'Strategy' }],
+    id: 'muhammad-hamza-rafeh', name: 'Muhammad Hamza Rafeh',
+    linkedin: 'https://www.linkedin.com/in/muhammad-hamza-rafeh-7b377132b/',
+    roles: [{ group: 'digital', title: 'Event Coordinator' }],
   },
   {
     id: 'tamara-browne', name: 'Tamara Browne',
