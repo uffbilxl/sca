@@ -95,10 +95,6 @@ const COMMITTEE: Person[] = [
       { group: 'research',   title: 'Head of Research', lead: true },
     ],
   },
-  {
-    id: 'vacant-tech-ops', name: 'TBC', vacant: true,
-    roles: [{ group: 'leadership', title: 'Technical Operations Manager' }],
-  },
 
   {
     id: 'yasamin-zaid', name: 'Yasamin Zaid',
@@ -199,10 +195,6 @@ const COMMITTEE: Person[] = [
     roles: [{ group: 'marketing', title: 'Content Creator / Photographer' }],
   },
 
-  {
-    id: 'vacant-platforms-dev', name: 'TBC', vacant: true,
-    roles: [{ group: 'platforms', title: 'Web & App Dev' }],
-  },
 
   {
     id: 'george-james', name: 'George James',
