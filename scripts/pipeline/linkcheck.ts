@@ -41,6 +41,29 @@ const GONE_PHRASES = [
 
 export type LinkVerdict = 'dead' | 'alive' | 'inconclusive'
 
+/* Applicant tracking systems that serve an empty JavaScript shell to every
+ * URL, valid or not, and block automated clients outright. A 200 from these
+ * means only that their front door answered — Workday returned a healthy 200
+ * for an HP placement that had been gone for months, and blocks headless
+ * browsers too, so there is no way to tell from here. Reporting them as alive
+ * was false confidence; they are inconclusive by construction. */
+const UNVERIFIABLE_ATS = [
+  'myworkdayjobs.com',
+  'icims.com',
+  'taleo.net',
+  'successfactors.com',
+  'brassring.com',
+]
+
+export function isUnverifiableAts(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase()
+    return UNVERIFIABLE_ATS.some(d => host === d || host.endsWith('.' + d))
+  } catch {
+    return false
+  }
+}
+
 /* Applicant tracking systems rarely 404 a removed posting. Greenhouse
  * redirects to the company's board root with ?error=true and returns 200,
  * which reads as a perfectly healthy page — six Graphcore roles and one
@@ -103,7 +126,11 @@ async function checkUrl(url: string): Promise<LinkVerdict> {
     }
 
     const body = res.status >= 200 && res.status < 300 ? (await res.text()).slice(0, 200_000) : ''
-    return classifyBody(res.status, body)
+    const verdict = classifyBody(res.status, body)
+
+    // An explicit removal signal still counts; a bare 200 does not.
+    if (verdict === 'alive' && isUnverifiableAts(url)) return 'inconclusive'
+    return verdict
   } catch {
     return 'inconclusive' // DNS failure, TLS error, timeout — all unprovable
   } finally {
@@ -117,6 +144,9 @@ export interface LinkCheckResult {
   alive: number
   inconclusive: number
   closedTitles: string[]
+  /* Listings on ATS platforms we cannot check, named so a committee member can
+   * spot-check them. They stay listed; we just stop pretending we verified. */
+  unverifiable: string[]
 }
 
 export async function sweepDeadLinks(opts: { dryRun?: boolean } = {}): Promise<LinkCheckResult> {
@@ -126,7 +156,7 @@ export async function sweepDeadLinks(opts: { dryRun?: boolean } = {}): Promise<L
   })
 
   const targets = live.filter(o => o.applyUrl && /^https?:\/\//i.test(o.applyUrl))
-  const result: LinkCheckResult = { checked: targets.length, dead: 0, alive: 0, inconclusive: 0, closedTitles: [] }
+  const result: LinkCheckResult = { checked: targets.length, dead: 0, alive: 0, inconclusive: 0, closedTitles: [], unverifiable: [] }
   const deadIds: string[] = []
 
   let cursor = 0
@@ -139,7 +169,12 @@ export async function sweepDeadLinks(opts: { dryRun?: boolean } = {}): Promise<L
         deadIds.push(item.id)
         result.closedTitles.push(`${item.title} (${item.company?.name ?? 'unknown'})`)
       } else if (verdict === 'alive') result.alive++
-      else result.inconclusive++
+      else {
+        result.inconclusive++
+        if (isUnverifiableAts(item.applyUrl!)) {
+          result.unverifiable.push(`${item.title} (${item.company?.name ?? 'unknown'})`)
+        }
+      }
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker))

@@ -127,6 +127,15 @@ async function main() {
   if (linkCheck.dead > 0) {
     warnings.push(`Closed ${linkCheck.dead} listing(s) with dead application links`)
   }
+  /* Named rather than counted: these are the ones nobody can verify
+   * automatically, so the only way they get checked is a human reading this. */
+  if (linkCheck.unverifiable.length > 0) {
+    warnings.push(
+      `${linkCheck.unverifiable.length} listing(s) on ATS platforms that block link checking — ` +
+      `worth a manual spot-check: ${linkCheck.unverifiable.slice(0, 10).join('; ')}` +
+      (linkCheck.unverifiable.length > 10 ? ` (+${linkCheck.unverifiable.length - 10} more)` : '')
+    )
+  }
 
   await sendRunSummaryEmail({
     results,

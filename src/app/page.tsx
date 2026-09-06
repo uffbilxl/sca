@@ -40,8 +40,15 @@ async function getHomeData() {
 async function queryHomeData() {
   const all = await prisma.opportunity.findMany({
     // status !== CLOSED alone isn't enough — see src/app/opportunities/page.tsx
+    /* Deliberately not filtered to featured: true. The featured rows were all
+     * hand-added CSV imports that nothing could verify — no deadline, not from
+     * a scraped source, and several on Workday, which blocks automated link
+     * checking outright. A dead HP placement sat here for five months as a
+     * result. Selecting from everything still live means the homepage inherits
+     * the scrape's own maintenance: those rows are closed automatically when
+     * they disappear from the aggregator or their link dies. featured now
+     * boosts ranking (see prominenceScore below) instead of gating entry. */
     where: {
-      featured: true,
       status: { not: 'CLOSED' },
       OR: [{ deadline: null }, { deadline: { gte: new Date() } }],
     },
@@ -53,9 +60,14 @@ async function queryHomeData() {
     orderBy: { createdAt: 'desc' },
   })
 
-  // Recognisable UK employers first within each type, newest as tiebreaker
+  /* Recognisable UK employers first within each type, newest as tiebreaker.
+   * An editorially featured row gets a boost rather than exclusive entry, so
+   * curation still counts without being the only way onto the homepage. */
+  const rank = (o: (typeof all)[number]) =>
+    prominenceScore(o.company.name, o.location) + (o.featured ? 25 : 0)
+
   all.sort((a, b) => {
-    const diff = prominenceScore(b.company.name, b.location) - prominenceScore(a.company.name, a.location)
+    const diff = rank(b) - rank(a)
     return diff !== 0 ? diff : +new Date(b.createdAt) - +new Date(a.createdAt)
   })
 
