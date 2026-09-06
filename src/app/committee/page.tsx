@@ -97,14 +97,12 @@ const COMMITTEE: Person[] = [
   },
 
   {
-    id: 'yasamin-zaid', name: 'Yasamin Zaid',
-    linkedin: 'https://www.linkedin.com/in/yasaminzaid/',
-    website: 'https://yasaminzaid.com',
+    id: 'haarisah-hussain', name: 'Haarisah Hussain',
+    linkedin: 'https://www.linkedin.com/in/haarisah-hussain-2ba850315',
     roles: [{ group: 'software', title: 'Head of Software Engineering', lead: true }],
   },
   {
-    id: 'haarisah-hussain', name: 'Haarisah Hussain',
-    linkedin: 'https://www.linkedin.com/in/haarisah-hussain-2ba850315',
+    id: 'vacant-software-coord', name: 'TBC', vacant: true,
     roles: [{ group: 'software', title: 'Technical Coordinator' }],
   },
 
