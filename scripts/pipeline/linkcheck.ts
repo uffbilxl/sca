@@ -41,6 +41,33 @@ const GONE_PHRASES = [
 
 export type LinkVerdict = 'dead' | 'alive' | 'inconclusive'
 
+/* Applicant tracking systems rarely 404 a removed posting. Greenhouse
+ * redirects to the company's board root with ?error=true and returns 200,
+ * which reads as a perfectly healthy page — six Graphcore roles and one
+ * Marshall Wace role were live on the homepage this way.
+ *
+ * The reliable signal is that the job's own identifier disappears from the
+ * final URL: a real redirect (canonicalisation, locale, tracking) keeps it,
+ * whereas being bounced to a board index cannot. Requiring the identifier to
+ * vanish is what keeps this from firing on ordinary redirects. */
+export function redirectedAwayFromJob(requested: string, final: string): boolean {
+  if (!final || final === requested) return false
+
+  let requestedPath: string
+  try {
+    requestedPath = new URL(requested).pathname
+  } catch {
+    return false
+  }
+
+  // A long digit run or a uuid-ish segment is the job id on every ATS we use.
+  const segments = requestedPath.split('/').filter(Boolean).reverse()
+  const jobId = segments.find(seg => /^\d{5,}$/.test(seg) || /^[0-9a-f]{8}-[0-9a-f-]{8,}$/i.test(seg))
+  if (!jobId) return false
+
+  return !final.includes(jobId)
+}
+
 export function classifyBody(status: number, body: string): LinkVerdict {
   // 404/410 are the unambiguous ones: the resource is gone.
   if (status === 404 || status === 410) return 'dead'
@@ -68,6 +95,13 @@ async function checkUrl(url: string): Promise<LinkVerdict> {
       headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml' },
     })
     // Only read the body when the status alone is not decisive.
+    // Bounced to a board index or an explicit error page: the posting is gone
+    // even though the response is a healthy 200.
+    if (res.status >= 200 && res.status < 300) {
+      if (/[?&]error=true\b/.test(res.url)) return 'dead'
+      if (redirectedAwayFromJob(url, res.url)) return 'dead'
+    }
+
     const body = res.status >= 200 && res.status < 300 ? (await res.text()).slice(0, 200_000) : ''
     return classifyBody(res.status, body)
   } catch {

@@ -19,9 +19,16 @@ export function OpportunityCard({ opportunity: opp, showFeaturedBadge }: Opportu
   const ds    = deadlineStatus(opp.deadline)
   const isNew = opp.createdAt > new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
 
+  /* Straight to the employer's application rather than via our own detail
+   * page and a second "Apply now" click. Falls back to the detail page on the
+   * rare row with no application link, so a card is never a dead end. */
+  const external = Boolean(opp.applyUrl)
+  const href = opp.applyUrl || `/opportunities/${opp.slug}`
+
   return (
     <Link
-      href={`/opportunities/${opp.slug}`}
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className="group relative flex flex-col rounded-2xl p-5 border border-[rgba(var(--hairline-rgb),0.07)] hover:border-[rgba(99,102,241,0.3)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] transition-all duration-300 focus-ring"
       style={{
         background: 'var(--card-gradient)',
