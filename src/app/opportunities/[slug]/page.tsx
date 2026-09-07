@@ -182,7 +182,12 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <div className="section-title mb-3">Related roles</div>
               <div className="flex flex-col gap-2">
                 {related.map(r => (
-                  <Link key={r.id} href={`/opportunities/${r.slug}`} className="p-2 bg-[var(--bg3)] border border-[var(--b1)] hover:bg-[var(--bg4)] hover:border-[var(--b2)] transition-colors">
+                  <Link
+                    key={r.id}
+                    href={r.applyUrl || `/opportunities/${r.slug}`}
+                    {...(r.applyUrl ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="p-2 bg-[var(--bg3)] border border-[var(--b1)] hover:bg-[var(--bg4)] hover:border-[var(--b2)] transition-colors"
+                  >
                     <div className="text-[12px] font-medium text-[var(--t1)]">{r.company.name} · {r.title}</div>
                     <div className="text-[10px] font-mono text-[var(--t4)] mt-0.5">{r.location}</div>
                   </Link>

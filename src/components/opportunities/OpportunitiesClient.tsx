@@ -248,9 +248,15 @@ function OpportunityRow({ opp }: { opp: Opportunity }) {
   const ds = deadlineStatus(opp.deadline)
   const isNew = opp.createdAt > new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
 
+  /* Straight to the employer's application, matching the homepage cards.
+   * Falls back to our detail page only when a row has no application link. */
+  const external = Boolean(opp.applyUrl)
+  const href = opp.applyUrl || `/opportunities/${opp.slug}`
+
   return (
     <Link
-      href={`/opportunities/${opp.slug}`}
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className="bg-[var(--bg2)] px-4 sm:px-5 py-4 flex items-center gap-3 sm:gap-4 border-b border-[var(--b1)] last:border-b-0 hover:bg-[var(--bg3)] transition-colors group"
     >
       <CompanyLogo name={opp.company.name} logoUrl={opp.company.logo} size={40} />
