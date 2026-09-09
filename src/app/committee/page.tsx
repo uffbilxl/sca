@@ -141,7 +141,6 @@ const COMMITTEE: Person[] = [
     id: 'charanpreet-kaur', name: 'Charanpreet Kaur',
     linkedin: 'https://www.linkedin.com/in/charanpreet--kaur/',
     roles: [
-      { group: 'ai',       title: 'Technical Coordinator' },
       { group: 'research', title: 'Researcher' },
     ],
   },
