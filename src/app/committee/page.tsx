@@ -183,11 +183,6 @@ const COMMITTEE: Person[] = [
   },
 
   {
-    id: 'mohammad-hamza', name: 'Mohammad Hamza',
-    linkedin: 'https://www.linkedin.com/in/mohammad-hamza-97729322b/',
-    roles: [{ group: 'marketing', title: 'Marketing' }],
-  },
-  {
     id: 'abrar-alam', name: 'Abrar Alam',
     linkedin: 'https://www.linkedin.com/in/abrartalam/',
     roles: [{ group: 'marketing', title: 'Content Creator / Photographer' }],
