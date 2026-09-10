@@ -136,7 +136,7 @@ const COMMITTEE: Person[] = [
   {
     id: 'orlando-igwe', name: 'Orlando Igwe',
     linkedin: 'https://www.linkedin.com/in/orlando-igwe/',
-    roles: [{ group: 'ai', title: 'Technical Coordinator' }],
+    roles: [{ group: 'ai', title: 'Software Engineer' }],
   },
   {
     id: 'charanpreet-kaur', name: 'Charanpreet Kaur',
