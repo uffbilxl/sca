@@ -102,7 +102,8 @@ const COMMITTEE: Person[] = [
     roles: [{ group: 'software', title: 'Head of Software Engineering', lead: true }],
   },
   {
-    id: 'vacant-software-coord', name: 'TBC', vacant: true,
+    id: 'saifuddin-muhammad', name: 'Saifuddin Muhammad',
+    linkedin: 'https://www.linkedin.com/in/saifty/',
     roles: [{ group: 'software', title: 'Technical Coordinator' }],
   },
 
