@@ -183,6 +183,10 @@ const COMMITTEE: Person[] = [
   },
 
   {
+    id: 'vacant-marketing-social', name: 'TBC', vacant: true,
+    roles: [{ group: 'marketing', title: 'Social Media' }],
+  },
+  {
     id: 'abrar-alam', name: 'Abrar Alam',
     linkedin: 'https://www.linkedin.com/in/abrartalam/',
     roles: [{ group: 'marketing', title: 'Content Creator / Photographer' }],
