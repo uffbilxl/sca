@@ -77,6 +77,25 @@ const LEADS: Person[] = [
       { group: 'research',   title: 'Researcher' },
     ],
   },
+  {
+    id: 'haarisah-hussain',
+    name: 'Haarisah Hussain',
+    linkedin: 'https://www.linkedin.com/in/haarisah-hussain-2ba850315',
+    roles: [
+      { group: 'leadership', title: 'Vice President', lead: true },
+      { group: 'software',   title: 'Head of Software Engineering', lead: true },
+    ],
+  },
+  {
+    id: 'michael-martinak',
+    name: 'Michael Martinak',
+    linkedin: 'https://www.linkedin.com/in/profile-mmartinak/',
+    roles: [
+      { group: 'leadership', title: 'Head of Research', lead: true },
+      { group: 'cyber',      title: 'Technical Coordinator' },
+      { group: 'research',   title: 'Head of Research', lead: true },
+    ],
+  },
 ]
 
 /* ── Everyone else, in structural order ────────────────────── */
@@ -86,21 +105,7 @@ const COMMITTEE: Person[] = [
     linkedin: 'https://www.linkedin.com/in/maryam-a-259297235',
     roles: [{ group: 'leadership', title: 'Community Engagement' }],
   },
-  {
-    id: 'michael-martinak', name: 'Michael Martinak',
-    linkedin: 'https://www.linkedin.com/in/profile-mmartinak/',
-    roles: [
-      { group: 'leadership', title: 'Head of Research', lead: true },
-      { group: 'cyber',      title: 'Technical Coordinator' },
-      { group: 'research',   title: 'Head of Research', lead: true },
-    ],
-  },
 
-  {
-    id: 'haarisah-hussain', name: 'Haarisah Hussain',
-    linkedin: 'https://www.linkedin.com/in/haarisah-hussain-2ba850315',
-    roles: [{ group: 'software', title: 'Head of Software Engineering', lead: true }],
-  },
   {
     id: 'saifuddin-muhammad', name: 'Saifuddin Muhammad',
     linkedin: 'https://www.linkedin.com/in/saifty/',
@@ -158,6 +163,7 @@ const COMMITTEE: Person[] = [
   },
   {
     id: 'tamara-browne', name: 'Tamara Browne',
+    linkedin: 'https://www.linkedin.com/in/tamara-b-49b45a437/',
     roles: [{ group: 'digital', title: 'Coordinator' }],
   },
   {
@@ -465,7 +471,10 @@ function LeaderCard({
   index: number
   reduced: boolean
 }) {
-  const [title, ...otherRoles] = person.roles
+  const [title, ...rest] = person.roles
+  /* A seat carrying the same title as the badge (Head of Research sits in both
+   * Leadership and R&D) would render the card's own title back at it as a chip. */
+  const otherRoles = rest.filter(r => r.title !== title.title)
 
   return (
     <motion.div
