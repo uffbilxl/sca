@@ -272,8 +272,19 @@ export async function importOpportunityRows(
     }
   }
 
-  // ── Close anything currently OPEN that wasn't in this batch ──────────────
-  if (batchUrls.size > 0) {
+  /* ── Close anything currently OPEN that wasn't in this batch ────────────
+   *
+   * Requires sourceDomains. This sweep treats the batch as the complete truth
+   * for the domains it names, so running it unscoped means "everything not in
+   * these rows is dead" — a three-row import closed 501 live opportunities
+   * before this guard existed, and the admin CSV upload route calls this
+   * function exactly that way, so any partial spreadsheet would have wiped the
+   * site.
+   *
+   * A partial import is the normal case and must never close anything. Only
+   * the scrape pipeline, which knows which sources it actually covered this
+   * run, can honestly make that claim — so it has to say so explicitly. */
+  if (batchUrls.size > 0 && options.sourceDomains && options.sourceDomains.length > 0) {
     const openWithUrl = await prisma.opportunity.findMany({
       where: { status: { not: 'CLOSED' }, sourceUrl: { not: null } },
       select: { id: true, sourceUrl: true },
@@ -282,14 +293,10 @@ export async function importOpportunityRows(
     for (const entry of openWithUrl) {
       if (!entry.sourceUrl) continue
 
-      // Domain-scoped mode: only close opportunities whose source domain was
-      // actually part of this batch. Without this, a scrape run that only
-      // covers a subset of sources would wrongly close every opportunity
-      // from every OTHER source just for not appearing in today's batch.
-      if (options.sourceDomains) {
-        const entryDomain = getDomain(entry.sourceUrl)
-        if (!options.sourceDomains.includes(entryDomain)) continue
-      }
+      // Only close opportunities whose source domain this batch actually
+      // covered; a run touching a subset of sources must leave the rest alone.
+      const entryDomain = getDomain(entry.sourceUrl)
+      if (!options.sourceDomains.includes(entryDomain)) continue
 
       if (!batchUrls.has(normalizeUrl(entry.sourceUrl))) {
         await prisma.opportunity.update({ where: { id: entry.id }, data: { status: 'CLOSED' } })
