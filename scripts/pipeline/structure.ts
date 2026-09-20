@@ -56,10 +56,10 @@ function buildPrompt(batch: RawListing[]): string {
   return `You are structuring raw scraped UK student job listings for a Birmingham City University computing society website. For each listing, produce one structured row.
 
 Rules:
-- type: SPRING_WEEK/INSIGHT for first/second-year taster programmes, PLACEMENT for year-long industrial placements, GRADUATE for graduate schemes/jobs, INTERNSHIP for everything else (summer internships, internships of any length).
+- type: SPRING_WEEK for spring weeks and spring insight programmes (typically a week in Easter/spring for first-years). INSIGHT for other short taster programmes — insight days, insight evenings, insight events, networking/discovery days, summer schools aimed at pre-penultimate-year students. PLACEMENT for year-long industrial placements. GRADUATE for graduate schemes/jobs. INTERNSHIP for everything else (summer internships, internships of any length). Prefer SPRING_WEEK/INSIGHT over INTERNSHIP whenever the listing describes a short taster rather than a paid working placement, even if the title also contains the word "internship".
 - workMode: infer from the location/description text; default HYBRID if genuinely unclear.
 - deadline: convert any human date into YYYY-MM-DD. If it says "Ongoing", "Rolling", or no real deadline is given, return "Rolling".
-- relevant: set to false for roles clearly outside computing/tech (e.g. pure marketing, HR, law, retail, finance-only analyst roles with no technical component). Set true for software, data, AI, cyber security, IT, engineering-with-a-tech-component roles.
+- relevant: set to false for roles clearly outside computing/tech (e.g. pure marketing, HR, law, retail, finance-only analyst roles with no technical component). Set true for software, data, AI, cyber security, IT, engineering-with-a-tech-component roles. A spring week or insight programme with a technology/engineering stream is relevant even when the employer is a bank or professional services firm.
 - Never invent facts not present in the input. If something is genuinely unknown, use an empty string (except deadline, which becomes "Rolling").
 - companyWebsite: this listing was scraped from a job board/aggregator, not the employer's own site — use your own knowledge of the company to give its real official domain, not the aggregator's. Leave empty if you don't recognise the company.
 

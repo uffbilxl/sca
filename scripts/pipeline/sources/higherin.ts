@@ -9,10 +9,23 @@ export const DOMAIN = 'higherin.com'
  * reject ~412 marketing, law and retail roles every run, and leaning on it
  * never to misjudge one. HigherIn's own /technology facet is the same filter
  * Gradcracker and TargetJobs already get from their URLs. */
+/* The two insight facets are the only place any source carries spring weeks
+ * and insight days: Gradcracker's taxonomy stops at graduate jobs,
+ * placements/internships and degree apprenticeships, and TargetJobs' IT
+ * categories only ever return opportunityType Internship, Graduate job or
+ * Placement. Without these two URLs the pipeline could not produce a
+ * SPRING_WEEK or INSIGHT row at all.
+ *
+ * They overlap (a spring insight programme shows up under both) — the
+ * sourceUrl de-dupe at the bottom of this file handles that. Note there is
+ * no /spring-weeks facet: that path resolves but silently ignores the
+ * filter and returns the unfiltered job list, so it must not be added. */
 const SEARCH_URLS = [
   'https://higherin.com/search-jobs/internships/technology',
   'https://higherin.com/search-jobs/graduates/technology',
   'https://higherin.com/search-jobs/placements/technology',
+  'https://higherin.com/search-jobs/insights/technology',
+  'https://higherin.com/search-jobs/insight-day/technology',
 ]
 
 /* HigherIn (formerly RateMyPlacement/RateMyApprenticeship) renders results
@@ -27,6 +40,10 @@ export async function scrapeHigherIn(page: Page, warnings: string[] = []): Promi
   const listings: RawListing[] = []
 
   for (const url of SEARCH_URLS) {
+    // Every URL ends in /technology, so the category — the part that
+    // differs — is the segment before it.
+    const category = url.split('/').slice(-2)[0]
+
     const cards = await paginate(
       page,
       url,
@@ -46,7 +63,7 @@ export async function scrapeHigherIn(page: Page, warnings: string[] = []): Promi
           }
           return out
         }),
-      { label: `HigherIn ${url.split('/').pop()}`, warnings, readySelector: 'a[href*="/jobs/"]', settleMs: 3000 },
+      { label: `HigherIn ${category}`, warnings, readySelector: 'a[href*="/jobs/"]', settleMs: 3000 },
     )
 
     for (const c of cards) {
@@ -71,7 +88,7 @@ export async function scrapeHigherIn(page: Page, warnings: string[] = []): Promi
         location,
         deadlineText: grab('Deadline'),
         salaryText,
-        typeHint: rest.find(l => /internship|graduate|placement|apprentice|insight/i.test(l)) || url.split('/').pop(),
+        typeHint: rest.find(l => /internship|graduate|placement|apprentice|insight|spring/i.test(l)) || category,
         descriptionRaw: lines.join(' '),
       })
     }

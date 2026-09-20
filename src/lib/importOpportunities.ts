@@ -77,10 +77,18 @@ export function field(row: Record<string, string>, ...keys: string[]): string {
 }
 
 // ─── Type inference ───────────────────────────────────────────────────────────
+/* Handles both kinds of input this sees: the free text a hand-written CSV
+ * carries ("Spring week", "Insight day"), and the exact enum values the
+ * scraper pipeline emits ("SPRING_WEEK", "INSIGHT"). Separators are
+ * flattened to spaces first so both spellings take the same branch —
+ * without that, "SPRING_WEEK" matched none of the phrases below and every
+ * pipeline-structured spring week and insight day was silently filed as an
+ * INTERNSHIP. */
 function inferType(raw: string): OpportunityType {
-  const t = raw.toLowerCase()
-  if (t.includes('spring week') || t.includes('spring insight')) return 'SPRING_WEEK'
-  if (t.includes('insight week')) return 'INSIGHT'
+  const t = raw.toLowerCase().replace(/[_-]+/g, ' ')
+  // 'spring insight' contains 'insight', so spring has to be tested first.
+  if (t.includes('spring week') || t.includes('spring insight') || t.includes('spring programme')) return 'SPRING_WEEK'
+  if (t.includes('insight')) return 'INSIGHT'
   if (t.includes('placement') || t.includes('industrial placement') || t.includes('year in industry')) return 'PLACEMENT'
   if (t.includes('graduate') || t.includes('grad ') || t.includes('new grad') || t.includes('new analyst') || t.includes('apprenticeship')) return 'GRADUATE'
   return 'INTERNSHIP'
