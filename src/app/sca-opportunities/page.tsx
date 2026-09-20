@@ -57,7 +57,7 @@ export default function SCAOpportunitiesPage() {
         </p>
       </motion.div>
 
-      {/* Web Development Intern Card */}
+      {/* SCA Internship Opportunities Card */}
       <motion.div
         className="border border-[var(--b1)] bg-[var(--bg2)] overflow-hidden mb-5"
         initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ export default function SCAOpportunitiesPage() {
         transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       >
         <button
-          onClick={() => toggle('webdev')}
+          onClick={() => toggle('internships')}
           className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
         >
           <div className="flex items-start justify-between gap-4">
@@ -76,40 +76,47 @@ export default function SCAOpportunitiesPage() {
                   Now open
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
-                  Web Division
+                  8 positions
                 </span>
                 <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
-                  Year-long
+                  50%+ first years
                 </span>
               </div>
               <h2 className="font-display text-[17px] font-bold text-[var(--t1)] tracking-tight">
-                Web Development Intern
+                SCA Internship Opportunities
               </h2>
               <p className="text-[12px] font-mono text-[var(--t3)] mt-0.5">
                 BCU Student Computing Association
               </p>
             </div>
-            <ChevronIcon open={!!openCards['webdev']} />
+            <ChevronIcon open={!!openCards['internships']} />
           </div>
         </button>
 
-        <Collapsible open={!!openCards['webdev']}>
+        <Collapsible open={!!openCards['internships']}>
           <div className="border-t border-[var(--b1)]">
             <div className="px-6 py-5 space-y-5">
               <p className="text-[13px] text-[var(--t2)] leading-relaxed">
-                A year-long internship within the SCA&apos;s Web Division, responsible for building and maintaining the association&apos;s digital presence.
-                You&apos;ll work on live websites used by SCA members, keeping them up to date, functional, and well-designed.
-                Ideal for students who want real ownership over a product and hands-on web development experience alongside their studies.
+                Applications are open for Web Development and Project Management internships with the SCA, across 8 positions.
+                These roles are designed for students with little to no experience who want to build practical skills by working on real projects.
+                More than half of the positions will be allocated to first year students.
               </p>
+
+              <div>
+                <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Roles available</p>
+                <div className="flex flex-wrap gap-2">
+                  {['Web Development', 'Project Management'].map(role => (
+                    <span key={role} className="tag">{role}</span>
+                  ))}
+                </div>
+              </div>
 
               <div>
                 <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
                 <ul className="space-y-1.5">
                   {[
-                    'Maintain and update existing SCA websites',
-                    'Build new pages and features as the association grows',
-                    'Fix bugs and ensure cross-browser, responsive performance',
-                    'Collaborate with other SCA divisions on web needs',
+                    'Build and maintain websites',
+                    'Work on real projects alongside your studies',
                   ].map(item => (
                     <li key={item} className="flex items-start gap-2 text-[12px] text-[var(--t2)]">
                       <span className="text-[var(--t4)] mt-0.5 flex-shrink-0">→</span>
@@ -121,24 +128,19 @@ export default function SCAOpportunitiesPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {['HTML', 'CSS', 'JavaScript'].map(skill => (
-                      <span key={skill} className="tag">{skill}</span>
-                    ))}
-                  </div>
-                  <p className="text-[11px] font-mono text-[var(--t4)] mt-1.5">Basic proficiency required</p>
+                  <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
+                  <span className="text-[11px] text-[var(--t3)]">Little to no experience required</span>
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
-                  <span className="text-[11px] text-[var(--t3)]">No prior experience required</span>
+                  <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">AI tools</p>
+                  <span className="text-[11px] text-[var(--t3)]">Allowed</span>
                 </div>
               </div>
 
               <div className="bg-[var(--bg3)] border border-[var(--b1)] px-4 py-3">
                 <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Why apply</p>
                 <div className="flex flex-wrap gap-x-5 gap-y-1">
-                  {['Ownership of real, live products', 'Strengthen your CV', 'Build a portfolio for internships & placements'].map(benefit => (
+                  {['Hands-on experience for your CV', 'Build practical skills on real projects', 'Over 50% of roles go to first years'].map(benefit => (
                     <span key={benefit} className="text-[12px] text-[var(--t2)] flex items-center gap-1.5">
                       <span className="text-[var(--t4)] text-[10px]">✦</span>
                       {benefit}
@@ -150,7 +152,7 @@ export default function SCAOpportunitiesPage() {
 
             <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex flex-col gap-0.5">
-                <p className="text-[11px] font-mono text-[var(--t4)]">Year-long · Starting 2026</p>
+                <p className="text-[11px] font-mono text-[var(--t4)]">8 positions · Applications open</p>
                 <div className="flex items-center gap-1.5 text-[11px] font-mono text-[var(--t4)]">
                   <span>Organiser:</span>
                   <a href="mailto:bilal.arshad2@mail.bcu.ac.uk" className="text-[var(--t1)] hover:underline font-medium">
@@ -159,7 +161,7 @@ export default function SCAOpportunitiesPage() {
                 </div>
               </div>
               <a
-                href="https://tally.so/r/QK4R5l"
+                href="https://tally.so/r/A7kJDz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--t1)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-80 transition-opacity"
@@ -183,6 +185,97 @@ export default function SCAOpportunitiesPage() {
 
         <Collapsible open={!!openCards['previous']}>
           <div className="flex flex-col gap-3">
+
+          {/* Web Development Intern */}
+          <div className="border border-[var(--b1)] bg-[var(--bg2)] overflow-hidden opacity-70">
+            <button
+              onClick={() => toggle('webdev')}
+              className="w-full text-left px-6 py-5 hover:bg-[var(--bg3)] transition-colors"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-[var(--b2)] text-[10px] font-mono font-medium text-[var(--t4)] tracking-wide uppercase">
+                      Filled
+                    </span>
+                    <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
+                      Web Division
+                    </span>
+                    <span className="inline-flex items-center px-2.5 py-0.5 border border-[var(--b1)] text-[10px] font-mono text-[var(--t3)] tracking-wide">
+                      Year-long
+                    </span>
+                  </div>
+                  <h2 className="font-display text-[17px] font-bold text-[var(--t1)] tracking-tight">
+                    Web Development Intern
+                  </h2>
+                  <p className="text-[12px] font-mono text-[var(--t3)] mt-0.5">
+                    BCU Student Computing Association
+                  </p>
+                </div>
+                <ChevronIcon open={!!openCards['webdev']} />
+              </div>
+            </button>
+
+            <Collapsible open={!!openCards['webdev']}>
+              <div className="border-t border-[var(--b1)]">
+                <div className="px-6 py-5 space-y-5">
+                  <p className="text-[13px] text-[var(--t2)] leading-relaxed">
+                    A year-long internship within the SCA&apos;s Web Division, responsible for building and maintaining the association&apos;s digital presence.
+                    You&apos;ll work on live websites used by SCA members, keeping them up to date, functional, and well-designed.
+                    Ideal for students who want real ownership over a product and hands-on web development experience alongside their studies.
+                  </p>
+
+                  <div>
+                    <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">What you&apos;ll do</p>
+                    <ul className="space-y-1.5">
+                      {[
+                        'Maintain and update existing SCA websites',
+                        'Build new pages and features as the association grows',
+                        'Fix bugs and ensure cross-browser, responsive performance',
+                        'Collaborate with other SCA divisions on web needs',
+                      ].map(item => (
+                        <li key={item} className="flex items-start gap-2 text-[12px] text-[var(--t2)]">
+                          <span className="text-[var(--t4)] mt-0.5 flex-shrink-0">→</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Expected skills</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {['HTML', 'CSS', 'JavaScript'].map(skill => (
+                          <span key={skill} className="tag">{skill}</span>
+                        ))}
+                      </div>
+                      <p className="text-[11px] font-mono text-[var(--t4)] mt-1.5">Basic proficiency required</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-mono font-medium text-[var(--t4)] uppercase tracking-wider mb-2">Experience</p>
+                      <span className="text-[11px] text-[var(--t3)]">No prior experience required</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-6 py-4 border-t border-[var(--b1)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <p className="text-[11px] font-mono text-[var(--t4)]">Superseded by the current SCA internship intake</p>
+                    <div className="flex items-center gap-1.5 text-[11px] font-mono text-[var(--t4)]">
+                      <span>Organiser:</span>
+                      <a href="mailto:bilal.arshad2@mail.bcu.ac.uk" className="text-[var(--t3)] hover:underline font-medium">
+                        Bilal Arshad
+                      </a>
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-2 px-5 py-2 bg-[var(--bg3)] border border-[var(--b1)] text-[var(--t4)] text-[13px] font-medium cursor-default">
+                    Applications closed
+                  </span>
+                </div>
+              </div>
+            </Collapsible>
+          </div>
 
           {/* Sports Analytics */}
           <div className="border border-[var(--b1)] bg-[var(--bg2)] overflow-hidden opacity-70">
