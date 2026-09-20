@@ -189,7 +189,8 @@ const COMMITTEE: Person[] = [
   },
 
   {
-    id: 'vacant-marketing-social', name: 'TBC', vacant: true,
+    id: 'tadiwa-gasura', name: 'Tadiwa Gasura',
+    linkedin: 'https://www.linkedin.com/in/tadiwavvs/',
     roles: [{ group: 'marketing', title: 'Social Media' }],
   },
   {
