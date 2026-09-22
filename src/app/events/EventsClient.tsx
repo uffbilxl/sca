@@ -18,6 +18,7 @@ import { CalendarDays, ChevronLeft, ChevronRight, Clock, List, MapPin, X } from 
 import { motion, useReducedMotion } from 'framer-motion'
 import { eventTypeLabel, spotsLeft } from '@/lib/utils'
 import { RegisterButton } from '@/components/events/RegisterButton'
+import { formatLondon, londonWallClock } from '@/lib/time'
 import type { SCAEvent } from '@/types'
 
 
@@ -61,7 +62,7 @@ function EventCard({
               isPast ? 'text-[var(--color-muted)]' : 'text-[var(--color-accent)]/80'
             }`}
           >
-            {format(event.date, 'MMM')}
+            {formatLondon(event.date, 'MMM')}
           </span>
           <span
             className={`text-[28px] font-bold leading-none my-0.5 ${
@@ -69,14 +70,14 @@ function EventCard({
             }`}
             style={{ fontFamily: 'var(--font-geist-mono)' }}
           >
-            {format(event.date, 'd')}
+            {formatLondon(event.date, 'd')}
           </span>
           <span
             className={`text-[9px] font-medium uppercase tracking-wide ${
               isPast ? 'text-[var(--color-muted)]' : 'text-[var(--color-accent)]/60'
             }`}
           >
-            {format(event.date, 'EEE')}
+            {formatLondon(event.date, 'EEE')}
           </span>
         </div>
 
@@ -100,8 +101,8 @@ function EventCard({
             </span>
             <span className="flex items-center gap-1 text-[11px] text-[var(--color-muted)]">
               <Clock size={10} aria-hidden="true" />
-              {format(event.date, 'h:mm a')}
-              {event.endDate ? ` – ${format(event.endDate, 'h:mm a')}` : ''}
+              {formatLondon(event.date, 'h:mm a')}
+              {event.endDate ? ` – ${formatLondon(event.endDate, 'h:mm a')}` : ''}
             </span>
             <span className="badge-gray text-[10px]">{eventTypeLabel(event.type)}</span>
             {event.poster && (
@@ -163,8 +164,11 @@ function CalendarView({
   onPoster: (src: string) => void
 }) {
   const reduceMotion = useReducedMotion()
-  const [month, setMonth] = useState(() => startOfMonth(now))
-  const [selected, setSelected] = useState<Date>(() => now)
+  /* The grid's cells are UK calendar days, so its reference "today"
+   * is the UK one. `now` stays a true instant for past/future tests. */
+  const today = londonWallClock(now)
+  const [month, setMonth] = useState(() => startOfMonth(today))
+  const [selected, setSelected] = useState<Date>(() => today)
   /* The "today" ring is the one thing that depends on the real clock
    * rather than the data, so it waits for mount instead of being
    * prerendered against build time. */
@@ -186,7 +190,7 @@ function CalendarView({
   const byDay = useMemo(() => {
     const map = new Map<string, SCAEvent[]>()
     for (const e of events) {
-      const key = format(e.date, 'yyyy-MM-dd')
+      const key = formatLondon(e.date, 'yyyy-MM-dd')
       const bucket = map.get(key)
       if (bucket) bucket.push(e)
       else map.set(key, [e])
@@ -233,8 +237,8 @@ function CalendarView({
   }
 
   function goToday() {
-    setSelected(now)
-    setMonth(startOfMonth(now))
+    setSelected(today)
+    setMonth(startOfMonth(today))
   }
 
   return (
@@ -302,7 +306,7 @@ function CalendarView({
           const dayEvents = eventsOn(day)
           const outside = !isSameMonth(day, month)
           const isSelected = isSameDay(day, selected)
-          const isNow = mounted && isSameDay(day, now)
+          const isNow = mounted && isSameDay(day, today)
           const key = format(day, 'yyyy-MM-dd')
 
           return (
@@ -348,7 +352,7 @@ function CalendarView({
                 {dayEvents.slice(0, MAX_CHIPS).map(e => (
                   <span
                     key={e.id}
-                    title={`${e.title} · ${format(e.date, 'h:mm a')}`}
+                    title={`${e.title} · ${formatLondon(e.date, 'h:mm a')}`}
                     className={`flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] leading-tight ${
                       e.date < now
                         ? 'bg-[var(--color-surface-2)] text-[var(--color-muted)]'
