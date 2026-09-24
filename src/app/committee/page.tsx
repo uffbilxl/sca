@@ -120,7 +120,7 @@ const COMMITTEE: Person[] = [
   {
     id: 'daeron-wallace', name: 'Daeron Wallace',
     linkedin: 'https://www.linkedin.com/in/daeron-wallace/',
-    roles: [{ group: 'cyber', title: 'Content Creator' }],
+    roles: [{ group: 'cyber', title: 'Coordinator' }],
   },
 
   {
